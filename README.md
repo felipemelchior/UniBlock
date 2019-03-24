@@ -1,6 +1,6 @@
 # UniBlock - BlochChain Implementation
 
-![blockchain](images/blockchain)
+![blockchain](images/blockchain.jpg)
 
 UniBlock é uma implementação de uma estrutura de BlockChain realizada na disciplina de Sistemas Distribuídos do Sétimo Semestre da Universidade Federal do Pampa - Brazil.
 
