@@ -1,4 +1,4 @@
-# UniBlock - BlochChain Implementation
+# UniBlock - BlockChain Implementation
 
 ![blockchain](images/blockchain.jpg)
 
