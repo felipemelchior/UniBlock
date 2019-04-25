@@ -6,7 +6,8 @@ def parseArguments():
     parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v1.0', formatter_class=RawTextHelpFormatter)
     parser.add_argument("-u", "--users", default=1, type=int, help="Number of users of blockchain")
     parser.add_argument("-v", "--version", action='version', version='Uniblock v1.0 \nRepository Link => https://github.com/homdreen/UniBlock')
-     
+    parser.add_argument("--miner", action="store_const", const=True, help="Define user as miner")
+
     return parser.parse_args()
 
 if __name__ == '__main__':
@@ -15,6 +16,9 @@ if __name__ == '__main__':
     args = parseArguments()
 
     print(style + 'Connecting/Initialyzing with ' + Fore.RED + str(args.users) + style + ' users')
+
+    if args.miner == True: 
+        print(style + 'User detected as ' + Fore.RED + 'miner')
 
     for i in range(args.users):
         if i == 0: 
