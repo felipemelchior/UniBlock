@@ -17,7 +17,10 @@ if __name__ == '__main__':
     print(style + 'Connecting/Initialyzing with ' + Fore.RED + str(args.users) + style + ' users')
 
     for i in range(args.users):
-        user = str(input(style + 'Enter the IP for user ' + Fore.RED + str(i) + style + ' => '))
+        if i == 0: 
+            user = str(input(style + 'Enter ' + Fore.RED + 'your IP ' + style + ' => '))
+        else: 
+            user = str(input(style + 'Enter the IP for user ' + Fore.RED + str(i) + style + ' => '))
         users.append(user)
         print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
 
