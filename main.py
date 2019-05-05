@@ -1,6 +1,7 @@
 import argparse
 from colorama import Fore, Back, Style
 from argparse import RawTextHelpFormatter
+from comunnication import Connection
 
 def parseArguments():
     parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v1.0', formatter_class=RawTextHelpFormatter)
@@ -29,3 +30,5 @@ if __name__ == '__main__':
         print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
 
     print(users)
+    connect=Connection(users[0])
+    connect.listenConnection(port=9091)
