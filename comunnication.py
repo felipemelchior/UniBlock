@@ -13,7 +13,11 @@ class Connection:
     def myIp(self, value):
         self._myIp=value
 
+    def connected(self, conn, addr):
+        pass
+
     def listenConnection(self, port=5055):
+        
         '''
         Coloca o servidor para rodar de fato
         Após, fica escutando a porta e quando chegar alguma conexão, cria um thread para o cliente
@@ -21,15 +25,18 @@ class Connection:
         :param Ip: Endereço Ip que o servidor irá rodar
         :param Port: Porta em que o servidor irá rodar
         '''
+
         try:
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
-                server.bind((self._myIp, port))
+                print(self._myIp, port)
+
+                server.bind((self._myIp, int(port)))
                 server.listen(10)
             except:
                 print("Error on start server")
     
-            print("WebServer running on port {0}".format(port))
+            print("Server running on port {0}".format(port))
 
             threads = []
 
@@ -48,7 +55,7 @@ class Connection:
             server.close()
 
         except (KeyboardInterrupt, SystemExit):
-            print("Finishing execution of WebServer...")
+            print("Finishing execution of Server...")
             exit()
 
 class Minner(Connection):
