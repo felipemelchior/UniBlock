@@ -23,7 +23,7 @@ if __name__ == '__main__':
         print(style + 'User detected as ' + Fore.RED + 'miner')
 
     for i in range(args.users):
-        if i == 0: 
+        if i == 0:
             user = str(input(style + 'Enter ' + Fore.RED + 'your IP ' + style + ' => '))
         else: 
             user = str(input(style + 'Enter the IP for user ' + Fore.RED + str(i) + style + ' => '))
@@ -35,10 +35,8 @@ if __name__ == '__main__':
     else:
         client=Trader(users[0], listClients=users)
 
-    serverCommunication = threading.Thread(target=client.listenConnection, args=(9091))
-    serverCommunication.setDaemon(True)
+    serverCommunication = threading.Thread(target=client.listenConnection, args=())
     serverCommunication.start()
 
-    client.getMinersAndTraders(users)
-    client.printClients()
-
+    clientThread = threading.Thread(target=client.getMinersAndTraders, args=())
+    clientThread.start()

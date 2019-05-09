@@ -22,12 +22,11 @@ class Connection:
         print('Miners => {}'.format(self.listMiners))
         print('Traders => {}'.format(self.listTraders))
 
-    def getMinersAndTraders(self, listClients):
+    def getMinersAndTraders(self):
         active = []
 
         while (len(active) != len(self.listClients)):
             for ip in self.listClients:
-                print('{} {}'.format(ip, self.myIp))
                 if ip == self.myIp:
                     if ip not in active:
                         active.append(ip)
@@ -53,6 +52,8 @@ class Connection:
                         self.listTraders.append(ip)
 
                     socketClient.close()
+        
+        self.printClients()
 
     def communicationConnection(self, conn, addr):
         '''
@@ -88,21 +89,20 @@ class Connection:
         try:
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
-                print(self._myIp, port)
-
                 server.bind((self._myIp, int(port)))
                 server.listen(10)
             except:
                 print("Error on start server")
     
-            print("Server running on port {0}".format(port))
+            print("Server running on port {}".format(port))
 
             threads = []
 
             try:
                 while True:
+                    print('waiting')
                     conn, addr = server.accept()
-                    print(" New Connection from " + str(addr[0]) + " with port " + str(addr[1]))
+                    print("New Connection from {} with port {}".format(addr[0],addr[1]))
                     
                     aux = threading.Thread(target=communicationConnection, args=(conn,addr))
                     aux.setDaemon(True)				
