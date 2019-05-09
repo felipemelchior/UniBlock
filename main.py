@@ -30,16 +30,15 @@ if __name__ == '__main__':
         users.append(user)
         print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
 
-    client=Connection(users[0], listClients=users)
-    
     if args.miner:
-        typeClient=Miner(user[0], listClients=users)
+        client=Miner(users[0], listClients=users)
     else:
-        typeClient=Trader(user[0], listClients=users)
+        client=Trader(users[0], listClients=users)
 
-    serverCommunication = threading.Thread(target=typeClient.listenConnection, args=(9091))
+    serverCommunication = threading.Thread(target=client.listenConnection, args=(9091))
     serverCommunication.setDaemon(True)
     serverCommunication.start()
 
-    typeClient.getMinersAndTraders(users)
+    client.getMinersAndTraders(users)
+    client.printClients()
 

@@ -18,34 +18,41 @@ class Connection:
     def myIp(self, value):
         self._myIp=value
 
+    def printClients(self):
+        print('Miners => {}'.format(self.listMiners))
+        print('Traders => {}'.format(self.listTraders))
+
     def getMinersAndTraders(self, listClients):
         active = []
 
         while (len(active) != len(self.listClients)):
             for ip in self.listClients:
+                print('{} {}'.format(ip, self.myIp))
                 if ip == self.myIp:
                     if ip not in active:
                         active.append(ip)
                     continue
 
-                socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                try:
-                    socketMiner.connect((ip, 5055))
-                except:
-                    print('Conexão recusada para o cliente {}! Provavel que este ainda esteja iniciando'.format(ip))
-                    continue
-                active.append(ip)
+                if ip not in active:
+                    socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    try:
+                        socketClient.connect((ip, 5055))
+                    except:
+                        print('Conexão recusada para o cliente {}! Provável que este ainda esteja iniciando'.format(ip))
+                        continue
 
-                socketMiner.send(b'TypeOfClient')
-                
-                msg = socketMiner.recv(1024)
-                
-                if re.search('Miner', msg.decode("utf-8")):
-                    self.listMiners.append(ip)
-                elif re.search('Trader', msg.decode("utf-8")):
-                    self.listTraders.append(ip)
+                    active.append(ip)
 
-                socketMiner.close()
+                    socketClient.send(b'TypeOfClient')
+                    
+                    msg = socketClient.recv(1024)
+                    
+                    if re.search('Miner', msg.decode("utf-8")):
+                        self.listMiners.append(ip)
+                    elif re.search('Trader', msg.decode("utf-8")):
+                        self.listTraders.append(ip)
+
+                    socketClient.close()
 
     def communicationConnection(self, conn, addr):
         '''
@@ -115,7 +122,9 @@ class Miner(Connection):
         super().__init__(myIp, listClients)
         self.miner = True
         self.flag_rich=False
+        self.listMiners.append(self.myIp)
 
 class Trader(Connection):
     def __init__(self, myIp, listClients):
         super().__init__(myIp, listClients)
+        self.listTraders.append(self.myIp)
