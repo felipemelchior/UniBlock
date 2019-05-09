@@ -1,4 +1,5 @@
 import argparse
+import threading
 from colorama import Fore, Back, Style
 from argparse import RawTextHelpFormatter
 from comunnication import Connection
@@ -29,6 +30,6 @@ if __name__ == '__main__':
         users.append(user)
         print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
 
-    print(users)
-    connect=Connection(users[0])
+    connect=Connection(users[0], listClients=users)
+    connect.getMiners(users)
     connect.listenConnection(port=9091)
