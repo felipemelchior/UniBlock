@@ -1,8 +1,9 @@
 import argparse
 import threading
-from colorama import Fore, Back, Style
 from argparse import RawTextHelpFormatter
 from comunnication import Connection, Miner, Trader
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
 
 def parseArguments():
     parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v1.0', formatter_class=RawTextHelpFormatter)

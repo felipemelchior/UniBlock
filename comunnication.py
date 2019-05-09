@@ -1,6 +1,10 @@
 import socket
 import threading
 import re
+from colorama import Fore, Style
+
+styleCommunication = Fore.MAGENTA + Style.BRIGHT
+styleClient = Fore.GREEN + Style.BRIGHT
 
 class Connection:
     def __init__(self, myIp, listClients):
@@ -19,10 +23,13 @@ class Connection:
         self._myIp=value
 
     def printClients(self):
-        print('Miners => {}'.format(self.listMiners))
-        print('Traders => {}'.format(self.listTraders))
+        global styleClient
+
+        print(styleClient + 'Miners => {}'.format(self.listMiners))
+        print(styleClient + 'Traders => {}'.format(self.listTraders))
 
     def getMinersAndTraders(self):
+        global styleCommunication
         active = []
 
         while (len(active) != len(self.listClients)):
@@ -37,7 +44,7 @@ class Connection:
                     try:
                         socketClient.connect((ip, 5055))
                     except:
-                        print('Conexão recusada para o cliente {}! Provável que este ainda esteja iniciando'.format(ip))
+                        print(styleCommunication + 'Conexão recusada para o cliente {}! Provável que este ainda esteja iniciando'.format(ip))
                         continue
 
                     active.append(ip)
@@ -85,6 +92,7 @@ class Connection:
         :param Ip: Endereço Ip que o servidor irá rodar
         :param Port: Porta em que o servidor irá rodar
         '''
+        global styleCommunication
 
         try:
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -94,25 +102,25 @@ class Connection:
             except:
                 print("Error on start server")
     
-            print("Server running on port {}".format(port))
+            print(styleCommunication + "Server running on port {}".format(port))
 
             threads = []
 
             try:
                 while True:
-                conn, addr = server.accept()
-                print("New Connection from {} with port {}".format(addr[0],addr[1]))
-                
-                aux = threading.Thread(target=self.communicationConnection, args=(conn,addr))			
-                aux.start()
-                threads.append(aux)
+                    conn, addr = server.accept()
+                    print(styleCommunication + "New Connection from {} with port {}".format(addr[0],addr[1]))
+                    
+                    aux = threading.Thread(target=self.communicationConnection, args=(conn,addr))			
+                    aux.start()
+                    threads.append(aux)
             except:
-                print("Ending the server execution")
+                print(styleCommunication + "Ending the server execution")
 
             server.close()
 
         except (KeyboardInterrupt, SystemExit):
-            print("Finishing execution of Server...")
+            print(styleCommunication + "Finishing execution of Server...")
             exit()
 
 class Miner(Connection):
