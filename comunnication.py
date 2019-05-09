@@ -1,9 +1,12 @@
 import socket
 import threading
+import re
 
 class Connection:
-    def __init__(self, myIp):
+    def __init__(self, myIp, listClients):
         self.myIp=myIp
+        self.listClients = listClients
+        self.listMiners = []
 
     @property
     def myIp(self):
@@ -13,11 +16,35 @@ class Connection:
     def myIp(self, value):
         self._myIp=value
 
+    def getMiners(self, listClients):
+        active = []
+
+        while (len(active) != len(self.listClients)):
+            for ip in self.listClients:
+                if ip == self.myIp:
+                    active.append(ip)
+                    continue
+
+                socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                try:
+                    socketMiner.connect((ip, 5055))
+                except:
+                    print('Conexão recusada para o cliente {}! Provavel que este ainda esteja iniciando'.format(ip))
+                    continue
+                active.append(ip)
+                
+                msg = socketMiner.recv(1024)
+                
+                if re.search('Miner', msg.decode("utf-8") ):
+                    self.listMiners.append(ip)
+
+                socketMiner.close()
+
     def connected(self, conn, addr):
         pass
 
     def listenConnection(self, port=5055):
-        
+        print(self.listMiners)
         '''
         Coloca o servidor para rodar de fato
         Após, fica escutando a porta e quando chegar alguma conexão, cria um thread para o cliente
