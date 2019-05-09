@@ -100,14 +100,12 @@ class Connection:
 
             try:
                 while True:
-                    print('waiting')
-                    conn, addr = server.accept()
-                    print("New Connection from {} with port {}".format(addr[0],addr[1]))
-                    
-                    aux = threading.Thread(target=communicationConnection, args=(conn,addr))
-                    aux.setDaemon(True)				
-                    aux.start()
-                    threads.append(aux)
+                conn, addr = server.accept()
+                print("New Connection from {} with port {}".format(addr[0],addr[1]))
+                
+                aux = threading.Thread(target=self.communicationConnection, args=(conn,addr))			
+                aux.start()
+                threads.append(aux)
             except:
                 print("Ending the server execution")
 
