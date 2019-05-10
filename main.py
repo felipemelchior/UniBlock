@@ -41,3 +41,4 @@ if __name__ == '__main__':
 
     clientThread = threading.Thread(target=client.getMinersAndTraders, args=())
     clientThread.start()
+    

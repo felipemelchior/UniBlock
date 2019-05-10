@@ -1,8 +1,13 @@
 import socket
 import threading
 import re
+import json
+import pickle
+from BlockChain import MinerChain, TraderChain
 from colorama import Fore, Style
 
+
+# Variaveis globais, apenas para a concatenação da string e colorir a mesma (Biblioteca Colorama)
 styleCommunication = Fore.MAGENTA + Style.BRIGHT
 styleClient = Fore.GREEN + Style.BRIGHT
 
@@ -29,6 +34,10 @@ class Connection:
         print(styleClient + 'Traders => {}'.format(self.listTraders))
 
     def getMinersAndTraders(self):
+        '''
+        Adiciona nas respectivas listas os ips que são mineradores e ips que são traders 
+        '''
+        
         global styleCommunication
         active = []
 
@@ -77,7 +86,7 @@ class Connection:
                     conn.send(b'Miner')
                 else:
                     conn.send(b'Trader')
-                
+
             if not msg: break
 
         conn.close()
@@ -127,10 +136,99 @@ class Miner(Connection):
     def __init__(self, myIp, listClients):
         super().__init__(myIp, listClients)
         self.miner = True
-        self.flag_rich=False
+        self.flagRich=False
         self.listMiners.append(self.myIp)
+        self.blockChain = MinerChain()
+
+    def communicationConnection(self, conn, addr):
+        '''
+        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta
+        :param conn: Socket de conexão com o cliente
+        :param addr: Endereço da conexão deste cliente
+        '''
+
+        while True:
+            msg = conn.recv(1024)
+
+            if re.search('TypeOfClient', msg.decode("utf-8")):
+                if self.miner:
+                    conn.send(b'Miner')
+                else:
+                    conn.send(b'Trader')
+            
+            if re.search('Rich', msg.decode("utf-8")):
+                if self.flagRich:
+                    conn.send(b'True')
+                else: 
+                    conn.send(b'False')
+
+            if re.search('NewTransaction', msg.decode("utf-8")):
+                conn.send(b'Ok')
+                transaction = conn.recv(4096)
+                self.minerTransaction(pickle.loads(transaction))
+                conn.send(b'Ok')
+
+            if not msg: break
+
+        conn.close()
+    
+    def minerTransaction(self, transaction):
+        pass
 
 class Trader(Connection):
     def __init__(self, myIp, listClients):
         super().__init__(myIp, listClients)
         self.listTraders.append(self.myIp)
+        self.blockChain = TraderChain()
+
+    def runMethods(self):
+        while True:
+            self.userInput()
+
+    def userInput(self):
+        transaction = self.blockChain.new_transaction(self.myIp)
+        transaction['minerIp'] = self.discoverMiner()
+        self.sendToMiner(transaction)
+
+    def discoverMiner(self):
+        global styleCommunication
+        ipMiner = ''
+        miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
+        for ip in self.listMiners:
+            try: 
+                miner.connect((ip, 5055))
+            except:
+                print(styleCommunication + '{} not connected in Blockchain!'.format(ip))
+                continue
+
+            miner.send(b'Rich')
+            msg = miner.recv(1024)
+
+            if re.search('True', msg.decode("utf-8")):
+                ipMiner = ip
+                print(styleCommunication + 'Miner Found! IP = {}'.format(ip))
+                break
+
+            if not msg: 
+                miner.close()
+                break
+        
+        return ipMiner
+
+    def sendToMiner(self, transaction):
+        connectionMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        connectionMiner.connect((transaction['ipMiner'], 5055))
+
+        connectionMiner.send(b'NewTransaction')
+        msg = connectionMiner.recv(1024)
+
+        if re.search('Ok', msg.decode("utf-8")):
+            print(styleCommunication + 'Sending the transaction to the Miner...')
+
+            connectionMiner.send(pickle.dumps(transaction))
+            msg = connectionMiner.recv(1024)
+
+            if re.search('Ok', msg.decode("utf-8")):
+                print(styleCommunication + 'Transaction Sent to the Miner!')
+        connectionMiner.close()

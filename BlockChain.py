@@ -1,7 +1,11 @@
 import hashlib
 import json
+import re
 from time import time
-from uuid import uuid4
+from colorama import Fore, Style
+
+styleCommunication = Fore.MAGENTA + Style.BRIGHT
+styleClient = Fore.GREEN + Style.BRIGHT
 
 max_transactions=2
 
@@ -217,11 +221,22 @@ class TraderChain(BlockChain):
 		'''
 		super().__init__()
 
-	def new_transaction(self):
+	def new_transaction(self, myIp):
 		'''
 		cria uma nova transacao que sera enviada para a carteira ativa
 		'''
-		transaction=None# TODO -> definir como e o que vamos encapsular em uma transacao
+		global styleClient
+		transaction = {}
+
+		userInput = input(styleClient + 'Enter your message => ')
+
+		if re.search('exit', userInput):
+			print(styleClient + 'Ending the execution of program... ')
+			exit()
+
+		transaction['userInput'] = userInput
+		transaction['address'] = myIp
+
 		return transaction
 
 def main():
