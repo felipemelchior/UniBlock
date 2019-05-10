@@ -1,7 +1,9 @@
 import argparse
-from colorama import Fore, Back, Style
+import threading
 from argparse import RawTextHelpFormatter
-from comunnication import Connection
+from comunnication import Connection, Miner, Trader
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
 
 def parseArguments():
     parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v1.0', formatter_class=RawTextHelpFormatter)
@@ -22,13 +24,20 @@ if __name__ == '__main__':
         print(style + 'User detected as ' + Fore.RED + 'miner')
 
     for i in range(args.users):
-        if i == 0: 
+        if i == 0:
             user = str(input(style + 'Enter ' + Fore.RED + 'your IP ' + style + ' => '))
         else: 
             user = str(input(style + 'Enter the IP for user ' + Fore.RED + str(i) + style + ' => '))
         users.append(user)
         print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
 
-    print(users)
-    connect=Connection(users[0])
-    connect.listenConnection(port=9091)
+    if args.miner:
+        client=Miner(users[0], listClients=users)
+    else:
+        client=Trader(users[0], listClients=users)
+
+    serverCommunication = threading.Thread(target=client.listenConnection, args=())
+    serverCommunication.start()
+
+    clientThread = threading.Thread(target=client.getMinersAndTraders, args=())
+    clientThread.start()
