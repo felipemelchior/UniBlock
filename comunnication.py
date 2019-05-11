@@ -6,7 +6,6 @@ import pickle
 from BlockChain import MinerChain, TraderChain
 from colorama import Fore, Style
 
-
 # Variaveis globais, apenas para a concatenação da string e colorir a mesma (Biblioteca Colorama)
 styleCommunication = Fore.MAGENTA + Style.BRIGHT
 styleClient = Fore.GREEN + Style.BRIGHT
@@ -28,6 +27,10 @@ class Connection:
         self._myIp=value
 
     def printClients(self):
+        '''
+        Imprime na tela a lista de clientes mineradores e a lista de clientes negociadores
+        '''    
+
         global styleClient
 
         print(styleClient + 'Miners => {}'.format(self.listMiners))
@@ -142,7 +145,13 @@ class Miner(Connection):
 
     def communicationConnection(self, conn, addr):
         '''
-        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta
+        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta de acordo ou executa ações
+
+        TypeOfClient => retorna se o cliente é um minerador ou um negociador
+        Rich => retorna se o cliente é um minerador que está armazenando transações na carteira
+        NewTransaction => recebe uma nova transação a ser adicionada na carteira
+        NewBlock => recebe a noticia que a chain foi atualizada, entao o cliente deve validar a sua chain
+
         :param conn: Socket de conexão com o cliente
         :param addr: Endereço da conexão deste cliente
         '''
@@ -167,10 +176,15 @@ class Miner(Connection):
                 transaction = conn.recv(4096)
                 self.blockChain.new_transaction(pickle.loads(transaction))
                 conn.send(b'Ok')
+                print(styleCommunication + 'New Transaction added to wallet')
+
             
             if re.search('NewBlock', msg.decode("utf-8")):
                 conn.send(b'Ok')
                 block=conn.recv(4096)
+
+                print(styleCommunication + 'Attention! New block added to chain!')
+
                 newChain=self.blockChain.chain.copy()
                 newChain.last_block=block
                 if self.blockChain.valid_chain(newChain):
@@ -191,15 +205,30 @@ class Trader(Connection):
         self.blockChain = TraderChain()
 
     def runMethods(self):
+        '''
+        Metodo em loop que fica pedindo ao usuário o texto que deve ser adicionado na chain
+        Esta função acaba criando uma cadeia de chamadas de funções
+        '''
+
         while True:
             self.userInput()
 
     def userInput(self):
+        '''
+        Inicia a transação
+        Descobre o ip do minerador que está com a flag rich
+        Envia esta transação para o minerador com a flag rich
+        '''
+
         transaction = self.blockChain.new_transaction(self.myIp)
-        transaction['minerIp'] = self.discoverMiner()
+        transaction['minerRichIp'] = self.discoverMiner()
         self.sendToMiner(transaction)
 
     def discoverMiner(self):
+        '''
+        Método que descobre qual o minerador que está aceitando transações para adicionar na carteira
+        '''
+
         global styleCommunication
         ipMiner = ''
         miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -226,6 +255,14 @@ class Trader(Connection):
         return ipMiner
 
     def sendToMiner(self, transaction):
+        '''
+        Envia a transação para o minerador
+
+        Utiliza pickle para serializar o dado e enviar
+
+        :param transaction: Transaction
+        '''
+
         connectionMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         connectionMiner.connect((transaction['ipMiner'], 5055))
 
