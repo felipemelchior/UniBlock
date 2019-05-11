@@ -165,15 +165,24 @@ class Miner(Connection):
             if re.search('NewTransaction', msg.decode("utf-8")):
                 conn.send(b'Ok')
                 transaction = conn.recv(4096)
-                self.minerTransaction(pickle.loads(transaction))
+                self.blockChain.new_transaction(pickle.loads(transaction))
                 conn.send(b'Ok')
+            
+            if re.search('NewBlock', msg.decode("utf-8")):
+                conn.send(b'Ok')
+                block=conn.recv(4096)
+                newChain=self.blockChain.chain.copy()
+                newChain.last_block=block
+                if self.blockChain.valid_chain(newChain):
+                    self.blockChain.chain=newChain
+                    conn.send(b'Ok')
+                else:
+                    conn.send(b'NOk')
+
 
             if not msg: break
 
         conn.close()
-    
-    def minerTransaction(self, transaction):
-        pass
 
 class Trader(Connection):
     def __init__(self, myIp, listClients):
