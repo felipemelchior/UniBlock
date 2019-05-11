@@ -3,9 +3,15 @@ import threading
 from argparse import RawTextHelpFormatter
 from comunnication import Connection, Miner, Trader
 from colorama import Fore, Back, Style, init
-init(autoreset=True)
+init(autoreset=True) # autoreset de estilos do colorama
 
 def parseArguments():
+    '''
+    Função que identifica os argumentos passados
+
+    :return parser: objetos contendo os argumentos
+    '''
+
     parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v1.0', formatter_class=RawTextHelpFormatter)
     parser.add_argument("-u", "--users", default=1, type=int, help="Number of users of blockchain")
     parser.add_argument("-v", "--version", action='version', version='Uniblock v1.0 \nRepository Link => https://github.com/homdreen/UniBlock')
@@ -13,7 +19,11 @@ def parseArguments():
 
     return parser.parse_args()
 
-if __name__ == '__main__':
+def main():
+    '''
+    Função principal do programa
+    '''
+
     users = []
     style = Fore.GREEN + Style.BRIGHT
     args = parseArguments()
@@ -41,4 +51,7 @@ if __name__ == '__main__':
 
     clientThread = threading.Thread(target=client.getMinersAndTraders, args=())
     clientThread.start()
+
+if __name__ == '__main__':
+    main()
     
