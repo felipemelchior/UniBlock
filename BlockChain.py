@@ -24,12 +24,6 @@ class BlockChain(object):
 		self.chain=[]#chain da blockchain
 		self.rule='0000'#a regra inicialmente comeca com quatro zeros
 
-	def add_block(self, block):
-		'''
-		adiciona o novo block na chain
-		'''
-		self.chain.append(block)
-
 	@property
 	def rule(self):
 		'''
@@ -59,7 +53,7 @@ class BlockChain(object):
 		'''
 		guess='{0}{1}'.format(last_proof, proof).encode()
 		guess_hash=hashlib.sha256(guess).hexdigest()
-		return guess_hash[:4]==rule
+		return guess_hash[:len(rule)]==rule
 
 	@property
 	def last_proof(self):
@@ -69,11 +63,32 @@ class BlockChain(object):
 		return self.last_block['proof']
 
 	@property
+	def chain(self):
+		'''
+		getter da chain
+		'''
+		return self._chain
+
+	@chain.setter
+	def chain(self, chain):
+		'''
+		setter da chain
+		'''
+		self._chain=chain
+
+	@property
 	def last_block(self):
 		'''
 		metodo para retornar o ultimo bloco da chain
 		'''
 		return self.chain[-1]
+
+	@last_block.setter
+	def last_block(self, block):
+		'''
+		um metodo setter para adicionar um novo block para a chain como se fosse uma atribuicao qualquer
+		'''
+		self._chain.append(block)
 
 	def valid_chain(self, chain):
 		'''
@@ -85,38 +100,6 @@ class BlockChain(object):
 			if not self.valid_proof(chain[index-1]['proof'], chain[index]['proof'], self.rule):
 				return False
 		return True
-
-	def resolve_conflicts(self):
-		'''
-		funcao que decide a prioridade para adicionar na chain caso dois mineradores passarem pela prova de trabalho juntos
-		'''
-		# neighbours = self.nodes
-		# new_chain = None
-		# for node in neighbours:
-		# 	response = requests.get(f'http://{node}/chain')
-		# 	if response.status_code == 200:
-		# 		length = response.json()['length']
-		# 		chain = response.json()['chain']
-		# 		if length > max_length and self.valid_chain(chain):
-		# 			max_length = length
-		# 			new_chain = chain
-		# if new_chain:
-		# 	self.chain = new_chain
-		# 	return True
-		# return False
-		return True# TODO -> criar um metodo para resolver conflitos de forma eficiente
-
-	def consensus(self):
-		'''
-		testa se a chain usada pelo cliente esta correta ou n
-		caso esteja, retorna true e avisa os outros clientes
-		caso nao esteja, retorna false e pede uma chain valida
-		'''
-		replace=self.resolve_conflicts()
-		if replace:
-			return False
-		else:
-			return True
 
 class MinerChain(BlockChain):
 
@@ -132,7 +115,7 @@ class MinerChain(BlockChain):
 		inicia a flag que diz quando um block pode comecar a ser minerado
 		'''
 		super().__init__()
-		self._transactions=[[]]
+		self.transactions=[[]]
 		self.start_miner=False
 
 	@property
@@ -141,6 +124,14 @@ class MinerChain(BlockChain):
 		metodo getter para retornar as transacoes
 		'''
 		return self._transactions
+
+	@transactions.setter
+	def transactions(self, transactions):
+		'''
+		metodo setter das transacoes
+		vai servir para que sejam passadas as transacoes entre o antigo e o novo dono da carteira
+		'''
+		self._transactions=transactions
 
 	@property
 	def current_transactions(self):
@@ -154,7 +145,15 @@ class MinerChain(BlockChain):
 		'''
 		metodo getter para retornar as transacoes fechadas
 		'''
-		return self.transactions[0]
+		return self.transactions[0] if len(self.transactions[0])==max_transactions else []
+
+	@finish_transactions.setter
+	def finish_transactions(self, f_t):
+		'''
+		metodo setter para adicionar carteiras que ja foram terminadas e estao prontas para serem mineradas
+		vai servir para passar as carteiras para os mineradores comecarem a minerar
+		'''
+		self._transactions.insert(0, f_t)
 
 	def new_transaction(self, transaction):
 		'''
@@ -183,6 +182,9 @@ class MinerChain(BlockChain):
 		self._start_miner=value
 
 	def new_block(self, proof, previous_hash=None):
+		'''
+		Cria um novo bloco com as informacoes
+		'''
 		block={
 			'index':len(self.chain)+1,
 			'timestamp':time(),
@@ -204,11 +206,16 @@ class MinerChain(BlockChain):
 		return proof
 	
 	def mine(self):
-		proof=self.proof_of_work(self.last_proof)
-		previous_hash=self.hash(self.last_block)
-		block=self.new_block(proof, previous_hash)
-		response={}# TODO -> qual vai ser a resposta?
-		return response
+		'''
+		minera a carteira se ja estiver pronto para minerar
+		muda a flag para false e retorna o block minerado
+		'''
+		if self.start_miner:
+			proof=self.proof_of_work(self.last_proof)
+			previous_hash=self.hash(self.last_block)
+			block=self.new_block(proof, previous_hash)
+			self.start_miner=False
+		return block
 
 class TraderChain(BlockChain):
 	'''
