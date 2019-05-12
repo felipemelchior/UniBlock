@@ -201,8 +201,7 @@ class Miner(Connection):
                 self.blockChain.finish_transactions = pickle.loads(wallet)
                 threading.Thread(target=self.blockChain.mine).start()
                 if self.blockChain.block!=None:
-                    # TODO
-                    pass
+                    self.sendBlock(self.blockChain.block)
 
             if re.search('NewBlock', msg.decode("utf-8")):
                 conn.send(b'Ok')
@@ -259,6 +258,8 @@ class Trader(Connection):
         miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         for ip in self.listMiners:
+            print(ip)
+            
             try: 
                 miner.connect((ip, 5055))
             except:
@@ -267,6 +268,8 @@ class Trader(Connection):
 
             miner.send(b'Rich')
             msg = miner.recv(1024)
+
+            print(msg)
 
             if re.search('True', msg.decode("utf-8")):
                 ipMiner = ip
