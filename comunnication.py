@@ -74,7 +74,7 @@ class Connection:
         
         self.printClients()
 
-    def communicationConnection(self, conn, addr):
+    def filterCommunication(self, conn, addr):
         '''
         Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta
         :param conn: Socket de conexão com o cliente
@@ -123,7 +123,7 @@ class Connection:
                     conn, addr = server.accept()
                     print(styleCommunication + "New Connection from {} with port {}".format(addr[0],addr[1]))
                     
-                    aux = threading.Thread(target=self.communicationConnection, args=(conn,addr))			
+                    aux = threading.Thread(target=self.filterCommunication, args=(conn,addr))			
                     aux.start()
                     threads.append(aux)
             except:
@@ -136,14 +136,30 @@ class Connection:
             exit()
 
 class Miner(Connection):
-    def __init__(self, myIp, listClients):
+    def __init__(self, myIp, listClients, rich):
         super().__init__(myIp, listClients)
         self.miner = True
-        self.flagRich=False
+        self.flagRich = rich
         self.listMiners.append(self.myIp)
         self.blockChain = MinerChain()
 
-    def communicationConnection(self, conn, addr):
+
+    def sendTransactionsToMiners(self):
+        for ip in self.listMiners:
+            socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            socketMiner.connect((ip, 5055))
+
+            socketMiner.send(b'MineThis')
+            msg = socketMiner.recv(1024)
+
+            if re.search('Ok', msg.decode("utf-8")):
+                socketMiner.send(pickle.dumps(self.blockChain.finish_transactions))
+                msg = socketMiner.recv(1024)
+
+                if re.search('Ok', msg.decode("utf-8")):
+                    print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(ip) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+
+    def filterCommunication(self, conn, addr):
         '''
         Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta de acordo ou executa ações
 
@@ -178,7 +194,16 @@ class Miner(Connection):
                 conn.send(b'Ok')
                 print(styleCommunication + 'New Transaction added to wallet')
 
-            
+                if self.blockChain.finish_transactions != 0:
+                    self.sendTransactionsToMiners()
+
+            if re.search('MineThis', msg.decode("utf-8")):
+                conn.send(b'Ok')
+                wallet = conn.recv(4096)
+                conn.send(b'Ok')
+                self.blockChain.finish_transactions = pickle.loads(wallet)
+                threading.Thread(target=self.blockChain.mine).start()
+
             if re.search('NewBlock', msg.decode("utf-8")):
                 conn.send(b'Ok')
                 block=conn.recv(4096)
