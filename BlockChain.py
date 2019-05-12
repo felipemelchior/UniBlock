@@ -22,6 +22,13 @@ class BlockChain(object):
 		inicia a lista chain da classe e a regra da prova de trabalho
 		'''
 		self.chain=[]#chain da blockchain
+		self.chain.append({
+			'index':len(self.chain)+1,
+			'timestamp':time(),
+			'transactions':[],
+			'proof':0,
+			'previous_hash':0,
+		})
 		self.rule='0000'#a regra inicialmente comeca com quatro zeros
     
 	@property
