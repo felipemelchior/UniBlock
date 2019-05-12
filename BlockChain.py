@@ -23,7 +23,7 @@ class BlockChain(object):
 		'''
 		self.chain=[]#chain da blockchain
 		self.rule='0000'#a regra inicialmente comeca com quatro zeros
-
+    
 	@property
 	def rule(self):
 		'''

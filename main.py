@@ -16,6 +16,7 @@ def parseArguments():
     parser.add_argument("-u", "--users", default=1, type=int, help="Number of users of blockchain")
     parser.add_argument("-v", "--version", action='version', version='Uniblock v1.0 \nRepository Link => https://github.com/homdreen/UniBlock')
     parser.add_argument("--miner", action="store_const", const=True, help="Define user as miner")
+    parser.add_argument("--rich", action="store_const", const=True, help="Define miner as rich")
 
     return parser.parse_args()
 
@@ -42,7 +43,10 @@ def main():
         print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
 
     if args.miner:
-        client=Miner(users[0], listClients=users)
+        if args.rich:
+            client=Miner(users[0], listClients=users, rich=True)
+        else:
+            client=Miner(users[0], listClients=users, rich=False)
     else:
         client=Trader(users[0], listClients=users)
 
