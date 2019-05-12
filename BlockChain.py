@@ -23,7 +23,7 @@ class BlockChain(object):
 		'''
 		self.chain=[]#chain da blockchain
 		self.rule='0000'#a regra inicialmente comeca com quatro zeros
-		self.new_block = False # flag que permite a parada da thread
+
 	@property
 	def rule(self):
 		'''
@@ -201,7 +201,7 @@ class MinerChain(BlockChain):
 		determina a dificuldade de minerar um block
 		'''
 		proof=0
-		while self.valid_proof(last_proof, proof, self.rule) is False:
+		while self.valid_proof(last_proof, proof, self.rule) is False and self.start_miner==True:
 			proof+=1
 		return proof
 	
