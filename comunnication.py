@@ -74,27 +74,6 @@ class Connection:
         
         self.printClients()
 
-    def filterCommunication(self, conn, addr):
-        '''
-        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta
-        :param conn: Socket de conexão com o cliente
-        :param addr: Endereço da conexão deste cliente
-        '''
-
-        while True:
-            msg = conn.recv(1024)
-
-            if re.search('TypeOfClient', msg.decode("utf-8")):
-                if self.miner:
-                    conn.send(b'Miner')
-                else:
-                    conn.send(b'Trader')
-
-            if not msg: break
-
-        conn.close()
-
-
 
     def listenConnection(self, port=5055):
         '''
@@ -145,6 +124,7 @@ class Miner(Connection):
 
 
     def sendTransactionsToMiners(self):
+        global styleCommunication
         for ip in self.listMiners:
             socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             socketMiner.connect((ip, 5055))
@@ -158,6 +138,21 @@ class Miner(Connection):
 
                 if re.search('Ok', msg.decode("utf-8")):
                     print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(ip) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+    
+    def sendBlock(self, block):
+        global styleCommunication
+        for ip in self.listClients:
+            socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            socketClient.connect((ip, 5055))
+
+            socketClient.send(b'NewBlock')
+            msg = socketClient.recv(1024)
+            if re.search('Ok', msg.decode("utf-8")):
+                socketClient.send(pickle.dumps(block))
+                if re.search('Ok', msg.decode("utf-8")):
+                    print(styleCommunication+'Block added to blockChain')
+                elif re.search('Nok', msg.decode("utf-8")):
+                    print(styleCommunication+'Block discarted')
 
     def filterCommunication(self, conn, addr):
         '''
@@ -203,11 +198,14 @@ class Miner(Connection):
                 conn.send(b'Ok')
                 self.blockChain.finish_transactions = pickle.loads(wallet)
                 threading.Thread(target=self.blockChain.mine).start()
+                if self.blockChain.block!=None:
+                    # TODO
+                    pass
 
             if re.search('NewBlock', msg.decode("utf-8")):
                 conn.send(b'Ok')
                 block=conn.recv(4096)
-
+                block=pickle.loads(block)
                 print(styleCommunication + 'Attention! New block added to chain!')
 
                 newChain=self.blockChain.chain.copy()
@@ -216,7 +214,7 @@ class Miner(Connection):
                     self.blockChain.chain=newChain
                     conn.send(b'Ok')
                 else:
-                    conn.send(b'NOk')
+                    conn.send(b'Nok')
 
 
             if not msg: break
@@ -303,3 +301,39 @@ class Trader(Connection):
             if re.search('Ok', msg.decode("utf-8")):
                 print(styleCommunication + 'Transaction Sent to the Miner!')
         connectionMiner.close()
+
+    def filterCommunication(self, conn, addr):
+        '''
+        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta
+        :param conn: Socket de conexão com o cliente
+        :param addr: Endereço da conexão deste cliente
+        '''
+
+        while True:
+            msg = conn.recv(1024)
+
+            if re.search('TypeOfClient', msg.decode("utf-8")):
+                if self.miner:
+                    conn.send(b'Miner')
+                else:
+                    conn.send(b'Trader')
+
+
+            if re.search('NewBlock', msg.decode("utf-8")):
+                conn.send(b'Ok')
+                block=conn.recv(4096)
+                block=pickle.loads(block)
+                print(styleCommunication + 'Attention! New block added to chain!')
+
+                newChain=self.blockChain.chain.copy()
+                newChain.last_block=block
+                if self.blockChain.valid_chain(newChain):
+                    self.blockChain.chain=newChain
+                    conn.send(b'Ok')
+                else:
+                    conn.send(b'Nok')
+
+            if not msg: break
+
+        conn.close()
+
