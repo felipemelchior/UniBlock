@@ -1,14 +1,15 @@
 import socket
 import threading
 import re
-import json
 import pickle
+import time
 from BlockChain import MinerChain, TraderChain
 from colorama import Fore, Style
 
 # Variaveis globais, apenas para a concatenação da string e colorir a mesma (Biblioteca Colorama)
 styleCommunication = Fore.MAGENTA + Style.BRIGHT
 styleClient = Fore.GREEN + Style.BRIGHT
+styleChain = Fore.YELLOW + Style.BRIGHT
 
 class Connection:
     def __init__(self, myIp, listClients):
@@ -237,6 +238,7 @@ class Trader(Connection):
         '''
 
         while True:
+            time.sleep(1)
             self.userInput()
 
     def userInput(self):
@@ -260,7 +262,6 @@ class Trader(Connection):
         miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         for ip in self.listMiners:
-            print(ip)
             
             try: 
                 miner.connect((ip, 5055))
@@ -270,8 +271,6 @@ class Trader(Connection):
 
             miner.send(b'Rich')
             msg = miner.recv(1024)
-
-            print(msg)
 
             if re.search('True', msg.decode("utf-8")):
                 ipMiner = ip
@@ -315,6 +314,7 @@ class Trader(Connection):
         :param conn: Socket de conexão com o cliente
         :param addr: Endereço da conexão deste cliente
         '''
+        global styleChain
 
         while True:
             msg = conn.recv(1024)
@@ -331,6 +331,7 @@ class Trader(Connection):
                 block=conn.recv(4096)
                 block=pickle.loads(block)
                 print(styleCommunication + 'Attention! New block added to chain!')
+               
 
                 newChain=self.blockChain.chain.copy()
                 newChain.append(block)
@@ -339,6 +340,8 @@ class Trader(Connection):
                     conn.send(b'Ok')
                 else:
                     conn.send(b'Nok')
+
+                print(styleChain + 'Actual chain {}'.format(self.blockChain.chain))
 
             if not msg: break
 

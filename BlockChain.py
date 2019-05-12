@@ -208,7 +208,7 @@ class MinerChain(BlockChain):
 			'proof':proof,
 			'previous_hash':previous_hash or self.hash(self.last_block),
 		}
-		self.transactions.pop(0)
+		self._transactions.pop(0)
 		return block
 
 	def proof_of_work(self, last_proof):
@@ -257,7 +257,7 @@ class TraderChain(BlockChain):
 		global styleClient
 		transaction = {}
 
-		userInput = input(styleClient + 'Enter your message => ')
+		userInput = input(styleClient + 'Enter your message => ' + Fore.RED)
 
 		if re.search('exit', userInput):
 			print(styleClient + 'Ending the execution of program... ')

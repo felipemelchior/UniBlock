@@ -57,7 +57,7 @@ def main():
     clientThread.start()
 
 
-    if args.miner == None:
+    if args.miner == None:   
         clientThread = threading.Thread(target=client.runMethods)
         clientThread.start()
 
