@@ -190,7 +190,7 @@ class Miner(Connection):
                 conn.send(b'Ok')
                 print(styleCommunication + 'New Transaction added to wallet')
 
-                if self.blockChain.finish_transactions != 0:
+                if len(self.blockChain.finish_transactions) != 0:
                     self.sendTransactionsToMiners()
                     self.flagRich=False
 
