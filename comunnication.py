@@ -199,7 +199,9 @@ class Miner(Connection):
                 wallet = conn.recv(4096)
                 conn.send(b'Ok')
                 self.blockChain.finish_transactions = pickle.loads(wallet)
-                threading.Thread(target=self.blockChain.mine).start()
+                # threading.Thread(target=self.blockChain.mine).start()
+                self.blockChain.start_miner=True
+                self.blockChain.mine()
                 if self.blockChain.block!=None:
                     self.sendBlock(self.blockChain.block)
 
@@ -210,7 +212,7 @@ class Miner(Connection):
                 print(styleCommunication + 'Attention! New block added to chain!')
 
                 newChain=self.blockChain.chain.copy()
-                newChain.last_block=block
+                newChain.append(block)
                 if self.blockChain.valid_chain(newChain):
                     self.blockChain.chain=newChain
                     conn.send(b'Ok')
