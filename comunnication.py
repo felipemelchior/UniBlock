@@ -287,7 +287,7 @@ class Trader(Connection):
         '''
 
         connectionMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        connectionMiner.connect((transaction['ipMiner'], 5055))
+        connectionMiner.connect((transaction['minerRichIp'], 5055))
 
         connectionMiner.send(b'NewTransaction')
         msg = connectionMiner.recv(1024)

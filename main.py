@@ -56,7 +56,8 @@ def main():
     clientThread = threading.Thread(target=client.getMinersAndTraders, args=())
     clientThread.start()
 
-    if not args.miner:
+
+    if args.miner == None:
         clientThread = threading.Thread(target=client.runMethods)
         clientThread.start()
 
