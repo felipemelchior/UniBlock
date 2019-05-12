@@ -117,6 +117,15 @@ class MinerChain(BlockChain):
 		super().__init__()
 		self.transactions=[[]]
 		self.start_miner=False
+		self.block=None
+
+	@property
+	def block(self):
+		return self._block
+	
+	@block.setter
+	def block(self, block):
+		self._block=block
 
 	@property
 	def transactions(self):
@@ -214,8 +223,14 @@ class MinerChain(BlockChain):
 			proof=self.proof_of_work(self.last_proof)
 			previous_hash=self.hash(self.last_block)
 			block=self.new_block(proof, previous_hash)
+			if self.start_miner:
+				self.block=block
+			else:
+				self.block=None
 			self.start_miner=False
-		return block
+		else:
+			self.block=None
+		
 
 class TraderChain(BlockChain):
 	'''
