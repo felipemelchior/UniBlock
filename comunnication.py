@@ -151,6 +151,7 @@ class Miner(Connection):
                 socketClient.send(pickle.dumps(block))
                 if re.search('Ok', msg.decode("utf-8")):
                     print(styleCommunication+'Block added to blockChain')
+                    self.flagRich=True
                 elif re.search('Nok', msg.decode("utf-8")):
                     print(styleCommunication+'Block discarted')
 
@@ -191,6 +192,7 @@ class Miner(Connection):
 
                 if self.blockChain.finish_transactions != 0:
                     self.sendTransactionsToMiners()
+                    self.flagRich=False
 
             if re.search('MineThis', msg.decode("utf-8")):
                 conn.send(b'Ok')
