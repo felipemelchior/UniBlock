@@ -333,7 +333,7 @@ class Trader(Connection):
                 print(styleCommunication + 'Attention! New block added to chain!')
 
                 newChain=self.blockChain.chain.copy()
-                newChain.last_block=block
+                newChain.append(block)
                 if self.blockChain.valid_chain(newChain):
                     self.blockChain.chain=newChain
                     conn.send(b'Ok')
