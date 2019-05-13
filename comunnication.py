@@ -44,6 +44,7 @@ class Connection:
         
         global styleCommunication
         active = []
+        visited = []
 
         while (len(active) != len(self.listClients)):
             for ip in self.listClients:
@@ -57,7 +58,11 @@ class Connection:
                     try:
                         socketClient.connect((ip, 5055))
                     except:
-                        print(styleCommunication + 'Conection refused by {}! Likely to be still starting'.format(ip))
+                        if ip not in visited:
+                            visited.append(ip)
+                            print(styleCommunication + 'Conection refused by {}! Likely to be still starting'.format(ip))
+                        else:
+                            pass
                         continue
 
                     active.append(ip)
@@ -67,8 +72,10 @@ class Connection:
                     msg = socketClient.recv(1024)
                     
                     if re.search('Miner', msg.decode("utf-8")):
+                        print(styleCommunication + 'Miner discovery => {}'.format(ip))
                         self.listMiners.append(ip)
                     elif re.search('Trader', msg.decode("utf-8")):
+                        print(styleCommunication + 'Trader discovery => {}'.format(ip))
                         self.listTraders.append(ip)
 
                     socketClient.close()
