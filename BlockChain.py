@@ -208,7 +208,11 @@ class MinerChain(BlockChain):
 			'proof':proof,
 			'previous_hash':previous_hash or self.hash(self.last_block),
 		}
-		self._transactions.pop(0)
+		if len(self.transactions) == 1:
+			self.finish_transactions.clear()
+		else:
+			self._transactions.pop(0)
+		
 		return block
 
 	def proof_of_work(self, last_proof):
