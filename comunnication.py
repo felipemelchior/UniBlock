@@ -171,59 +171,62 @@ class Miner(Connection):
         '''
         global styleChain
         while True:
-            msg = conn.recv(1024)
+            try: 
+                msg = conn.recv(1024)
 
-            if re.search('TypeOfClient', msg.decode("utf-8")):
-                if self.miner:
-                    conn.send(b'Miner')
-                else:
-                    conn.send(b'Trader')
-            
-            if re.search('Rich', msg.decode("utf-8")):
-                if self.flagRich:
-                    conn.send(b'True')
-                else: 
-                    conn.send(b'False')
+                if re.search('TypeOfClient', msg.decode("utf-8")):
+                    if self.miner:
+                        conn.send(b'Miner')
+                    else:
+                        conn.send(b'Trader')
+                
+                if re.search('Rich', msg.decode("utf-8")):
+                    if self.flagRich:
+                        conn.send(b'True')
+                    else: 
+                        conn.send(b'False')
 
-            if re.search('NewTransaction', msg.decode("utf-8")):
-                conn.send(b'Ok')
-                transaction = conn.recv(4096)
-                self.blockChain.new_transaction(pickle.loads(transaction))
-                conn.send(b'Ok')
-                print(styleCommunication + 'New Transaction added to wallet')
-
-                if len(self.blockChain.finish_transactions) != 0:
-                    self.sendTransactionsToMiners()
-                    self.flagRich=False
-
-            if re.search('MineThis', msg.decode("utf-8")):
-                conn.send(b'Ok')
-                wallet = conn.recv(4096)
-                conn.send(b'Ok')
-                self.blockChain.finish_transactions = pickle.loads(wallet)
-                # threading.Thread(target=self.blockChain.mine).start()
-                self.blockChain.start_miner=True
-                self.blockChain.mine()
-                if self.blockChain.block!=None:
-                    self.sendBlock(self.blockChain.block)
-
-            if re.search('NewBlock', msg.decode("utf-8")):
-                conn.send(b'Ok')
-                block=conn.recv(4096)
-                block=pickle.loads(block)
-                print(styleCommunication + 'Attention! New block added to chain!')
-
-                newChain=self.blockChain.chain.copy()
-                newChain.append(block)
-                if self.blockChain.valid_chain(newChain):
-                    self.blockChain.chain=newChain
+                if re.search('NewTransaction', msg.decode("utf-8")):
                     conn.send(b'Ok')
-                else:
-                    conn.send(b'Nok')
-                print(styleChain + 'Actual chain {}'.format(self.blockChain.chain))
+                    transaction = conn.recv(4096)
+                    self.blockChain.new_transaction(pickle.loads(transaction))
+                    conn.send(b'Ok')
+                    print(styleCommunication + 'New Transaction added to wallet')
+
+                    if len(self.blockChain.finish_transactions) != 0:
+                        self.sendTransactionsToMiners()
+                        self.flagRich=False
+
+                if re.search('MineThis', msg.decode("utf-8")):
+                    conn.send(b'Ok')
+                    wallet = conn.recv(4096)
+                    conn.send(b'Ok')
+                    self.blockChain.finish_transactions = pickle.loads(wallet)
+                    # threading.Thread(target=self.blockChain.mine).start()
+                    self.blockChain.start_miner=True
+                    self.blockChain.mine()
+                    if self.blockChain.block!=None:
+                        self.sendBlock(self.blockChain.block)
+
+                if re.search('NewBlock', msg.decode("utf-8")):
+                    conn.send(b'Ok')
+                    block=conn.recv(4096)
+                    block=pickle.loads(block)
+                    print(styleCommunication + 'Attention! New block added to chain!')
+
+                    newChain=self.blockChain.chain.copy()
+                    newChain.append(block)
+                    if self.blockChain.valid_chain(newChain):
+                        self.blockChain.chain=newChain
+                        conn.send(b'Ok')
+                    else:
+                        conn.send(b'Nok')
+                    print(styleChain + 'Actual chain {}'.format(self.blockChain.chain))
 
 
-            if not msg: break
+                if not msg: break
+            except:
+                pass
 
         conn.close()
 
@@ -319,33 +322,36 @@ class Trader(Connection):
         global styleChain
 
         while True:
-            msg = conn.recv(1024)
+            try:
+                msg = conn.recv(1024)
 
-            if re.search('TypeOfClient', msg.decode("utf-8")):
-                if self.miner:
-                    conn.send(b'Miner')
-                else:
-                    conn.send(b'Trader')
+                if re.search('TypeOfClient', msg.decode("utf-8")):
+                    if self.miner:
+                        conn.send(b'Miner')
+                    else:
+                        conn.send(b'Trader')
 
 
-            if re.search('NewBlock', msg.decode("utf-8")):
-                conn.send(b'Ok')
-                block=conn.recv(4096)
-                block=pickle.loads(block)
-                print(styleCommunication + 'Attention! New block added to chain!')
-               
-
-                newChain=self.blockChain.chain.copy()
-                newChain.append(block)
-                if self.blockChain.valid_chain(newChain):
-                    self.blockChain.chain=newChain
+                if re.search('NewBlock', msg.decode("utf-8")):
                     conn.send(b'Ok')
-                else:
-                    conn.send(b'Nok')
+                    block=conn.recv(4096)
+                    block=pickle.loads(block)
+                    print(styleCommunication + 'Attention! New block added to chain!')
+                
 
-                print(styleChain + 'Actual chain {}'.format(self.blockChain.chain))
+                    newChain=self.blockChain.chain.copy()
+                    newChain.append(block)
+                    if self.blockChain.valid_chain(newChain):
+                        self.blockChain.chain=newChain
+                        conn.send(b'Ok')
+                    else:
+                        conn.send(b'Nok')
 
-            if not msg: break
+                    print(styleChain + 'Actual chain {}'.format(self.blockChain.chain))
+
+                if not msg: break
+            except:
+                pass
 
         conn.close()
 
