@@ -126,6 +126,7 @@ class Miner(Connection):
 
     def sendTransactionsToMiners(self):
         global styleCommunication
+        wallet=self.blockChain.transactions.pop(0)
         for ip in self.listMiners:
             socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             socketMiner.connect((ip, 5055))
@@ -134,7 +135,7 @@ class Miner(Connection):
             msg = socketMiner.recv(1024)
 
             if re.search('Ok', msg.decode("utf-8")):
-                socketMiner.send(pickle.dumps(self.blockChain.finish_transactions))
+                socketMiner.send(pickle.dumps(wallet))
                 msg = socketMiner.recv(1024)
 
                 if re.search('Ok', msg.decode("utf-8")):
@@ -168,7 +169,7 @@ class Miner(Connection):
         :param conn: Socket de conexão com o cliente
         :param addr: Endereço da conexão deste cliente
         '''
-
+        global styleChain
         while True:
             msg = conn.recv(1024)
 
@@ -219,6 +220,7 @@ class Miner(Connection):
                     conn.send(b'Ok')
                 else:
                     conn.send(b'Nok')
+                print(styleChain + 'Actual chain {}'.format(self.blockChain.chain))
 
 
             if not msg: break
