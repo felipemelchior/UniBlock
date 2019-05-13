@@ -222,10 +222,11 @@ class Miner(Connection):
                     else:
                         conn.send(b'Nok')
                     print(styleChain + 'Actual chain {}'.format(self.blockChain.chain))
+
+
+                if not msg: break
             except:
                 pass
-
-            if not msg: break
 
         conn.close()
 
