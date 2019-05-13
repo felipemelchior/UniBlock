@@ -134,9 +134,9 @@ class Miner(Connection):
     def sendTransactionsToMiners(self):
         global styleCommunication
         wallet=self.blockChain.transactions.pop(0)
-        for ip in self.listMiners:
+        for ip in range(1, len(self.listMiners)):
             socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            socketMiner.connect((ip, 5055))
+            socketMiner.connect((self.listMiners[ip], 5055))
 
             socketMiner.send(b'MineThis')
             msg = socketMiner.recv(1024)
@@ -146,8 +146,24 @@ class Miner(Connection):
                 msg = socketMiner.recv(1024)
 
                 if re.search('Ok', msg.decode("utf-8")):
-                    print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(ip) + styleCommunication + 'receive the wallet with transactions sucessfully!')
-    
+                    print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[ip]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+
+        socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socketMiner.connect((self.listMiners[0], 5055))
+
+        socketMiner.send(b'MineThis')
+        msg = socketMiner.recv(1024)
+
+        if re.search('Ok', msg.decode("utf-8")):
+            socketMiner.send(pickle.dumps(wallet))
+            msg = socketMiner.recv(1024)
+
+            if re.search('Ok', msg.decode("utf-8")):
+                print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[0]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+        
+        
+
+
     def sendBlock(self, block):
         global styleCommunication
         for ip in self.listClients:
@@ -344,7 +360,6 @@ class Trader(Connection):
                     block=conn.recv(4096)
                     block=pickle.loads(block)
                     print(styleCommunication + 'Attention! New block added to chain!')
-                
 
                     newChain=self.blockChain.chain.copy()
                     newChain.append(block)
