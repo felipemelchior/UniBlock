@@ -57,7 +57,9 @@ def main():
     clientThread.start()
 
 
-    if args.miner == None:   
+    if args.miner == None:
+        while serverCommunication.is_alive():
+            pass   
         clientThread = threading.Thread(target=client.runMethods)
         clientThread.start()
 
