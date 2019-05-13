@@ -59,7 +59,7 @@ def main():
 
     if args.miner == None:
         while serverCommunication.is_alive():
-            pass   
+            print(Fore.GREEN + 'Waiting discovery ip finish')   
         clientThread = threading.Thread(target=client.runMethods)
         clientThread.start()
 

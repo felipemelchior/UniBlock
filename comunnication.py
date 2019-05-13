@@ -57,7 +57,7 @@ class Connection:
                     try:
                         socketClient.connect((ip, 5055))
                     except:
-                        print(styleCommunication + 'Conexão recusada para o cliente {}! Provável que este ainda esteja iniciando'.format(ip))
+                        print(styleCommunication + 'Conection refused by {}! Likely to be still starting'.format(ip))
                         continue
 
                     active.append(ip)
