@@ -53,13 +53,13 @@ def main():
     serverCommunication = threading.Thread(target=client.listenConnection, args=())
     serverCommunication.start()
 
+
     clientThread = threading.Thread(target=client.getMinersAndTraders, args=())
     clientThread.start()
 
-
     if args.miner == None:
-        while serverCommunication.is_alive():
-            print(Fore.GREEN + 'Waiting discovery ip finish')   
+        while clientThread.is_alive():
+            pass
         clientThread = threading.Thread(target=client.runMethods)
         clientThread.start()
 
