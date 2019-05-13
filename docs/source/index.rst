@@ -1,7 +1,7 @@
-Documentation for the Code
+Documentation for UniBlock
 **************************
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
 
 UniBlock Main
