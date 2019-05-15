@@ -28,6 +28,7 @@ class BlockChain(object):
 			'transactions':[],
 			'proof':0,
 			'previous_hash':0,
+			'hash_proof':0,
 		})
 		self.rule='0000'#a regra inicialmente comeca com quatro zeros
     
@@ -72,7 +73,7 @@ class BlockChain(object):
 		'''
 		guess='{0}{1}'.format(last_proof, proof).encode()
 		guess_hash=hashlib.sha256(guess).hexdigest()
-		return guess_hash[:len(rule)]==rule
+		return (guess_hash[:len(rule)]==rule, guess_hash)
 
 	@property
 	def last_proof(self):
@@ -128,8 +129,10 @@ class BlockChain(object):
 		'''
 		for index in range(1, len(chain)):
 			if chain[index]['previous_hash']!=self.hash(chain[index-1]):
+				print('n dei krl!1')
 				return False
-			if not self.valid_proof(chain[index-1]['proof'], chain[index]['proof'], self.rule):
+			if not self.valid_proof(chain[index-1]['proof'], chain[index]['proof'], self.rule)[0]:
+				print('n dei krl!2')
 				return False
 		return True
 
@@ -259,7 +262,7 @@ class MinerChain(BlockChain):
 		'''
 		block={
 			'index':len(self.chain)+1,
-			'timestamp':0,
+			'timestamp':time(),
 			'transactions':self.finish_transactions.copy(),
 			'proof':proof,
 			'previous_hash':previous_hash or self.hash(self.last_block),
@@ -280,9 +283,9 @@ class MinerChain(BlockChain):
 		:returns: int -- prova de trabalho.
 		'''
 		proof=0
-		while self.valid_proof(last_proof, proof, self.rule) is False and self.start_miner==True:
+		while self.valid_proof(last_proof, proof, self.rule)[0] is False and self.start_miner==True:
 			proof+=1
-		return proof
+		return (proof, self.valid_proof(last_proof, proof, self.rule)[1])
 	
 	def mine(self):
 		'''
@@ -290,9 +293,10 @@ class MinerChain(BlockChain):
 		Muda a flag para false e retorna o block minerado.
 		'''
 		if self.start_miner:
-			proof=self.proof_of_work(self.last_proof)
+			proof, hash_proof=self.proof_of_work(self.last_proof)
 			previous_hash=self.hash(self.last_block)
 			block=self.new_block(proof, previous_hash)
+			block['hash_proof']=hash_proof
 			if self.start_miner:
 				self.block=block
 			else:
