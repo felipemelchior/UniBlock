@@ -161,32 +161,47 @@ class Miner(Connection):
         '''
         global styleCommunication
         wallet=self.blockChain.transactions.pop(0)
-        for ip in range(1, len(self.listMiners)):
-            socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            socketMiner.connect((self.listMiners[ip], 5055))
+        if len(self.listMiners)>1:
+            for ip in range(1, len(self.listMiners)):
+                socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                socketMiner.connect((self.listMiners[ip], 5055))
 
-            socketMiner.send(b'MineThis')
-            msg = socketMiner.recv(1024)
-
-            if re.search('Ok', msg.decode("utf-8")):
-                socketMiner.send(pickle.dumps(wallet))
+                socketMiner.send(b'MineThis')
                 msg = socketMiner.recv(1024)
 
                 if re.search('Ok', msg.decode("utf-8")):
-                    print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[ip]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+                    socketMiner.send(pickle.dumps(wallet))
+                    msg = socketMiner.recv(1024)
 
-        socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socketMiner.connect((self.listMiners[0], 5055))
+                    if re.search('Ok', msg.decode("utf-8")):
+                        print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[ip]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+        else:
+            for ip in range(len(self.listMiners)):
+                socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                socketMiner.connect((self.listMiners[ip], 5055))
 
-        socketMiner.send(b'MineThis')
-        msg = socketMiner.recv(1024)
+                socketMiner.send(b'MineThis')
+                msg = socketMiner.recv(1024)
 
-        if re.search('Ok', msg.decode("utf-8")):
-            socketMiner.send(pickle.dumps(wallet))
-            msg = socketMiner.recv(1024)
+                if re.search('Ok', msg.decode("utf-8")):
+                    socketMiner.send(pickle.dumps(wallet))
+                    msg = socketMiner.recv(1024)
 
-            if re.search('Ok', msg.decode("utf-8")):
-                print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[0]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+                    if re.search('Ok', msg.decode("utf-8")):
+                        print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[ip]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+
+        # socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # socketMiner.connect((self.listMiners[0], 5055))
+
+        # socketMiner.send(b'MineThis')
+        # msg = socketMiner.recv(1024)
+
+        # if re.search('Ok', msg.decode("utf-8")):
+        #     socketMiner.send(pickle.dumps(wallet))
+        #     msg = socketMiner.recv(1024)
+
+        #     if re.search('Ok', msg.decode("utf-8")):
+        #         print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[0]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
         
         
 
@@ -328,9 +343,9 @@ class Trader(Connection):
 
         global styleCommunication
         ipMiner = ''
-        miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        
+
         for ip in self.listMiners:
+            miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             
             try: 
                 miner.connect((ip, 5055))
@@ -344,11 +359,15 @@ class Trader(Connection):
             if re.search('True', msg.decode("utf-8")):
                 ipMiner = ip
                 print(styleCommunication + 'Miner Found! IP = {}'.format(ip))
-                break
+                # miner.close()
+                # break
 
-            if not msg: 
-                miner.close()
-                break
+            # if not msg: 
+                # miner.close()
+            #     break
+            # miner.close()
+            # time.sleep(1)
+            miner.close()
         
         return ipMiner
 
