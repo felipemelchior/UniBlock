@@ -34,7 +34,7 @@ def main():
     if args.miner == True: 
         print(style + 'User detected as ' + Fore.RED + 'miner')
 
-    for i in range(args.users):
+    for i in range(args.users): #Pega inputs de IP's dos usuários e adiciona à lista.
         if i == 0:
             user = str(input(style + 'Enter ' + Fore.RED + 'your IP ' + style + ' => '))
         else: 
@@ -42,25 +42,25 @@ def main():
         users.append(user)
         print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
 
-    if args.miner:
+    if args.miner: #Testa se é minerador e se o mesmo é o que possui a carteira.
         if args.rich:
             client=Miner(users[0], listClients=users, rich=True)
         else:
             client=Miner(users[0], listClients=users, rich=False)
-    else:
+    else: #Se não entrar no teste anterior, é trader.
         client=Trader(users[0], listClients=users)
 
-    serverCommunication = threading.Thread(target=client.listenConnection, args=())
+    serverCommunication = threading.Thread(target=client.listenConnection, args=()) #Inicia comunicação.
     serverCommunication.start()
 
 
-    clientThread = threading.Thread(target=client.getMinersAndTraders, args=())
+    clientThread = threading.Thread(target=client.getMinersAndTraders, args=()) #Adiciona os clientes.
     clientThread.start()
 
     if args.miner == None:
         while clientThread.is_alive():
             pass
-        clientThread = threading.Thread(target=client.runMethods)
+        clientThread = threading.Thread(target=client.runMethods) #Chama cadeia de funções que inicia o blockchain.
         clientThread.start()
 
 if __name__ == '__main__':

@@ -59,32 +59,32 @@ class Connection:
         active = []
         visited = []
 
-        while (len(active) != len(self.listClients)):
+        while (len(active) != len(self.listClients)): #Loop que adiciona os clientes ao seus respectivos tipos.
             for ip in self.listClients:
                 if ip == self.myIp:
-                    if ip not in active:
+                    if ip not in active: #Adiciona à lista de clientes ativos
                         active.append(ip)
                     continue
 
-                if ip not in active:
+                if ip not in active: #Tenta conexão com cliente.
                     socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     try:
                         socketClient.connect((ip, 5055))
                     except:
-                        if ip not in visited:
+                        if ip not in visited: 
                             visited.append(ip)
                             print(styleCommunication + 'Conection refused by {}! Likely to be still starting'.format(ip))
                         else:
                             pass
                         continue
 
-                    active.append(ip)
+                    active.append(ip) #Adiciona à lista de ativos.
 
-                    socketClient.send(b'TypeOfClient')
+                    socketClient.send(b'TypeOfClient') #Envia requisição sobre qual é o tipo do cliente.
                     
                     msg = socketClient.recv(1024)
                     
-                    if re.search('Miner', msg.decode("utf-8")):
+                    if re.search('Miner', msg.decode("utf-8")): #Adiciona à lista de acordo com a mensagem e o tipo.
                         print(styleCommunication + 'Miner discovery => {}'.format(ip))
                         self.listMiners.append(ip)
                     elif re.search('Trader', msg.decode("utf-8")):
@@ -120,7 +120,7 @@ class Connection:
             threads = []
 
             try:
-                while True:
+                while True: #Loop que mantem conexão.
                     conn, addr = server.accept()
                     print(styleCommunication + "New Connection from {} with port {}".format(addr[0],addr[1]))
                     
@@ -161,34 +161,33 @@ class Miner(Connection):
         '''
         global styleCommunication
         wallet=self.blockChain.transactions.pop(0)
-        if len(self.listMiners)>1:
-            for ip in range(1, len(self.listMiners)):
+        if len(self.listMiners)>1: #Testa se há mais de um minerador.
+            for ip in range(1, len(self.listMiners)): #Percorre lista de mineradores.
                 socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 socketMiner.connect((self.listMiners[ip], 5055))
 
-                socketMiner.send(b'MineThis')
+                socketMiner.send(b'MineThis') #Envia mensagem para que os mesmos minerem.
                 msg = socketMiner.recv(1024)
 
                 if re.search('Ok', msg.decode("utf-8")):
-                    socketMiner.send(pickle.dumps(wallet))
+                    socketMiner.send(pickle.dumps(wallet)) #Empacota carteira.
                     msg = socketMiner.recv(1024)
 
                     if re.search('Ok', msg.decode("utf-8")):
                         print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[ip]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
-        else:
-            for ip in range(len(self.listMiners)):
-                socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                socketMiner.connect((self.listMiners[ip], 5055))
+        else: #Faz com que o minerador inicie a mineração.
+            socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            socketMiner.connect((self.listMiners[ip], 5055))
 
-                socketMiner.send(b'MineThis')
+            socketMiner.send(b'MineThis') #Envia requisição de mineração.
+            msg = socketMiner.recv(1024)
+
+            if re.search('Ok', msg.decode("utf-8")):
+                socketMiner.send(pickle.dumps(wallet)) #Empacota carteira.
                 msg = socketMiner.recv(1024)
 
                 if re.search('Ok', msg.decode("utf-8")):
-                    socketMiner.send(pickle.dumps(wallet))
-                    msg = socketMiner.recv(1024)
-
-                    if re.search('Ok', msg.decode("utf-8")):
-                        print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[ip]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
+                    print(styleCommunication + 'Miner' + Fore.RED + '{}'.format(self.listMiners[ip]) + styleCommunication + 'receive the wallet with transactions sucessfully!')
 
         # socketMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # socketMiner.connect((self.listMiners[0], 5055))
@@ -213,18 +212,18 @@ class Miner(Connection):
         :param block: ultimo bloco minerado.
         '''
         global styleCommunication
-        for ip in self.listClients:
+        for ip in self.listClients: #Percorre a lista de clientes.
             socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             socketClient.connect((ip, 5055))
 
-            socketClient.send(b'NewBlock')
+            socketClient.send(b'NewBlock') #Envia requisição para adicionar novo bloco.
             msg = socketClient.recv(1024)
             if re.search('Ok', msg.decode("utf-8")):
-                socketClient.send(pickle.dumps(block))
-                if re.search('Ok', msg.decode("utf-8")):
+                socketClient.send(pickle.dumps(block)) #Empacota bloco.
+                if re.search('Ok', msg.decode("utf-8")): #Caso o bloco seja aceito, o novo minerador se torna o rich.
                     print(styleCommunication+'Block added to blockChain')
                     self.flagRich=True
-                elif re.search('Nok', msg.decode("utf-8")):
+                elif re.search('Nok', msg.decode("utf-8")): #Em caso negativo, o bloco é descartado.
                     print(styleCommunication+'Block discarted')
 
     def filterCommunication(self, conn, addr):
@@ -244,7 +243,7 @@ class Miner(Connection):
             try: 
                 msg = conn.recv(1024)
 
-                if re.search('TypeOfClient', msg.decode("utf-8")):
+                if re.search('TypeOfClient', msg.decode("utf-8")): #Envia resposta sobre qual é o tipo de cliente.
                     if self.miner:
                         conn.send(b'Miner')
                     else:
@@ -256,37 +255,37 @@ class Miner(Connection):
                     else: 
                         conn.send(b'False')
 
-                if re.search('NewTransaction', msg.decode("utf-8")):
+                if re.search('NewTransaction', msg.decode("utf-8")): #Adiciona uma nova transação.
                     conn.send(b'Ok')
                     transaction = conn.recv(4096)
-                    self.blockChain.new_transaction(pickle.loads(transaction))
+                    self.blockChain.new_transaction(pickle.loads(transaction)) #Envia a transação para o método que adiciona à lista de transações.
                     conn.send(b'Ok')
                     print(styleCommunication + 'New Transaction added to wallet')
 
-                    if len(self.blockChain.finish_transactions) != 0:
-                        self.sendTransactionsToMiners()
-                        self.flagRich=False
+                    if len(self.blockChain.finish_transactions) != 0: #Testa se há transações finalizadas.
+                        self.sendTransactionsToMiners() 
+                        self.flagRich=False #Após enviar transações para mineradores, deixa de ser rich e outro deve ser eleito.
 
-                if re.search('MineThis', msg.decode("utf-8")):
+                if re.search('MineThis', msg.decode("utf-8")): #Executa mineração.
                     conn.send(b'Ok')
                     wallet = conn.recv(4096)
                     conn.send(b'Ok')
-                    self.blockChain.finish_transactions = pickle.loads(wallet)
+                    self.blockChain.finish_transactions = pickle.loads(wallet) #Atribui a carteira às transações finalizadas.
                     # threading.Thread(target=self.blockChain.mine).start()
-                    self.blockChain.start_miner=True
-                    self.blockChain.mine()
-                    if self.blockChain.block!=None:
-                        self.sendBlock(self.blockChain.block)
+                    self.blockChain.start_miner=True 
+                    self.blockChain.mine() #Inicia mineração.
+                    if self.blockChain.block!=None: #Testa se o bloco está vazio.
+                        self.sendBlock(self.blockChain.block) #Envia o bloco para os mineradores.
 
                 if re.search('NewBlock', msg.decode("utf-8")):
                     conn.send(b'Ok')
                     block=conn.recv(4096)
-                    block=pickle.loads(block)
+                    block=pickle.loads(block) #Desempacota o bloco
                     print(styleCommunication + 'Attention! New block added to chain!')
 
                     newChain=self.blockChain.chain.copy()
-                    newChain.append(block)
-                    if self.blockChain.valid_chain(newChain):
+                    newChain.append(block) #Adiciona o bloco à nova cadeia.
+                    if self.blockChain.valid_chain(newChain):#Testa se a nova cadeia é vaĺida.
                         self.blockChain.chain=newChain
                         conn.send(b'Ok')
                     else:
@@ -322,8 +321,8 @@ class Trader(Connection):
         '''
 
         while True:
-            time.sleep(1)
-            self.userInput()
+            time.sleep(1) #Sleep para sincronizar as threads.
+            self.userInput() #Inicia as transações.
 
     def userInput(self):
         '''
@@ -344,7 +343,7 @@ class Trader(Connection):
         global styleCommunication
         ipMiner = ''
 
-        for ip in self.listMiners:
+        for ip in self.listMiners: #Percorre a lista de mineradores prourando qual possui a flag de rich.
             miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             
             try: 
@@ -356,7 +355,7 @@ class Trader(Connection):
             miner.send(b'Rich')
             msg = miner.recv(1024)
 
-            if re.search('True', msg.decode("utf-8")):
+            if re.search('True', msg.decode("utf-8")): #Se recebeu True, achou o minerador.
                 ipMiner = ip
                 print(styleCommunication + 'Miner Found! IP = {}'.format(ip))
                 # miner.close()
@@ -382,16 +381,16 @@ class Trader(Connection):
         connectionMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         connectionMiner.connect((transaction['minerRichIp'], 5055))
 
-        connectionMiner.send(b'NewTransaction')
+        connectionMiner.send(b'NewTransaction') #Faz requisição para nova transação.
         msg = connectionMiner.recv(1024)
 
         if re.search('Ok', msg.decode("utf-8")):
             print(styleCommunication + 'Sending the transaction to the Miner...')
 
-            connectionMiner.send(pickle.dumps(transaction))
+            connectionMiner.send(pickle.dumps(transaction)) #Empacota transação.
             msg = connectionMiner.recv(1024)
 
-            if re.search('Ok', msg.decode("utf-8")):
+            if re.search('Ok', msg.decode("utf-8")): #Testa se foi possível enviar a transação.
                 print(styleCommunication + 'Transaction Sent to the Miner!')
         connectionMiner.close()
 
@@ -408,22 +407,22 @@ class Trader(Connection):
             try:
                 msg = conn.recv(1024)
 
-                if re.search('TypeOfClient', msg.decode("utf-8")):
+                if re.search('TypeOfClient', msg.decode("utf-8")): #Retorna qual é o tipo de cliente.
                     if self.miner:
                         conn.send(b'Miner')
                     else:
                         conn.send(b'Trader')
 
 
-                if re.search('NewBlock', msg.decode("utf-8")):
+                if re.search('NewBlock', msg.decode("utf-8")): #Adiciona um novo bloco.
                     conn.send(b'Ok')
                     block=conn.recv(4096)
-                    block=pickle.loads(block)
+                    block=pickle.loads(block) #Desempaacota o bloco.
                     print(styleCommunication + 'Attention! New block added to chain!')
 
                     newChain=self.blockChain.chain.copy()
                     newChain.append(block)
-                    if self.blockChain.valid_chain(newChain):
+                    if self.blockChain.valid_chain(newChain):#Testa se a nova cadeia é válida.
                         self.blockChain.chain=newChain
                         conn.send(b'Ok')
                     else:

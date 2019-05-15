@@ -129,10 +129,8 @@ class BlockChain(object):
 		'''
 		for index in range(1, len(chain)):
 			if chain[index]['previous_hash']!=self.hash(chain[index-1]):
-				print('n dei krl!1')
 				return False
 			if not self.valid_proof(chain[index-1]['proof'], chain[index]['proof'], self.rule)[0]:
-				print('n dei krl!2')
 				return False
 		return True
 
