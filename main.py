@@ -7,9 +7,9 @@ init(autoreset=True) # autoreset de estilos do colorama
 
 def parseArguments():
     '''
-    Função que identifica os argumentos passados
+    Função que identifica os argumentos passados.
 
-    :return parser: objetos contendo os argumentos
+    :returns: parser -- objetos contendo os argumentos.
     '''
 
     parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v1.0', formatter_class=RawTextHelpFormatter)
@@ -22,7 +22,7 @@ def parseArguments():
 
 def main():
     '''
-    Função principal do programa
+    Função principal do programa.
     '''
 
     users = []

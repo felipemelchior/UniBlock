@@ -1,4 +1,4 @@
-Documentation for the Code
+Documentation for UniBlock
 **************************
 .. toctree::
    :maxdepth: 2

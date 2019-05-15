@@ -27,7 +27,7 @@ author = 'UniBlock'
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -189,3 +189,8 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+rinoh_template = 'article'
+latex_elements = latex_elements = {
+    'docclass': 'article',
+    'papersize': 'a4paper',
+}

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Documentation for the Code &#8212; UniBlock 0.0.1 documentation</title>
+    <title>Documentation for UniBlock &#8212; UniBlock 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -29,8 +29,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="documentation-for-the-code">
-<h1>Documentation for the Code<a class="headerlink" href="#documentation-for-the-code" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="documentation-for-uniblock">
+<h1>Documentation for UniBlock<a class="headerlink" href="#documentation-for-uniblock" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <div class="section" id="module-main">
@@ -49,7 +49,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return parser:</th><td class="field-body">objetos contendo os argumentos</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">parser – objetos contendo os argumentos</td>
 </tr>
 </tbody>
 </table>
@@ -64,48 +64,116 @@
 <span class="target" id="module-BlockChain"></span><dl class="class">
 <dt id="BlockChain.BlockChain">
 <em class="property">class </em><code class="descclassname">BlockChain.</code><code class="descname">BlockChain</code><a class="reference internal" href="_modules/BlockChain.html#BlockChain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.BlockChain" title="Permalink to this definition">¶</a></dt>
-<dd><p>classe pai da blockchain
-implementa os metodos essenciais para a blockchain</p>
+<dd><p>Classe pai da blockchain.
+Implementa os metodos essenciais para a blockchain.</p>
 <dl class="attribute">
 <dt id="BlockChain.BlockChain.chain">
 <code class="descname">chain</code><a class="headerlink" href="#BlockChain.BlockChain.chain" title="Permalink to this definition">¶</a></dt>
-<dd><p>getter da chain</p>
+<dd><p>Metodo getter para a cadeia de blocos.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list – cadeia de blocos.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="BlockChain.BlockChain.hash">
 <em class="property">static </em><code class="descname">hash</code><span class="sig-paren">(</span><em>block</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BlockChain.html#BlockChain.hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.BlockChain.hash" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo estatico que gera a hash do bloco</p>
+<dd><p>Metodo estatico que gera a hash do bloco.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>block</strong> – bloco da cadeia de blocos.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">str – hash do bloco.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="BlockChain.BlockChain.last_block">
 <code class="descname">last_block</code><a class="headerlink" href="#BlockChain.BlockChain.last_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo para retornar o ultimo bloco da chain</p>
+<dd><p>Metodo getter para o ultimo bloco da chain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list – ultimo bloco da cadeia de blocos.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="BlockChain.BlockChain.last_proof">
 <code class="descname">last_proof</code><a class="headerlink" href="#BlockChain.BlockChain.last_proof" title="Permalink to this definition">¶</a></dt>
-<dd><p>retorna a ultima prova de trabalho adicionada na chain</p>
+<dd><p>Metodo getter para a ultima prova de trabalho adicionada na chain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int – ultima prova de trabalho.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="BlockChain.BlockChain.rule">
 <code class="descname">rule</code><a class="headerlink" href="#BlockChain.BlockChain.rule" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo que retorna a regra da prova de trabalho</p>
+<dd><p>Metodo getter para a regra da prova de trabalho.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int – regra da prova de trabalho.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="BlockChain.BlockChain.valid_chain">
 <code class="descname">valid_chain</code><span class="sig-paren">(</span><em>chain</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BlockChain.html#BlockChain.valid_chain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.BlockChain.valid_chain" title="Permalink to this definition">¶</a></dt>
-<dd><p>confere se a chain eh valida atraves das hashs da chain</p>
+<dd><p>Confere se a chain eh valida atraves das hashs da chain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>chain</strong> – cadeia de blocos.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool – flag da validade do ultimo bloco da cadeia de blocos.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="BlockChain.BlockChain.valid_proof">
 <em class="property">static </em><code class="descname">valid_proof</code><span class="sig-paren">(</span><em>last_proof</em>, <em>proof</em>, <em>rule</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BlockChain.html#BlockChain.valid_proof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.BlockChain.valid_proof" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo estatico que valida a proof gerada</p>
+<dd><p>Metodo estatico que valida a proof gerada.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>last_proof</strong> – ultima prova.</li>
+<li><strong>proof</strong> – prova atual.</li>
+<li><strong>rule</strong> – regra da prova de trabalho.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool – flag da prova de trabalho gerada.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -113,59 +181,140 @@ implementa os metodos essenciais para a blockchain</p>
 <dl class="class">
 <dt id="BlockChain.MinerChain">
 <em class="property">class </em><code class="descclassname">BlockChain.</code><code class="descname">MinerChain</code><a class="reference internal" href="_modules/BlockChain.html#MinerChain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.MinerChain" title="Permalink to this definition">¶</a></dt>
-<dd><p>classe que extende a classe BlockChain
-classe que implementa os metodos da chain utilizada pelos mineradores da blockchain</p>
+<dd><p>Classe que extende a classe BlockChain
+Classe que implementa os metodos da chain utilizada pelos mineradores da blockchain</p>
+<dl class="attribute">
+<dt id="BlockChain.MinerChain.block">
+<code class="descname">block</code><a class="headerlink" href="#BlockChain.MinerChain.block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metodo getter do block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list – bloco da cadeia de blocos.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="BlockChain.MinerChain.current_transactions">
 <code class="descname">current_transactions</code><a class="headerlink" href="#BlockChain.MinerChain.current_transactions" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo getter para retornar as transacoes atuais</p>
+<dd><p>Metodo getter para as transacoes atuais.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict – transacao atual.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="BlockChain.MinerChain.finish_transactions">
 <code class="descname">finish_transactions</code><a class="headerlink" href="#BlockChain.MinerChain.finish_transactions" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo getter para retornar as transacoes fechadas</p>
+<dd><p>Metodo getter para as transacoes fechadas.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict – transacao.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="BlockChain.MinerChain.mine">
 <code class="descname">mine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BlockChain.html#MinerChain.mine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.MinerChain.mine" title="Permalink to this definition">¶</a></dt>
-<dd><p>minera a carteira se ja estiver pronto para minerar
-muda a flag para false e retorna o block minerado</p>
+<dd><p>Minera a carteira se ja estiver pronto para minerar.
+Muda a flag para false e retorna o block minerado.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="BlockChain.MinerChain.new_block">
 <code class="descname">new_block</code><span class="sig-paren">(</span><em>proof</em>, <em>previous_hash=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BlockChain.html#MinerChain.new_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.MinerChain.new_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cria um novo bloco com as informacoes</p>
+<dd><p>Cria um novo bloco com as informacoes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>proof</strong> – prova de trabalho.</li>
+<li><strong>previous_hash</strong> – hash do bloco anterior.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict – novo bloco.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="BlockChain.MinerChain.new_transaction">
 <code class="descname">new_transaction</code><span class="sig-paren">(</span><em>transaction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BlockChain.html#MinerChain.new_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.MinerChain.new_transaction" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo que recebe uma nova transacao e adiciona nas transacoes atuais
-se o numero maximo de transacoes da carteira for atingido
-uma nova carteira eh adionada na lista de transacoes</p>
+<dd><p>Metodo que recebe uma nova transacao e adiciona nas transacoes atuais.
+Se o numero maximo de transacoes da carteira for atingido.
+Uma nova carteira e adicionada na lista de transacoes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction</strong> – nova transacao.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int – indice do proximo bloco.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="BlockChain.MinerChain.proof_of_work">
 <code class="descname">proof_of_work</code><span class="sig-paren">(</span><em>last_proof</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BlockChain.html#MinerChain.proof_of_work"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.MinerChain.proof_of_work" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo de prova de trabalho
-determina a dificuldade de minerar um block</p>
+<dd><p>Metodo de prova de trabalho.
+Determina a dificuldade de minerar um block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>last_proof</strong> – ultima prova de trabalho.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int – prova de trabalho.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="BlockChain.MinerChain.start_miner">
 <code class="descname">start_miner</code><a class="headerlink" href="#BlockChain.MinerChain.start_miner" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo getter para retornar o valor da flag _start_miner
-responsavel por dizer (return True) quando uma carteira esta pronta para ser minerada</p>
+<dd><p>Metodo getter para retornar o valor da flag _start_miner.
+Responsavel por dizer (return True) quando uma carteira esta pronta para ser minerada.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bool – flag de inicio da mineracao.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="BlockChain.MinerChain.transactions">
 <code class="descname">transactions</code><a class="headerlink" href="#BlockChain.MinerChain.transactions" title="Permalink to this definition">¶</a></dt>
-<dd><p>metodo getter para retornar as transacoes</p>
+<dd><p>Metodo getter para as transacoes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list – lista de transacoes.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -173,11 +322,21 @@ responsavel por dizer (return True) quando uma carteira esta pronta para ser min
 <dl class="class">
 <dt id="BlockChain.TraderChain">
 <em class="property">class </em><code class="descclassname">BlockChain.</code><code class="descname">TraderChain</code><a class="reference internal" href="_modules/BlockChain.html#TraderChain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.TraderChain" title="Permalink to this definition">¶</a></dt>
-<dd><p>classe que implementa a chain dos traders</p>
+<dd><p>Classe que implementa a chain dos traders</p>
 <dl class="method">
 <dt id="BlockChain.TraderChain.new_transaction">
 <code class="descname">new_transaction</code><span class="sig-paren">(</span><em>myIp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BlockChain.html#TraderChain.new_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#BlockChain.TraderChain.new_transaction" title="Permalink to this definition">¶</a></dt>
-<dd><p>cria uma nova transacao que sera enviada para a carteira ativa</p>
+<dd><p>Cria uma nova transacao que sera enviada para a carteira ativa</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>myIp</strong> – ip da maquina.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict – lista de transacoes.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -193,7 +352,7 @@ responsavel por dizer (return True) quando uma carteira esta pronta para ser min
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Documentation for the Code</a><ul>
+<li><a class="reference internal" href="#">Documentation for UniBlock</a><ul>
 <li><a class="reference internal" href="#module-main">UniBlock Main</a></li>
 <li><a class="reference internal" href="#uniblock-comunnication">UniBlock Comunnication</a></li>
 <li><a class="reference internal" href="#uniblock-blockchain">UniBlock BlockChain</a></li>

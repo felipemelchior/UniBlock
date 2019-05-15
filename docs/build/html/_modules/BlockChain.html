@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>BlockChain &#8212; UniBlock 0.0.1 documentation</title>
+    <title>BlockChain &#8212; UniBlock 1.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../_static/documentation_options.js"></script>
@@ -44,19 +44,19 @@
 <div class="viewcode-block" id="BlockChain"><a class="viewcode-back" href="../index.html#BlockChain.BlockChain">[docs]</a><span class="k">class</span> <span class="nc">BlockChain</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
 	<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">	classe pai da blockchain</span>
-<span class="sd">	implementa os metodos essenciais para a blockchain</span>
+<span class="sd">	Classe pai da blockchain.</span>
+<span class="sd">	Implementa os metodos essenciais para a blockchain.</span>
 <span class="sd">	&#39;&#39;&#39;</span>
 
 	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		construtor da classe BlockChain</span>
-<span class="sd">		inicia a lista chain da classe e a regra da prova de trabalho</span>
+<span class="sd">		Construtor da classe BlockChain.</span>
+<span class="sd">		Inicia a lista chain da classe e a regra da prova de trabalho.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">=</span><span class="p">[]</span><span class="c1">#chain da blockchain</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
 			<span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
-			<span class="s1">&#39;timestamp&#39;</span><span class="p">:</span><span class="n">time</span><span class="p">(),</span>
+			<span class="s1">&#39;timestamp&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
 			<span class="s1">&#39;transactions&#39;</span><span class="p">:[],</span>
 			<span class="s1">&#39;proof&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
 			<span class="s1">&#39;previous_hash&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
@@ -66,21 +66,28 @@
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">rule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo que retorna a regra da prova de trabalho</span>
+<span class="sd">		Metodo getter para a regra da prova de trabalho.</span>
+
+<span class="sd">		:returns: int -- regra da prova de trabalho.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rule</span>
 	
 	<span class="nd">@rule</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span> <span class="nf">rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo para mudar a regra da prova de trabalho</span>
+<span class="sd">		Metodo setter para a regra da prova de trabalho.</span>
+<span class="sd">		</span>
+<span class="sd">		:param rule: regra da prova de trabalho.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_rule</span><span class="o">=</span><span class="n">rule</span>
 
 <div class="viewcode-block" id="BlockChain.hash"><a class="viewcode-back" href="../index.html#BlockChain.BlockChain.hash">[docs]</a>	<span class="nd">@staticmethod</span>
 	<span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="n">block</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo estatico que gera a hash do bloco</span>
+<span class="sd">		Metodo estatico que gera a hash do bloco.</span>
+
+<span class="sd">		:param block: bloco da cadeia de blocos.</span>
+<span class="sd">		:returns: str -- hash do bloco.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="n">block_string</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 		<span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">block_string</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
@@ -88,7 +95,12 @@
 <div class="viewcode-block" id="BlockChain.valid_proof"><a class="viewcode-back" href="../index.html#BlockChain.BlockChain.valid_proof">[docs]</a>	<span class="nd">@staticmethod</span>
 	<span class="k">def</span> <span class="nf">valid_proof</span><span class="p">(</span><span class="n">last_proof</span><span class="p">,</span> <span class="n">proof</span><span class="p">,</span> <span class="n">rule</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo estatico que valida a proof gerada</span>
+<span class="sd">		Metodo estatico que valida a proof gerada.</span>
+
+<span class="sd">		:param last_proof: ultima prova.</span>
+<span class="sd">		:param proof: prova atual.</span>
+<span class="sd">		:param rule: regra da prova de trabalho.</span>
+<span class="sd">		:returns: bool -- flag da prova de trabalho gerada.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="n">guess</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{0}{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">last_proof</span><span class="p">,</span> <span class="n">proof</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 		<span class="n">guess_hash</span><span class="o">=</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">guess</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
@@ -97,41 +109,54 @@
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">last_proof</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		retorna a ultima prova de trabalho adicionada na chain</span>
+<span class="sd">		Metodo getter para a ultima prova de trabalho adicionada na chain.</span>
+
+<span class="sd">		:returns: int -- ultima prova de trabalho.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_block</span><span class="p">[</span><span class="s1">&#39;proof&#39;</span><span class="p">]</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">chain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		getter da chain</span>
+<span class="sd">		Metodo getter para a cadeia de blocos.</span>
+
+<span class="sd">		:returns: list -- cadeia de blocos.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chain</span>
 
 	<span class="nd">@chain</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span> <span class="nf">chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chain</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		setter da chain</span>
+<span class="sd">		Metodo setter para a cadeia de blocos.</span>
+
+<span class="sd">		:param chain: cadeia de blocos.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_chain</span><span class="o">=</span><span class="n">chain</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">last_block</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo para retornar o ultimo bloco da chain</span>
+<span class="sd">		Metodo getter para o ultimo bloco da chain.</span>
+
+<span class="sd">		:returns: list -- ultimo bloco da cadeia de blocos.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 	<span class="nd">@last_block</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span> <span class="nf">last_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		um metodo setter para adicionar um novo block para a chain como se fosse uma atribuicao qualquer</span>
+<span class="sd">		Metodo setter para adicionar um novo block para a chain como se fosse uma atribuicao qualquer.</span>
+<span class="sd">		</span>
+<span class="sd">		:param block: bloco que sera inserido na cadeia de blocos.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_chain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BlockChain.valid_chain"><a class="viewcode-back" href="../index.html#BlockChain.BlockChain.valid_chain">[docs]</a>	<span class="k">def</span> <span class="nf">valid_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chain</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		confere se a chain eh valida atraves das hashs da chain</span>
+<span class="sd">		Confere se a chain eh valida atraves das hashs da chain.</span>
+
+<span class="sd">		:param chain: cadeia de blocos.</span>
+<span class="sd">		:returns: bool -- flag da validade do ultimo bloco da cadeia de blocos.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">)):</span>
 			<span class="k">if</span> <span class="n">chain</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;previous_hash&#39;</span><span class="p">]</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="n">index</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
@@ -143,15 +168,15 @@
 <div class="viewcode-block" id="MinerChain"><a class="viewcode-back" href="../index.html#BlockChain.MinerChain">[docs]</a><span class="k">class</span> <span class="nc">MinerChain</span><span class="p">(</span><span class="n">BlockChain</span><span class="p">):</span>
 
 	<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">	classe que extende a classe BlockChain</span>
-<span class="sd">	classe que implementa os metodos da chain utilizada pelos mineradores da blockchain</span>
+<span class="sd">	Classe que extende a classe BlockChain</span>
+<span class="sd">	Classe que implementa os metodos da chain utilizada pelos mineradores da blockchain</span>
 <span class="sd">	&#39;&#39;&#39;</span>
 
 	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		construtor da classe </span>
-<span class="sd">		cria a lista de transacoes</span>
-<span class="sd">		inicia a flag que diz quando um block pode comecar a ser minerado</span>
+<span class="sd">		Construtor da classe </span>
+<span class="sd">		Cria a lista de transacoes</span>
+<span class="sd">		Inicia a flag que diz quando um block pode comecar a ser minerado</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="o">=</span><span class="p">[[]]</span>
@@ -160,54 +185,77 @@
 
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">block</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Metodo getter do block.</span>
+
+<span class="sd">		:returns: list -- bloco da cadeia de blocos.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block</span>
 	
 	<span class="nd">@block</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span> <span class="nf">block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Metodo setter do block.</span>
+
+<span class="sd">		:param block: novo bloco da cadeia de blocos.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_block</span><span class="o">=</span><span class="n">block</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo getter para retornar as transacoes</span>
+<span class="sd">		Metodo getter para as transacoes.</span>
+
+<span class="sd">		:returns: list -- lista de transacoes.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transactions</span>
 
 	<span class="nd">@transactions</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span> <span class="nf">transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo setter das transacoes</span>
-<span class="sd">		vai servir para que sejam passadas as transacoes entre o antigo e o novo dono da carteira</span>
+<span class="sd">		Metodo setter das transacoes.</span>
+<span class="sd">		Vai servir para que sejam passadas as transacoes entre o antigo e o novo dono da carteira.</span>
+
+<span class="sd">		:param transactions: lista de transacoes.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_transactions</span><span class="o">=</span><span class="n">transactions</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">current_transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo getter para retornar as transacoes atuais</span>
+<span class="sd">		Metodo getter para as transacoes atuais.</span>
+
+<span class="sd">		:returns: dict -- transacao atual.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">finish_transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo getter para retornar as transacoes fechadas</span>
+<span class="sd">		Metodo getter para as transacoes fechadas.</span>
+
+<span class="sd">		:returns: dict -- transacao.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">==</span><span class="n">max_transactions</span> <span class="k">else</span> <span class="p">[]</span>
 
 	<span class="nd">@finish_transactions</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span> <span class="nf">finish_transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_t</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo setter para adicionar carteiras que ja foram terminadas e estao prontas para serem mineradas</span>
-<span class="sd">		vai servir para passar as carteiras para os mineradores comecarem a minerar</span>
+<span class="sd">		Metodo setter para adicionar carteiras que ja foram terminadas e estao prontas para serem mineradas.</span>
+<span class="sd">		Vai servir para passar as carteiras para os mineradores comecarem a minerar.</span>
+
+<span class="sd">		:param f_t: carteira pronta para ser mineirada.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_transactions</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">f_t</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MinerChain.new_transaction"><a class="viewcode-back" href="../index.html#BlockChain.MinerChain.new_transaction">[docs]</a>	<span class="k">def</span> <span class="nf">new_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo que recebe uma nova transacao e adiciona nas transacoes atuais</span>
-<span class="sd">		se o numero maximo de transacoes da carteira for atingido</span>
-<span class="sd">		uma nova carteira eh adionada na lista de transacoes</span>
+<span class="sd">		Metodo que recebe uma nova transacao e adiciona nas transacoes atuais.</span>
+<span class="sd">		Se o numero maximo de transacoes da carteira for atingido.</span>
+<span class="sd">		Uma nova carteira e adicionada na lista de transacoes.</span>
+
+<span class="sd">		:param transaction: nova transacao.</span>
+<span class="sd">		:returns: int -- indice do proximo bloco.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_transactions</span><span class="p">)</span> <span class="o">&gt;=</span><span class="n">max_transactions</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
@@ -217,40 +265,51 @@
 	<span class="nd">@property</span>
 	<span class="k">def</span> <span class="nf">start_miner</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo getter para retornar o valor da flag _start_miner</span>
-<span class="sd">		responsavel por dizer (return True) quando uma carteira esta pronta para ser minerada</span>
+<span class="sd">		Metodo getter para retornar o valor da flag _start_miner.</span>
+<span class="sd">		Responsavel por dizer (return True) quando uma carteira esta pronta para ser minerada.</span>
+
+<span class="sd">		:returns: bool -- flag de inicio da mineracao.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_miner</span>
 
 	<span class="nd">@start_miner</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span> <span class="nf">start_miner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo setter para mudar o valor da flag start_miner</span>
+<span class="sd">		Metodo setter para mudar o valor da flag start_miner.</span>
+
+<span class="sd">		:param value: novo valor da flag de inicio da mineracao.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_start_miner</span><span class="o">=</span><span class="n">value</span>
 
 <div class="viewcode-block" id="MinerChain.new_block"><a class="viewcode-back" href="../index.html#BlockChain.MinerChain.new_block">[docs]</a>	<span class="k">def</span> <span class="nf">new_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proof</span><span class="p">,</span> <span class="n">previous_hash</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Cria um novo bloco com as informacoes</span>
+<span class="sd">		Cria um novo bloco com as informacoes.</span>
+
+<span class="sd">		:param proof: prova de trabalho.</span>
+<span class="sd">		:param previous_hash: hash do bloco anterior.</span>
+<span class="sd">		:returns: dict -- novo bloco.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="n">block</span><span class="o">=</span><span class="p">{</span>
 			<span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
-			<span class="s1">&#39;timestamp&#39;</span><span class="p">:</span><span class="n">time</span><span class="p">(),</span>
-			<span class="s1">&#39;transactions&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">finish_transactions</span><span class="p">,</span>
+			<span class="s1">&#39;timestamp&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+			<span class="s1">&#39;transactions&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">finish_transactions</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
 			<span class="s1">&#39;proof&#39;</span><span class="p">:</span><span class="n">proof</span><span class="p">,</span>
 			<span class="s1">&#39;previous_hash&#39;</span><span class="p">:</span><span class="n">previous_hash</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_block</span><span class="p">),</span>
 		<span class="p">}</span>
-
-		<span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="p">)</span>
-		
-		
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">finish_transactions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_transactions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 		
 		<span class="k">return</span> <span class="n">block</span></div>
 
 <div class="viewcode-block" id="MinerChain.proof_of_work"><a class="viewcode-back" href="../index.html#BlockChain.MinerChain.proof_of_work">[docs]</a>	<span class="k">def</span> <span class="nf">proof_of_work</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">last_proof</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		metodo de prova de trabalho</span>
-<span class="sd">		determina a dificuldade de minerar um block</span>
+<span class="sd">		Metodo de prova de trabalho.</span>
+<span class="sd">		Determina a dificuldade de minerar um block.</span>
+
+<span class="sd">		:param last_proof: ultima prova de trabalho.</span>
+<span class="sd">		:returns: int -- prova de trabalho.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="n">proof</span><span class="o">=</span><span class="mi">0</span>
 		<span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_proof</span><span class="p">(</span><span class="n">last_proof</span><span class="p">,</span> <span class="n">proof</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rule</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_miner</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
@@ -259,8 +318,8 @@
 	
 <div class="viewcode-block" id="MinerChain.mine"><a class="viewcode-back" href="../index.html#BlockChain.MinerChain.mine">[docs]</a>	<span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		minera a carteira se ja estiver pronto para minerar</span>
-<span class="sd">		muda a flag para false e retorna o block minerado</span>
+<span class="sd">		Minera a carteira se ja estiver pronto para minerar.</span>
+<span class="sd">		Muda a flag para false e retorna o block minerado.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_miner</span><span class="p">:</span>
 			<span class="n">proof</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">proof_of_work</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_proof</span><span class="p">)</span>
@@ -277,18 +336,21 @@
 
 <div class="viewcode-block" id="TraderChain"><a class="viewcode-back" href="../index.html#BlockChain.TraderChain">[docs]</a><span class="k">class</span> <span class="nc">TraderChain</span><span class="p">(</span><span class="n">BlockChain</span><span class="p">):</span>
 	<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">	classe que implementa a chain dos traders</span>
+<span class="sd">	Classe que implementa a chain dos traders</span>
 <span class="sd">	&#39;&#39;&#39;</span>
 
 	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		construtor da classe</span>
+<span class="sd">		Construtor da classe</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
 <div class="viewcode-block" id="TraderChain.new_transaction"><a class="viewcode-back" href="../index.html#BlockChain.TraderChain.new_transaction">[docs]</a>	<span class="k">def</span> <span class="nf">new_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">myIp</span><span class="p">):</span>
 		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		cria uma nova transacao que sera enviada para a carteira ativa</span>
+<span class="sd">		Cria uma nova transacao que sera enviada para a carteira ativa</span>
+
+<span class="sd">		:param myIp: ip da maquina.</span>
+<span class="sd">		:returns: dict -- lista de transacoes.</span>
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="k">global</span> <span class="n">styleClient</span>
 		<span class="n">transaction</span> <span class="o">=</span> <span class="p">{}</span>

@@ -4,34 +4,36 @@
        > (0,0,1,0,2) title page title
          (0,0,0,0,2) body
     SingleStyledText('UniBlock Documentation')
-  Paragraph('Release 0.0.1', style='title page subtitle')
+  Paragraph('Release 1.0.0', style='title page subtitle')
        > (0,0,1,0,2) title page subtitle
          (0,0,0,0,2) body
-    SingleStyledText('Release 0.0.1')
+    SingleStyledText('Release 1.0.0')
   Paragraph('UniBlock', style='title page author')
        > (0,0,1,0,2) title page author
          (0,0,0,0,2) body
     SingleStyledText('UniBlock')
-  Paragraph('May 13, 2019', style='title page date')
+  Paragraph('May 15, 2019', style='title page date')
        > (0,0,1,0,2) title page date
          (0,0,0,0,2) body
-    SingleStyledText('May 13, 2019')
----------------------------------- page i ----------------------------------
-#### FlowablesContainer('chapter title')
-  Paragraph('Table of Contents', style='front matter section title')
-       > (0,0,1,0,2) front matter section title
-         (0,0,0,0,2) body
-    Field('Table of Contents')
-      SingleStyledText('Table of Contents')
+    SingleStyledText('May 15, 2019')
+---------------------------------- page 2 ----------------------------------
 #### ChainedContainer('column1')
   TableOfContentsSection(style='table of contents')
        > (0,0,1,0,1) table of contents section
          (0,0,0,1,1) chapter
+    Heading('Table of Contents', style='unnumbered')
+         x (0,0,1,1,3) table of contents title
+         > (0,0,1,1,2) unnumbered heading level 1
+           (0,0,0,1,2) heading level 1
+           (0,0,0,0,2) other heading levels
+        MixedStyledText('Table of Contents')
+          SingleStyledText('')
+          StringField('Table of Contents')
     TableOfContents()   table of contents
          > (0,0,0,0,2) table of contents
-      TableOfContentsEntry('1	UniBlock Main	1')
+      TableOfContentsEntry('1	UniBlock Main	3')
            > (0,0,0,1,2) toc level 1
-          MixedStyledText('1	UniBlock Main	1')
+          MixedStyledText('1	UniBlock Main	3')
             ReferenceField('1')
                  x (0,0,0,1,3) toc linked reference
                  > (0,0,0,1,1) linked reference
@@ -42,10 +44,10 @@
                  > (0,0,0,1,1) linked reference
               SingleStyledText('UniBlock Main')
             Tab('	')
-            ReferenceField('1')
+            ReferenceField('3')
                  x (0,0,0,1,3) toc linked reference
                  > (0,0,0,1,1) linked reference
-              SingleStyledText('1')
+              SingleStyledText('3')
       TableOfContentsEntry('2	UniBlock Comunnication	3')
            > (0,0,0,1,2) toc level 1
           MixedStyledText('2	UniBlock Comunnication	3')
@@ -80,71 +82,40 @@
                  x (0,0,0,1,3) toc linked reference
                  > (0,0,0,1,1) linked reference
               SingleStyledText('3')
-      TableOfContentsEntry('	Python Module Index	7')
-           > (0,0,0,1,2) toc level 1
-          MixedStyledText('	Python Module Index	7')
-            ReferenceField('')
-                 x (0,0,0,1,3) toc linked reference
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('')
-            Tab('	')
-            ReferenceField('Python Module Index')
-                 x (0,0,0,1,3) toc linked reference
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('Python Module Index')
-            Tab('	')
-            ReferenceField('7')
-                 x (0,0,0,1,3) toc linked reference
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('7')
-      TableOfContentsEntry('	Index	9')
-           > (0,0,0,1,2) toc level 1
-          MixedStyledText('	Index	9')
-            ReferenceField('')
-                 x (0,0,0,1,3) toc linked reference
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('')
-            Tab('	')
-            ReferenceField('Index')
-                 x (0,0,0,1,3) toc linked reference
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('Index')
-            Tab('	')
-            ReferenceField('9')
-                 x (0,0,0,1,3) toc linked reference
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('9')
+#### UpExpandingContainer('header')
+  Header('​ Table of Contents')
+       > (0,0,0,0,2) header
+         (0,0,0,0,1) body
+    MixedStyledText('​ Table of Contents')
+      Field('​')
+        SingleStyledText('​')
+      SingleStyledText(' ')
+      Field('Table of Contents')
+        SingleStyledText('Table of Contents')
 #### DownExpandingContainer('footer')
-  Footer('		i')
+  Footer('	2/5')
        > (0,0,0,0,2) footer
          (0,0,0,0,1) body
-    MixedStyledText('		i')
+    MixedStyledText('	2/5')
       Tab('	')
-      Tab('	')
-      Field('i')
-        SingleStyledText('i')
----------------------------------- page 1 ----------------------------------
-#### FlowablesContainer('chapter title')
-  Paragraph('CHAPTER 1', style='body matter chapter label')
-       > (0,0,1,0,2) body matter chapter label
-         (0,0,0,0,2) body
-    MixedStyledText('CHAPTER 1')
-      MixedStyledText('CHAPTER ')
-        StringField('CHAPTER')
-        SingleStyledText(' ')
-      Field('1', style='number')
-           > (0,0,2,0,3) body matter chapter number
-        SingleStyledText('1')
-      Paragraph('UniBlock Main', style='body matter chapter title')
-           > (0,0,1,0,2) body matter chapter title
-             (0,0,0,0,2) body
-        Field('UniBlock Main')
-          SingleStyledText('UniBlock Main')
+      Field('2')
+        SingleStyledText('2')
+      SingleStyledText('/')
+      Field('5')
+        SingleStyledText('5')
+---------------------------------- page 3 ----------------------------------
 #### ChainedContainer('column1')
   DocumentTree()
     StaticGroupedFlowables()   /home/lucas/GitHub/UniBlock/docs/source/index.rst:0 <compound>
     Section(id='module-main')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:8 <section>
          > (0,0,0,1,2) chapter
+      Heading('1 UniBlock Main')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:8 <title>
+           > (0,0,0,1,2) heading level 1
+             (0,0,0,0,2) other heading levels
+          MixedStyledText('1 UniBlock Main')
+            SingleStyledText('1')
+            SingleStyledText(' ')
+            SingleStyledText('UniBlock Main')
       LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/main.py:docstring of main.main:None <desc>
            > (0,0,1,0,2) object description
         StaticGroupedFlowables(style='signatures')
@@ -206,134 +177,37 @@
           DefinitionList(style='field list')   None:None <field_list>
                > (0,0,1,0,2) field list
                  (0,0,0,0,2) definition list
-            LabeledFlowable()   /home/lucas/GitHub/UniBlock/main.py:docstring of main.parseArguments:3 <field>
+            LabeledFlowable()   None:None <field>
                  > (0,0,1,0,4) field list item
                    (0,0,0,0,4) definition list item
-              Paragraph('Return parser', style='field name')
+              Paragraph('Returns', style='field name')
                    > (0,0,2,0,6) field name
                      (0,0,0,0,2) body
-                MixedStyledText('Return parser')   /home/lucas/GitHub/UniBlock/main.py:docstring of main.parseArguments:0 <field_name>
-                  SingleStyledText('Return parser')
+                MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/main.py:docstring of main.parseArguments:0 <field_name>
+                  SingleStyledText('Returns')
               StaticGroupedFlowables()   None:None <field_body>
-                Paragraph('objetos contendo os argumentos')   /home/lucas/GitHub/UniBlock/main.py:docstring of main.parseArguments:3 <paragraph>
+                Paragraph('parser – objetos contendo os arg...')   None:None <paragraph>
                      > (0,0,0,0,2) body
-                  MixedStyledText('objetos contendo os argumentos')
-                    SingleStyledText('objetos contendo os argumentos')
-#### DownExpandingContainer('footer')
-  Footer('		1')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('		1')
-      Tab('	')
-      Tab('	')
-      Field('1')
-        SingleStyledText('1')
----------------------------------- page 2 ----------------------------------
-#### ChainedContainer('column1')
-  (continued) DocumentTree()
-#### UpExpandingContainer('header')
-  Header('UniBlock Documentation, Release ...')
-       > (0,0,0,0,2) header
-         (0,0,0,0,1) body
-    MixedStyledText('UniBlock Documentation, Release ...')
-      Field('UniBlock Documentation')
-        SingleStyledText('UniBlock Documentation')
-      SingleStyledText(', ')
-      Field('Release 0.0.1')
-        SingleStyledText('Release 0.0.1')
-#### DownExpandingContainer('footer')
-  Footer('2		Chapter 1.  UniBlock Main')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('2		Chapter 1.  UniBlock Main')
-      Field('2')
-        SingleStyledText('2')
-      Tab('	')
-      Tab('	')
-      StringField('Chapter')
-      SingleStyledText(' ')
-      Field('1')
-        SingleStyledText('1')
-      SingleStyledText('.  ')
-      Field('UniBlock Main')
-        SingleStyledText('UniBlock Main')
----------------------------------- page 3 ----------------------------------
-#### FlowablesContainer('chapter title')
-  Paragraph('CHAPTER 2', style='body matter chapter label')
-       > (0,0,1,0,2) body matter chapter label
-         (0,0,0,0,2) body
-    MixedStyledText('CHAPTER 2')
-      MixedStyledText('CHAPTER ')
-        StringField('CHAPTER')
-        SingleStyledText(' ')
-      Field('2', style='number')
-           > (0,0,2,0,3) body matter chapter number
-        SingleStyledText('2')
-      Paragraph('UniBlock Comunnication', style='body matter chapter title')
-           > (0,0,1,0,2) body matter chapter title
-             (0,0,0,0,2) body
-        Field('UniBlock Comunnication')
-          SingleStyledText('UniBlock Comunnication')
-  Paragraph('CHAPTER 2', style='body matter chapter label')
-       > (0,0,1,0,2) body matter chapter label
-         (0,0,0,0,2) body
-    MixedStyledText('CHAPTER 2')
-      MixedStyledText('CHAPTER ')
-        StringField('CHAPTER')
-        SingleStyledText(' ')
-      Field('2', style='number')
-           > (0,0,2,0,3) body matter chapter number
-        SingleStyledText('2')
-#### ChainedContainer('column1')
-  (continued) DocumentTree()
+                  MixedStyledText('parser – objetos contendo os arg...')
+                    SingleStyledText('parser – objetos contendo os arg...')
     Section(id='uniblock-comunnication')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:13 <section>
          > (0,0,0,1,2) chapter
-#### DownExpandingContainer('footer')
-  Footer('		3')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('		3')
-      Tab('	')
-      Tab('	')
-      Field('3')
-        SingleStyledText('3')
----------------------------------- page 4 ----------------------------------
-#### ChainedContainer('column1')
-  (continued) DocumentTree()
-#### UpExpandingContainer('header')
-  Header('UniBlock Documentation, Release ...')
-       > (0,0,0,0,2) header
-         (0,0,0,0,1) body
-    MixedStyledText('UniBlock Documentation, Release ...')
-      Field('UniBlock Documentation')
-        SingleStyledText('UniBlock Documentation')
-      SingleStyledText(', ')
-      Field('Release 0.0.1')
-        SingleStyledText('Release 0.0.1')
-#### DownExpandingContainer('footer')
-  Footer('4		Chapter 3.  UniBlock BlockCha...')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('4		Chapter 3.  UniBlock BlockCha...')
-      Field('4')
-        SingleStyledText('4')
-      Tab('	')
-      Tab('	')
-      StringField('Chapter')
-      SingleStyledText(' ')
-      Field('3')
-        SingleStyledText('3')
-      SingleStyledText('.  ')
-      Field('UniBlock BlockChain')
-        SingleStyledText('UniBlock BlockChain')
----------------------------------- page 5 ----------------------------------
-#### ChainedContainer('column1')
-  (continued) DocumentTree()
+      Heading('2 UniBlock Comunnication')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:13 <title>
+           > (0,0,0,1,2) heading level 1
+             (0,0,0,0,2) other heading levels
+          MixedStyledText('2 UniBlock Comunnication')
+            SingleStyledText('2')
+            SingleStyledText(' ')
+            SingleStyledText('UniBlock Comunnication')
     Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
          > (0,0,0,1,2) chapter
-      Paragraph('UniBlock BlockChain', style='body matter chapter title')
-           > (0,0,1,0,2) body matter chapter title
-             (0,0,0,0,2) body
+      Heading('3 UniBlock BlockChain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <title>
+           > (0,0,0,1,2) heading level 1
+             (0,0,0,0,2) other heading levels
+          MixedStyledText('3 UniBlock BlockChain')
+            SingleStyledText('3')
+            SingleStyledText(' ')
+            SingleStyledText('UniBlock BlockChain')
       LabeledFlowable(style='object description')   None:None <desc>
            > (0,0,1,0,2) object description
         StaticGroupedFlowables(style='signatures')
@@ -353,12 +227,12 @@
                 SingleStyledText('BlockChain')
         StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain:None <desc_content>
              > (0,0,2,0,3) object description content
-          Paragraph('classe pai da blockchain impleme...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain:1 <paragraph>
+          Paragraph('Classe pai da blockchain. Implem...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain:1 <paragraph>
                > (0,0,2,0,5) object description content paragraph
                  (0,0,0,0,2) body
-            MixedStyledText('classe pai da blockchain impleme...')
-              SingleStyledText('classe pai da blockchain impleme...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.chain:None <desc>
+            MixedStyledText('Classe pai da blockchain. Implem...')
+              SingleStyledText('Classe pai da blockchain. Implem...')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -371,12 +245,28 @@
                     SingleStyledText('chain')
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.chain:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('getter da chain')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.chain:1 <paragraph>
+              Paragraph('Metodo getter para a cadeia de b...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.chain:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('getter da chain')
-                  SingleStyledText('getter da chain')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.hash:None <desc>
+                MixedStyledText('Metodo getter para a cadeia de b...')
+                  SingleStyledText('Metodo getter para a cadeia de b...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.chain:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('list – cadeia de blocos.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('list – cadeia de blocos.')
+                        SingleStyledText('list – cadeia de blocos.')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -403,12 +293,45 @@
                          > (0,0,3,0,6) object parentheses
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.hash:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo estatico que gera a hash ...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.hash:1 <paragraph>
+              Paragraph('Metodo estatico que gera a hash ...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.hash:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo estatico que gera a hash ...')
-                  SingleStyledText('metodo estatico que gera a hash ...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_block:None <desc>
+                MixedStyledText('Metodo estatico que gera a hash ...')
+                  SingleStyledText('Metodo estatico que gera a hash ...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.hash:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('block – bloco da cadeia de bloco...')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('block – bloco da cadeia de bloco...')
+                        MixedStyledText('block', style='literal strong')   None:None <literal_strong>
+                             > (0,0,1,0,1) literal strong
+                          SingleStyledText('block')
+                        SingleStyledText(' – ')
+                        SingleStyledText('bloco da cadeia de blocos.')
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.hash:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('str – hash do bloco.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('str – hash do bloco.')
+                        SingleStyledText('str – hash do bloco.')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -421,12 +344,28 @@
                     SingleStyledText('last_block')
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_block:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo para retornar o ultimo bl...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_block:1 <paragraph>
+              Paragraph('Metodo getter para o ultimo bloc...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_block:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo para retornar o ultimo bl...')
-                  SingleStyledText('metodo para retornar o ultimo bl...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_proof:None <desc>
+                MixedStyledText('Metodo getter para o ultimo bloc...')
+                  SingleStyledText('Metodo getter para o ultimo bloc...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_block:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('list – ultimo bloco da cadeia de...')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('list – ultimo bloco da cadeia de...')
+                        SingleStyledText('list – ultimo bloco da cadeia de...')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -439,12 +378,28 @@
                     SingleStyledText('last_proof')
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_proof:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('retorna a ultima prova de trabal...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_proof:1 <paragraph>
+              Paragraph('Metodo getter para a ultima prov...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_proof:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('retorna a ultima prova de trabal...')
-                  SingleStyledText('retorna a ultima prova de trabal...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.rule:None <desc>
+                MixedStyledText('Metodo getter para a ultima prov...')
+                  SingleStyledText('Metodo getter para a ultima prov...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.last_proof:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('int – ultima prova de trabalho.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('int – ultima prova de trabalho.')
+                        SingleStyledText('int – ultima prova de trabalho.')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -457,12 +412,28 @@
                     SingleStyledText('rule')
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.rule:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo que retorna a regra da pr...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.rule:1 <paragraph>
+              Paragraph('Metodo getter para a regra da pr...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.rule:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo que retorna a regra da pr...')
-                  SingleStyledText('metodo que retorna a regra da pr...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_chain:None <desc>
+                MixedStyledText('Metodo getter para a regra da pr...')
+                  SingleStyledText('Metodo getter para a regra da pr...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.rule:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('int – regra da prova de trabalho...')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('int – regra da prova de trabalho...')
+                        SingleStyledText('int – regra da prova de trabalho...')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -486,12 +457,45 @@
                          > (0,0,3,0,6) object parentheses
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_chain:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('confere se a chain eh valida atr...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_chain:1 <paragraph>
+              Paragraph('Confere se a chain eh valida atr...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_chain:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('confere se a chain eh valida atr...')
-                  SingleStyledText('confere se a chain eh valida atr...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_proof:None <desc>
+                MixedStyledText('Confere se a chain eh valida atr...')
+                  SingleStyledText('Confere se a chain eh valida atr...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_chain:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('chain – cadeia de blocos.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('chain – cadeia de blocos.')
+                        MixedStyledText('chain', style='literal strong')   None:None <literal_strong>
+                             > (0,0,1,0,1) literal strong
+                          SingleStyledText('chain')
+                        SingleStyledText(' – ')
+                        SingleStyledText('cadeia de blocos.')
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_chain:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('bool – flag da validade do ultim...')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('bool – flag da validade do ultim...')
+                        SingleStyledText('bool – flag da validade do ultim...')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -526,11 +530,144 @@
                          > (0,0,3,0,6) object parentheses
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_proof:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo estatico que valida a pro...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_proof:1 <paragraph>
+              Paragraph('Metodo estatico que valida a pro...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_proof:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo estatico que valida a pro...')
-                  SingleStyledText('metodo estatico que valida a pro...')
+                MixedStyledText('Metodo estatico que valida a pro...')
+                  SingleStyledText('Metodo estatico que valida a pro...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_proof:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    List(style='bulleted')   None:None <bullet_list>
+                         > (0,0,1,0,2) bulleted list
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('last_proof – ultima prova.')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('last_proof – ultima prova.')
+                              MixedStyledText('last_proof', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('last_proof')
+                              SingleStyledText(' – ')
+                              SingleStyledText('ultima prova.')
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('proof – prova atual.')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('proof – prova atual.')
+                              MixedStyledText('proof', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('proof')
+                              SingleStyledText(' – ')
+                              SingleStyledText('prova atual.')
+#### UpExpandingContainer('header')
+  Header('1 UniBlock Main')
+       > (0,0,0,0,2) header
+         (0,0,0,0,1) body
+    MixedStyledText('1 UniBlock Main')
+      Field('1')
+        SingleStyledText('1')
+      SingleStyledText(' ')
+      Field('UniBlock Main')
+        SingleStyledText('UniBlock Main')
+#### DownExpandingContainer('footer')
+  Footer('	3/5')
+       > (0,0,0,0,2) footer
+         (0,0,0,0,1) body
+    MixedStyledText('	3/5')
+      Tab('	')
+      Field('3')
+        SingleStyledText('3')
+      SingleStyledText('/')
+      Field('5')
+        SingleStyledText('5')
+---------------------------------- page 4 ----------------------------------
+#### ChainedContainer('column1')
+  (continued) DocumentTree()
+    (continued) Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
+         > (0,0,0,1,2) chapter
+      (continued) LabeledFlowable(style='object description')   None:None <desc>
+           > (0,0,1,0,2) object description
+        (continued) StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain:None <desc_content>
+             > (0,0,2,0,3) object description content
+          (continued) LabeledFlowable(style='object description')   None:None <desc>
+               > (0,0,1,0,2) object description
+            (continued) StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_proof:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              (continued) DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                (continued) LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  (continued) StaticGroupedFlowables()   None:None <field_body>
+                    (continued) List(style='bulleted')   None:None <bullet_list>
+                         > (0,0,1,0,2) bulleted list
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('rule – regra da prova de trabalh...')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('rule – regra da prova de trabalh...')
+                              MixedStyledText('rule', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('rule')
+                              SingleStyledText(' – ')
+                              SingleStyledText('regra da prova de trabalho.')
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_proof:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('bool – flag da prova de trabalho...')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('bool – flag da prova de trabalho...')
+                        SingleStyledText('bool – flag da prova de trabalho...')
       LabeledFlowable(style='object description')   None:None <desc>
            > (0,0,1,0,2) object description
         StaticGroupedFlowables(style='signatures')
@@ -550,12 +687,46 @@
                 SingleStyledText('MinerChain')
         StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain:None <desc_content>
              > (0,0,2,0,3) object description content
-          Paragraph('classe que extende a classe Bloc...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain:1 <paragraph>
+          Paragraph('Classe que extende a classe Bloc...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain:1 <paragraph>
                > (0,0,2,0,5) object description content paragraph
                  (0,0,0,0,2) body
-            MixedStyledText('classe que extende a classe Bloc...')
-              SingleStyledText('classe que extende a classe Bloc...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.current_transactions:None <desc>
+            MixedStyledText('Classe que extende a classe Bloc...')
+              SingleStyledText('Classe que extende a classe Bloc...')
+          LabeledFlowable(style='object description')   None:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('block', id='BlockChain.MinerChain.block')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.block:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('block')
+                  MixedStyledText('block', style='main object name')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.block:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('block')
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.block:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Metodo getter do block.')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.block:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Metodo getter do block.')
+                  SingleStyledText('Metodo getter do block.')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.block:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('list – bloco da cadeia de blocos...')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('list – bloco da cadeia de blocos...')
+                        SingleStyledText('list – bloco da cadeia de blocos...')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -568,30 +739,28 @@
                     SingleStyledText('current_transactions')
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.current_transactions:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo getter para retornar as t...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.current_transactions:1 <paragraph>
+              Paragraph('Metodo getter para as transacoes...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.current_transactions:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo getter para retornar as t...')
-                  SingleStyledText('metodo getter para retornar as t...')
-#### DownExpandingContainer('footer')
-  Footer('		5')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('		5')
-      Tab('	')
-      Tab('	')
-      Field('5')
-        SingleStyledText('5')
----------------------------------- page 6 ----------------------------------
-#### ChainedContainer('column1')
-  (continued) DocumentTree()
-    (continued) Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
-         > (0,0,0,1,2) chapter
-      (continued) LabeledFlowable(style='object description')   None:None <desc>
-           > (0,0,1,0,2) object description
-        (continued) StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain:None <desc_content>
-             > (0,0,2,0,3) object description content
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.finish_transactions:None <desc>
+                MixedStyledText('Metodo getter para as transacoes...')
+                  SingleStyledText('Metodo getter para as transacoes...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.current_transactions:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('dict – transacao atual.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('dict – transacao atual.')
+                        SingleStyledText('dict – transacao atual.')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -604,11 +773,27 @@
                     SingleStyledText('finish_transactions')
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.finish_transactions:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo getter para retornar as t...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.finish_transactions:1 <paragraph>
+              Paragraph('Metodo getter para as transacoes...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.finish_transactions:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo getter para retornar as t...')
-                  SingleStyledText('metodo getter para retornar as t...')
+                MixedStyledText('Metodo getter para as transacoes...')
+                  SingleStyledText('Metodo getter para as transacoes...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.finish_transactions:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('dict – transacao.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('dict – transacao.')
+                        SingleStyledText('dict – transacao.')
           LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.mine:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
@@ -630,12 +815,12 @@
                          > (0,0,3,0,6) object parentheses
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.mine:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('minera a carteira se ja estiver ...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.mine:1 <paragraph>
+              Paragraph('Minera a carteira se ja estiver ...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.mine:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('minera a carteira se ja estiver ...')
-                  SingleStyledText('minera a carteira se ja estiver ...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_block:None <desc>
+                MixedStyledText('Minera a carteira se ja estiver ...')
+                  SingleStyledText('Minera a carteira se ja estiver ...')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -668,7 +853,76 @@
                      (0,0,0,0,2) body
                 MixedStyledText('Cria um novo bloco com as inform...')
                   SingleStyledText('Cria um novo bloco com as inform...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_transaction:None <desc>
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_block:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    List(style='bulleted')   None:None <bullet_list>
+                         > (0,0,1,0,2) bulleted list
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('proof – prova de trabalho.')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('proof – prova de trabalho.')
+                              MixedStyledText('proof', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('proof')
+                              SingleStyledText(' – ')
+                              SingleStyledText('prova de trabalho.')
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('previous_hash – hash do bloco an...')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('previous_hash – hash do bloco an...')
+                              MixedStyledText('previous_hash', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('previous_hash')
+                              SingleStyledText(' – ')
+                              SingleStyledText('hash do bloco anterior.')
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_block:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('dict – novo bloco.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('dict – novo bloco.')
+                        SingleStyledText('dict – novo bloco.')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -692,12 +946,45 @@
                          > (0,0,3,0,6) object parentheses
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_transaction:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo que recebe uma nova trans...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_transaction:1 <paragraph>
+              Paragraph('Metodo que recebe uma nova trans...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_transaction:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo que recebe uma nova trans...')
-                  SingleStyledText('metodo que recebe uma nova trans...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.proof_of_work:None <desc>
+                MixedStyledText('Metodo que recebe uma nova trans...')
+                  SingleStyledText('Metodo que recebe uma nova trans...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_transaction:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('transaction – nova transacao.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('transaction – nova transacao.')
+                        MixedStyledText('transaction', style='literal strong')   None:None <literal_strong>
+                             > (0,0,1,0,1) literal strong
+                          SingleStyledText('transaction')
+                        SingleStyledText(' – ')
+                        SingleStyledText('nova transacao.')
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.new_transaction:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('int – indice do proximo bloco.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('int – indice do proximo bloco.')
+                        SingleStyledText('int – indice do proximo bloco.')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -721,12 +1008,45 @@
                          > (0,0,3,0,6) object parentheses
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.proof_of_work:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo de prova de trabalho dete...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.proof_of_work:1 <paragraph>
+              Paragraph('Metodo de prova de trabalho. Det...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.proof_of_work:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo de prova de trabalho dete...')
-                  SingleStyledText('metodo de prova de trabalho dete...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.start_miner:None <desc>
+                MixedStyledText('Metodo de prova de trabalho. Det...')
+                  SingleStyledText('Metodo de prova de trabalho. Det...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.proof_of_work:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('last_proof – ultima prova de tra...')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('last_proof – ultima prova de tra...')
+                        MixedStyledText('last_proof', style='literal strong')   None:None <literal_strong>
+                             > (0,0,1,0,1) literal strong
+                          SingleStyledText('last_proof')
+                        SingleStyledText(' – ')
+                        SingleStyledText('ultima prova de trabalho.')
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.proof_of_work:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('int – prova de trabalho.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('int – prova de trabalho.')
+                        SingleStyledText('int – prova de trabalho.')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -739,12 +1059,28 @@
                     SingleStyledText('start_miner')
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.start_miner:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo getter para retornar o va...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.start_miner:1 <paragraph>
+              Paragraph('Metodo getter para retornar o va...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.start_miner:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo getter para retornar o va...')
-                  SingleStyledText('metodo getter para retornar o va...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.transactions:None <desc>
+                MixedStyledText('Metodo getter para retornar o va...')
+                  SingleStyledText('Metodo getter para retornar o va...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.start_miner:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('bool – flag de inicio da minerac...')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('bool – flag de inicio da minerac...')
+                        SingleStyledText('bool – flag de inicio da minerac...')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -757,11 +1093,53 @@
                     SingleStyledText('transactions')
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.transactions:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('metodo getter para retornar as t...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.transactions:1 <paragraph>
+              Paragraph('Metodo getter para as transacoes...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.transactions:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('metodo getter para retornar as t...')
-                  SingleStyledText('metodo getter para retornar as t...')
+                MixedStyledText('Metodo getter para as transacoes...')
+                  SingleStyledText('Metodo getter para as transacoes...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain.transactions:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('list – lista de transacoes.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('list – lista de transacoes.')
+                        SingleStyledText('list – lista de transacoes.')
+#### UpExpandingContainer('header')
+  Header('3 UniBlock BlockChain')
+       > (0,0,0,0,2) header
+         (0,0,0,0,1) body
+    MixedStyledText('3 UniBlock BlockChain')
+      Field('3')
+        SingleStyledText('3')
+      SingleStyledText(' ')
+      Field('UniBlock BlockChain')
+        SingleStyledText('UniBlock BlockChain')
+#### DownExpandingContainer('footer')
+  Footer('	4/5')
+       > (0,0,0,0,2) footer
+         (0,0,0,0,1) body
+    MixedStyledText('	4/5')
+      Tab('	')
+      Field('4')
+        SingleStyledText('4')
+      SingleStyledText('/')
+      Field('5')
+        SingleStyledText('5')
+---------------------------------- page 5 ----------------------------------
+#### ChainedContainer('column1')
+  (continued) DocumentTree()
+    (continued) Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
+         > (0,0,0,1,2) chapter
       LabeledFlowable(style='object description')   None:None <desc>
            > (0,0,1,0,2) object description
         StaticGroupedFlowables(style='signatures')
@@ -781,12 +1159,12 @@
                 SingleStyledText('TraderChain')
         StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain:None <desc_content>
              > (0,0,2,0,3) object description content
-          Paragraph('classe que implementa a chain do...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain:1 <paragraph>
+          Paragraph('Classe que implementa a chain do...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain:1 <paragraph>
                > (0,0,2,0,5) object description content paragraph
                  (0,0,0,0,2) body
-            MixedStyledText('classe que implementa a chain do...')
-              SingleStyledText('classe que implementa a chain do...')
-          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain.new_transaction:None <desc>
+            MixedStyledText('Classe que implementa a chain do...')
+              SingleStyledText('Classe que implementa a chain do...')
+          LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
                  > (0,0,2,0,3) object signatures
@@ -810,408 +1188,62 @@
                          > (0,0,3,0,6) object parentheses
             StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain.new_transaction:None <desc_content>
                  > (0,0,2,0,3) object description content
-              Paragraph('cria uma nova transacao que sera...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain.new_transaction:1 <paragraph>
+              Paragraph('Cria uma nova transacao que sera...')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain.new_transaction:1 <paragraph>
                    > (0,0,2,0,5) object description content paragraph
                      (0,0,0,0,2) body
-                MixedStyledText('cria uma nova transacao que sera...')
-                  SingleStyledText('cria uma nova transacao que sera...')
+                MixedStyledText('Cria uma nova transacao que sera...')
+                  SingleStyledText('Cria uma nova transacao que sera...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain.new_transaction:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('myIp – ip da maquina.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('myIp – ip da maquina.')
+                        MixedStyledText('myIp', style='literal strong')   None:None <literal_strong>
+                             > (0,0,1,0,1) literal strong
+                          SingleStyledText('myIp')
+                        SingleStyledText(' – ')
+                        SingleStyledText('ip da maquina.')
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.TraderChain.new_transaction:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('dict – lista de transacoes.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('dict – lista de transacoes.')
+                        SingleStyledText('dict – lista de transacoes.')
 #### UpExpandingContainer('header')
-  Header('UniBlock Documentation, Release ...')
+  Header('3 UniBlock BlockChain')
        > (0,0,0,0,2) header
          (0,0,0,0,1) body
-    MixedStyledText('UniBlock Documentation, Release ...')
-      Field('UniBlock Documentation')
-        SingleStyledText('UniBlock Documentation')
-      SingleStyledText(', ')
-      Field('Release 0.0.1')
-        SingleStyledText('Release 0.0.1')
-#### DownExpandingContainer('footer')
-  Footer('6		Chapter 3.  UniBlock BlockCha...')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('6		Chapter 3.  UniBlock BlockCha...')
-      Field('6')
-        SingleStyledText('6')
-      Tab('	')
-      Tab('	')
-      StringField('Chapter')
-      SingleStyledText(' ')
+    MixedStyledText('3 UniBlock BlockChain')
       Field('3')
         SingleStyledText('3')
-      SingleStyledText('.  ')
+      SingleStyledText(' ')
       Field('UniBlock BlockChain')
         SingleStyledText('UniBlock BlockChain')
----------------------------------- page 7 ----------------------------------
-#### FlowablesContainer('chapter title')
-  Paragraph('Python Module Index', style='front matter section title')
-       > (0,0,1,0,2) front matter section title
-         (0,0,0,0,2) body
-    Field('Python Module Index')
-      SingleStyledText('Python Module Index')
-#### ChainedContainer('column1')
-  StaticGroupedFlowables()
-    IndexSection()
-         > (0,0,0,1,1) chapter
-      IndexLabel('b')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('b')
-      IndexEntry('BlockChain, 5')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('BlockChain, 5')
-          SingleStyledText('BlockChain', style='domain')
-               > (0,0,1,0,3) domain index entry name
-          SingleStyledText(', ')
-          Reference('5')
-               > (0,0,0,1,1) linked reference
-            SingleStyledText('5')
-      IndexLabel('c')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('c')
-      IndexEntry('comunnication, 3')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('comunnication, 3')
-          SingleStyledText('comunnication', style='domain')
-               > (0,0,1,0,3) domain index entry name
-          SingleStyledText(', ')
-          Reference('3')
-               > (0,0,0,1,1) linked reference
-            SingleStyledText('3')
-      IndexLabel('m')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('m')
-      IndexEntry('main, 1')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('main, 1')
-          SingleStyledText('main', style='domain')
-               > (0,0,1,0,3) domain index entry name
-          SingleStyledText(', ')
-          Reference('1')
-               > (0,0,0,1,1) linked reference
-            SingleStyledText('1')
 #### DownExpandingContainer('footer')
-  Footer('		7')
+  Footer('	5/5')
        > (0,0,0,0,2) footer
          (0,0,0,0,1) body
-    MixedStyledText('		7')
+    MixedStyledText('	5/5')
       Tab('	')
-      Tab('	')
-      Field('7')
-        SingleStyledText('7')
----------------------------------- page 8 ----------------------------------
-#### UpExpandingContainer('header')
-  Header('UniBlock Documentation, Release ...')
-       > (0,0,0,0,2) header
-         (0,0,0,0,1) body
-    MixedStyledText('UniBlock Documentation, Release ...')
-      Field('UniBlock Documentation')
-        SingleStyledText('UniBlock Documentation')
-      SingleStyledText(', ')
-      Field('Release 0.0.1')
-        SingleStyledText('Release 0.0.1')
-#### DownExpandingContainer('footer')
-  Footer('8		Python Module Index')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('8		Python Module Index')
-      Field('8')
-        SingleStyledText('8')
-      Tab('	')
-      Tab('	')
-      Field('Python Module Index')
-        SingleStyledText('Python Module Index')
----------------------------------- page 9 ----------------------------------
-#### FlowablesContainer('chapter title')
-  Paragraph('Index', style='front matter section title')
-       > (0,0,1,0,2) front matter section title
-         (0,0,0,0,2) body
-    Field('Index')
-      SingleStyledText('Index')
-#### ChainedContainer('column1')
-  IndexSection()
-       > (0,0,0,1,1) chapter
-    Index()   index
-         > (0,0,0,0,2) index
-      IndexLabel('B')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('B')
-      IndexEntry('BlockChain (class in BlockChain)...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('BlockChain (class in BlockChain)...')
-          SingleStyledText('BlockChain (class in BlockChain)...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexEntry('BlockChain (module), 5')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('BlockChain (module), 5')
-          SingleStyledText('BlockChain (module), ')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexLabel('C')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('C')
-      IndexEntry('chain (BlockChain.BlockChain att...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('chain (BlockChain.BlockChain att...')
-          SingleStyledText('chain (BlockChain.BlockChain att...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexEntry('comunnication (module), 3')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('comunnication (module), 3')
-          SingleStyledText('comunnication (module), ')
-          MixedStyledText('3')
-            Reference('3')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('3')
-      IndexEntry('current_transactions (BlockChain...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('current_transactions (BlockChain...')
-          SingleStyledText('current_transactions (BlockChain...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexLabel('F')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('F')
-      IndexEntry('finish_transactions (BlockChain....')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('finish_transactions (BlockChain....')
-          SingleStyledText('finish_transactions (BlockChain....')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-      IndexLabel('H')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('H')
-      IndexEntry('hash() (BlockChain.BlockChain st...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('hash() (BlockChain.BlockChain st...')
-          SingleStyledText('hash() (BlockChain.BlockChain st...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexLabel('L')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('L')
-      IndexEntry('last_block (BlockChain.BlockChai...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('last_block (BlockChain.BlockChai...')
-          SingleStyledText('last_block (BlockChain.BlockChai...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexEntry('last_proof (BlockChain.BlockChai...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('last_proof (BlockChain.BlockChai...')
-          SingleStyledText('last_proof (BlockChain.BlockChai...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexLabel('M')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('M')
-      IndexEntry('main (module), 1')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('main (module), 1')
-          SingleStyledText('main (module), ')
-          MixedStyledText('1')
-            Reference('1')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('1')
-      IndexEntry('main() (in module main), 1')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('main() (in module main), 1')
-          SingleStyledText('main() (in module main), ')
-          MixedStyledText('1')
-            Reference('1')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('1')
-      IndexEntry('mine() (BlockChain.MinerChain me...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('mine() (BlockChain.MinerChain me...')
-          SingleStyledText('mine() (BlockChain.MinerChain me...')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-      IndexEntry('MinerChain (class in BlockChain)...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('MinerChain (class in BlockChain)...')
-          SingleStyledText('MinerChain (class in BlockChain)...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexLabel('N')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('N')
-      IndexEntry('new_block() (BlockChain.MinerCha...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('new_block() (BlockChain.MinerCha...')
-          SingleStyledText('new_block() (BlockChain.MinerCha...')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-      IndexEntry('new_transaction() (BlockChain.Mi...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('new_transaction() (BlockChain.Mi...')
-          SingleStyledText('new_transaction() (BlockChain.Mi...')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-      IndexEntry('new_transaction() (BlockChain.Tr...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('new_transaction() (BlockChain.Tr...')
-          SingleStyledText('new_transaction() (BlockChain.Tr...')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-#### ChainedContainer('column2')
-  (continued) IndexSection()
-       > (0,0,0,1,1) chapter
-    (continued) Index()   index
-         > (0,0,0,0,2) index
-      IndexLabel('P')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('P')
-      IndexEntry('parseArguments() (in module main...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('parseArguments() (in module main...')
-          SingleStyledText('parseArguments() (in module main...')
-          MixedStyledText('1')
-            Reference('1')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('1')
-      IndexEntry('proof_of_work() (BlockChain.Mine...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('proof_of_work() (BlockChain.Mine...')
-          SingleStyledText('proof_of_work() (BlockChain.Mine...')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-      IndexLabel('R')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('R')
-      IndexEntry('rule (BlockChain.BlockChain attr...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('rule (BlockChain.BlockChain attr...')
-          SingleStyledText('rule (BlockChain.BlockChain attr...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexLabel('S')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('S')
-      IndexEntry('start_miner (BlockChain.MinerCha...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('start_miner (BlockChain.MinerCha...')
-          SingleStyledText('start_miner (BlockChain.MinerCha...')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-      IndexLabel('T')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('T')
-      IndexEntry('TraderChain (class in BlockChain...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('TraderChain (class in BlockChain...')
-          SingleStyledText('TraderChain (class in BlockChain...')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-      IndexEntry('transactions (BlockChain.MinerCh...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('transactions (BlockChain.MinerCh...')
-          SingleStyledText('transactions (BlockChain.MinerCh...')
-          MixedStyledText('6')
-            Reference('6')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('6')
-      IndexLabel('V')
-           > (0,0,0,0,2) index section label
-             (0,0,0,0,1) body
-        SingleStyledText('V')
-      IndexEntry('valid_chain() (BlockChain.BlockC...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('valid_chain() (BlockChain.BlockC...')
-          SingleStyledText('valid_chain() (BlockChain.BlockC...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-      IndexEntry('valid_proof() (BlockChain.BlockC...')
-           > (0,0,0,1,2) level 1 index entry
-             (0,0,0,0,1) body
-        MixedStyledText('valid_proof() (BlockChain.BlockC...')
-          SingleStyledText('valid_proof() (BlockChain.BlockC...')
-          MixedStyledText('5')
-            Reference('5')
-                 > (0,0,0,1,1) linked reference
-              SingleStyledText('5')
-#### DownExpandingContainer('footer')
-  Footer('		9')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('		9')
-      Tab('	')
-      Tab('	')
-      Field('9')
-        SingleStyledText('9')
+      Field('5')
+        SingleStyledText('5')
+      SingleStyledText('/')
+      Field('5')
+        SingleStyledText('5')

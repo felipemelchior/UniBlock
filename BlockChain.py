@@ -12,14 +12,14 @@ max_transactions=2
 class BlockChain(object):
 
 	'''
-	classe pai da blockchain
-	implementa os metodos essenciais para a blockchain
+	Classe pai da blockchain.
+	Implementa os metodos essenciais para a blockchain.
 	'''
 
 	def __init__(self):
 		'''
-		construtor da classe BlockChain
-		inicia a lista chain da classe e a regra da prova de trabalho
+		Construtor da classe BlockChain.
+		Inicia a lista chain da classe e a regra da prova de trabalho.
 		'''
 		self.chain=[]#chain da blockchain
 		self.chain.append({
@@ -34,21 +34,28 @@ class BlockChain(object):
 	@property
 	def rule(self):
 		'''
-		metodo que retorna a regra da prova de trabalho
+		Metodo getter para a regra da prova de trabalho.
+
+		:returns: int -- regra da prova de trabalho.
 		'''
 		return self._rule
 	
 	@rule.setter
 	def rule(self, rule):
 		'''
-		metodo para mudar a regra da prova de trabalho
+		Metodo setter para a regra da prova de trabalho.
+		
+		:param rule: regra da prova de trabalho.
 		'''
 		self._rule=rule
 
 	@staticmethod
 	def hash(block):
 		'''
-		metodo estatico que gera a hash do bloco
+		Metodo estatico que gera a hash do bloco.
+
+		:param block: bloco da cadeia de blocos.
+		:returns: str -- hash do bloco.
 		'''
 		block_string=json.dumps(block, sort_keys=True).encode()
 		return hashlib.sha256(block_string).hexdigest()
@@ -56,7 +63,12 @@ class BlockChain(object):
 	@staticmethod
 	def valid_proof(last_proof, proof, rule):
 		'''
-		metodo estatico que valida a proof gerada
+		Metodo estatico que valida a proof gerada.
+
+		:param last_proof: ultima prova.
+		:param proof: prova atual.
+		:param rule: regra da prova de trabalho.
+		:returns: bool -- flag da prova de trabalho gerada.
 		'''
 		guess='{0}{1}'.format(last_proof, proof).encode()
 		guess_hash=hashlib.sha256(guess).hexdigest()
@@ -65,41 +77,54 @@ class BlockChain(object):
 	@property
 	def last_proof(self):
 		'''
-		retorna a ultima prova de trabalho adicionada na chain
+		Metodo getter para a ultima prova de trabalho adicionada na chain.
+
+		:returns: int -- ultima prova de trabalho.
 		'''
 		return self.last_block['proof']
 
 	@property
 	def chain(self):
 		'''
-		getter da chain
+		Metodo getter para a cadeia de blocos.
+
+		:returns: list -- cadeia de blocos.
 		'''
 		return self._chain
 
 	@chain.setter
 	def chain(self, chain):
 		'''
-		setter da chain
+		Metodo setter para a cadeia de blocos.
+
+		:param chain: cadeia de blocos.
 		'''
 		self._chain=chain
 
 	@property
 	def last_block(self):
 		'''
-		metodo para retornar o ultimo bloco da chain
+		Metodo getter para o ultimo bloco da chain.
+
+		:returns: list -- ultimo bloco da cadeia de blocos.
 		'''
 		return self.chain[-1]
 
 	@last_block.setter
 	def last_block(self, block):
 		'''
-		um metodo setter para adicionar um novo block para a chain como se fosse uma atribuicao qualquer
+		Metodo setter para adicionar um novo block para a chain como se fosse uma atribuicao qualquer.
+		
+		:param block: bloco que sera inserido na cadeia de blocos.
 		'''
 		self._chain.append(block)
 
 	def valid_chain(self, chain):
 		'''
-		confere se a chain eh valida atraves das hashs da chain
+		Confere se a chain eh valida atraves das hashs da chain.
+
+		:param chain: cadeia de blocos.
+		:returns: bool -- flag da validade do ultimo bloco da cadeia de blocos.
 		'''
 		for index in range(1, len(chain)):
 			if chain[index]['previous_hash']!=self.hash(chain[index-1]):
@@ -111,15 +136,15 @@ class BlockChain(object):
 class MinerChain(BlockChain):
 
 	'''
-	classe que extende a classe BlockChain
-	classe que implementa os metodos da chain utilizada pelos mineradores da blockchain
+	Classe que extende a classe BlockChain
+	Classe que implementa os metodos da chain utilizada pelos mineradores da blockchain
 	'''
 
 	def __init__(self):
 		'''
-		construtor da classe 
-		cria a lista de transacoes
-		inicia a flag que diz quando um block pode comecar a ser minerado
+		Construtor da classe 
+		Cria a lista de transacoes
+		Inicia a flag que diz quando um block pode comecar a ser minerado
 		'''
 		super().__init__()
 		self.transactions=[[]]
@@ -128,54 +153,77 @@ class MinerChain(BlockChain):
 
 	@property
 	def block(self):
+		'''
+		Metodo getter do block.
+
+		:returns: list -- bloco da cadeia de blocos.
+		'''
 		return self._block
 	
 	@block.setter
 	def block(self, block):
+		'''
+		Metodo setter do block.
+
+		:param block: novo bloco da cadeia de blocos.
+		'''
 		self._block=block
 
 	@property
 	def transactions(self):
 		'''
-		metodo getter para retornar as transacoes
+		Metodo getter para as transacoes.
+
+		:returns: list -- lista de transacoes.
 		'''
 		return self._transactions
 
 	@transactions.setter
 	def transactions(self, transactions):
 		'''
-		metodo setter das transacoes
-		vai servir para que sejam passadas as transacoes entre o antigo e o novo dono da carteira
+		Metodo setter das transacoes.
+		Vai servir para que sejam passadas as transacoes entre o antigo e o novo dono da carteira.
+
+		:param transactions: lista de transacoes.
 		'''
 		self._transactions=transactions
 
 	@property
 	def current_transactions(self):
 		'''
-		metodo getter para retornar as transacoes atuais
+		Metodo getter para as transacoes atuais.
+
+		:returns: dict -- transacao atual.
 		'''
 		return self.transactions[-1]
 
 	@property
 	def finish_transactions(self):
 		'''
-		metodo getter para retornar as transacoes fechadas
+		Metodo getter para as transacoes fechadas.
+
+		:returns: dict -- transacao.
 		'''
 		return self.transactions[0] if len(self.transactions[0])==max_transactions else []
 
 	@finish_transactions.setter
 	def finish_transactions(self, f_t):
 		'''
-		metodo setter para adicionar carteiras que ja foram terminadas e estao prontas para serem mineradas
-		vai servir para passar as carteiras para os mineradores comecarem a minerar
+		Metodo setter para adicionar carteiras que ja foram terminadas e estao prontas para serem mineradas.
+		Vai servir para passar as carteiras para os mineradores comecarem a minerar.
+
+		:param f_t: carteira pronta para ser mineirada.
 		'''
 		self._transactions.insert(0, f_t)
 
 	def new_transaction(self, transaction):
 		'''
-		metodo que recebe uma nova transacao e adiciona nas transacoes atuais
-		se o numero maximo de transacoes da carteira for atingido
-		uma nova carteira eh adionada na lista de transacoes
+		Metodo que recebe uma nova transacao e adiciona nas transacoes atuais.
+		Se o numero maximo de transacoes da carteira for atingido.
+		Uma nova carteira e adicionada na lista de transacoes.
+
+		:param transaction: nova transacao.
+		:returns: int -- indice do proximo bloco.
 		'''
 		if len(self.current_transactions) >=max_transactions:
 			self.transactions.append([])
@@ -185,21 +233,29 @@ class MinerChain(BlockChain):
 	@property
 	def start_miner(self):
 		'''
-		metodo getter para retornar o valor da flag _start_miner
-		responsavel por dizer (return True) quando uma carteira esta pronta para ser minerada
+		Metodo getter para retornar o valor da flag _start_miner.
+		Responsavel por dizer (return True) quando uma carteira esta pronta para ser minerada.
+
+		:returns: bool -- flag de inicio da mineracao.
 		'''
 		return self._start_miner
 
 	@start_miner.setter
 	def start_miner(self, value):
 		'''
-		metodo setter para mudar o valor da flag start_miner
+		Metodo setter para mudar o valor da flag start_miner.
+
+		:param value: novo valor da flag de inicio da mineracao.
 		'''
 		self._start_miner=value
 
 	def new_block(self, proof, previous_hash=None):
 		'''
-		Cria um novo bloco com as informacoes
+		Cria um novo bloco com as informacoes.
+
+		:param proof: prova de trabalho.
+		:param previous_hash: hash do bloco anterior.
+		:returns: dict -- novo bloco.
 		'''
 		block={
 			'index':len(self.chain)+1,
@@ -217,8 +273,11 @@ class MinerChain(BlockChain):
 
 	def proof_of_work(self, last_proof):
 		'''
-		metodo de prova de trabalho
-		determina a dificuldade de minerar um block
+		Metodo de prova de trabalho.
+		Determina a dificuldade de minerar um block.
+
+		:param last_proof: ultima prova de trabalho.
+		:returns: int -- prova de trabalho.
 		'''
 		proof=0
 		while self.valid_proof(last_proof, proof, self.rule) is False and self.start_miner==True:
@@ -227,8 +286,8 @@ class MinerChain(BlockChain):
 	
 	def mine(self):
 		'''
-		minera a carteira se ja estiver pronto para minerar
-		muda a flag para false e retorna o block minerado
+		Minera a carteira se ja estiver pronto para minerar.
+		Muda a flag para false e retorna o block minerado.
 		'''
 		if self.start_miner:
 			proof=self.proof_of_work(self.last_proof)
@@ -245,18 +304,21 @@ class MinerChain(BlockChain):
 
 class TraderChain(BlockChain):
 	'''
-	classe que implementa a chain dos traders
+	Classe que implementa a chain dos traders
 	'''
 
 	def __init__(self):
 		'''
-		construtor da classe
+		Construtor da classe
 		'''
 		super().__init__()
 
 	def new_transaction(self, myIp):
 		'''
-		cria uma nova transacao que sera enviada para a carteira ativa
+		Cria uma nova transacao que sera enviada para a carteira ativa
+
+		:param myIp: ip da maquina.
+		:returns: dict -- lista de transacoes.
 		'''
 		global styleClient
 		transaction = {}
