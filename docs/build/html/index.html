@@ -38,18 +38,18 @@
 <dl class="function">
 <dt id="main.main">
 <code class="descclassname">main.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/main.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#main.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>Função principal do programa</p>
+<dd><p>Função principal do programa.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="main.parseArguments">
 <code class="descclassname">main.</code><code class="descname">parseArguments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/main.html#parseArguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#main.parseArguments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Função que identifica os argumentos passados</p>
+<dd><p>Função que identifica os argumentos passados.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">parser – objetos contendo os argumentos</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">parser – objetos contendo os argumentos.</td>
 </tr>
 </tbody>
 </table>
@@ -58,7 +58,167 @@
 </div>
 <div class="section" id="uniblock-comunnication">
 <h2>UniBlock Comunnication<a class="headerlink" href="#uniblock-comunnication" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-comunnication"></span></div>
+<span class="target" id="module-comunnication"></span><dl class="class">
+<dt id="comunnication.Connection">
+<em class="property">class </em><code class="descclassname">comunnication.</code><code class="descname">Connection</code><span class="sig-paren">(</span><em>myIp</em>, <em>listClients</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classe base para conexoes</p>
+<dl class="method">
+<dt id="comunnication.Connection.getMinersAndTraders">
+<code class="descname">getMinersAndTraders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Connection.getMinersAndTraders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Connection.getMinersAndTraders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adiciona nas respectivas listas os ips que são mineradores e ips que são traders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunnication.Connection.listenConnection">
+<code class="descname">listenConnection</code><span class="sig-paren">(</span><em>port=5055</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Connection.listenConnection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Connection.listenConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coloca o servidor para rodar de fato.
+Após, fica escutando a porta e quando chegar alguma conexão, cria um thread para o cliente.
+Trata envia para a função que irá tratar a requisição.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>Ip</strong> – Endereço Ip que o servidor irá rodar</li>
+<li><strong>Port</strong> – Porta em que o servidor irá rodar</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="comunnication.Connection.myIp">
+<code class="descname">myIp</code><a class="headerlink" href="#comunnication.Connection.myIp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metodo getter do myIp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">str – ip.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunnication.Connection.printClients">
+<code class="descname">printClients</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Connection.printClients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Connection.printClients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imprime na tela a lista de clientes mineradores e a lista de clientes negociadores.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="comunnication.Miner">
+<em class="property">class </em><code class="descclassname">comunnication.</code><code class="descname">Miner</code><span class="sig-paren">(</span><em>myIp</em>, <em>listClients</em>, <em>rich</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Miner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Miner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classe do minerador.</p>
+<dl class="method">
+<dt id="comunnication.Miner.filterCommunication">
+<code class="descname">filterCommunication</code><span class="sig-paren">(</span><em>conn</em>, <em>addr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Miner.filterCommunication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Miner.filterCommunication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trata as conexões dos clients… Recebe uma mensagem, filtra e envia uma resposta de acordo ou executa ações.</p>
+<p>TypeOfClient =&gt; retorna se o cliente é um minerador ou um negociador.
+Rich =&gt; retorna se o cliente é um minerador que está armazenando transações na carteira.
+NewTransaction =&gt; recebe uma nova transação a ser adicionada na carteira.
+NewBlock =&gt; recebe a noticia que a chain foi atualizada, entao o cliente deve validar a sua chain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>conn</strong> – Socket de conexão com o cliente</li>
+<li><strong>addr</strong> – Endereço da conexão deste cliente</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunnication.Miner.sendBlock">
+<code class="descname">sendBlock</code><span class="sig-paren">(</span><em>block</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Miner.sendBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Miner.sendBlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Envia o ultimo bloco minerado para todos na rede.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>block</strong> – ultimo bloco minerado.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunnication.Miner.sendTransactionsToMiners">
+<code class="descname">sendTransactionsToMiners</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Miner.sendTransactionsToMiners"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Miner.sendTransactionsToMiners" title="Permalink to this definition">¶</a></dt>
+<dd><p>Envia as transacoes para os mineradores.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="comunnication.Trader">
+<em class="property">class </em><code class="descclassname">comunnication.</code><code class="descname">Trader</code><span class="sig-paren">(</span><em>myIp</em>, <em>listClients</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Trader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Trader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classe do usuario comum.</p>
+<dl class="method">
+<dt id="comunnication.Trader.discoverMiner">
+<code class="descname">discoverMiner</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Trader.discoverMiner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Trader.discoverMiner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Método que descobre qual o minerador que está aceitando transações para adicionar na carteira.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunnication.Trader.filterCommunication">
+<code class="descname">filterCommunication</code><span class="sig-paren">(</span><em>conn</em>, <em>addr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Trader.filterCommunication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Trader.filterCommunication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trata as conexões dos clients… Recebe uma mensagem, filtra e envia uma resposta.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>conn</strong> – Socket de conexão com o cliente.</li>
+<li><strong>addr</strong> – Endereço da conexão deste cliente.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunnication.Trader.runMethods">
+<code class="descname">runMethods</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Trader.runMethods"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Trader.runMethods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metodo em loop que fica pedindo ao usuário o texto que deve ser adicionado na chain.
+Esta função acaba criando uma cadeia de chamadas de funções.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunnication.Trader.sendToMiner">
+<code class="descname">sendToMiner</code><span class="sig-paren">(</span><em>transaction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Trader.sendToMiner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Trader.sendToMiner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Envia a transação para o minerador.
+Utiliza pickle para serializar o dado e enviar.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction</strong> – Transaction.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunnication.Trader.userInput">
+<code class="descname">userInput</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunnication.html#Trader.userInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#comunnication.Trader.userInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inicia a transação.
+Descobre o ip do minerador que está com a flag rich.
+Envia esta transação para o minerador com a flag rich.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="uniblock-blockchain">
 <h2>UniBlock BlockChain<a class="headerlink" href="#uniblock-blockchain" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-BlockChain"></span><dl class="class">

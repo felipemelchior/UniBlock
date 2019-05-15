@@ -1,0 +1,497 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>comunnication &#8212; UniBlock 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for comunnication</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">BlockChain</span> <span class="k">import</span> <span class="n">MinerChain</span><span class="p">,</span> <span class="n">TraderChain</span>
+<span class="kn">from</span> <span class="nn">colorama</span> <span class="k">import</span> <span class="n">Fore</span><span class="p">,</span> <span class="n">Style</span>
+
+<span class="c1"># Variaveis globais, apenas para a concatenação da string e colorir a mesma (Biblioteca Colorama)</span>
+<span class="n">styleCommunication</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">MAGENTA</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span>
+<span class="n">styleClient</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span>
+<span class="n">styleChain</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span> <span class="o">+</span> <span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span>
+
+<div class="viewcode-block" id="Connection"><a class="viewcode-back" href="../index.html#comunnication.Connection">[docs]</a><span class="k">class</span> <span class="nc">Connection</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Classe base para conexoes</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">myIp</span><span class="p">,</span> <span class="n">listClients</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myIp</span><span class="o">=</span><span class="n">myIp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listClients</span> <span class="o">=</span> <span class="n">listClients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listTraders</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">miner</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">myIp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Metodo getter do myIp.</span>
+
+<span class="sd">        :returns: str -- ip.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_myIp</span>
+    
+    <span class="nd">@myIp</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">myIp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Metodo setter do myIp.</span>
+
+<span class="sd">        :param value: valor do ip.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_myIp</span><span class="o">=</span><span class="n">value</span>
+
+<div class="viewcode-block" id="Connection.printClients"><a class="viewcode-back" href="../index.html#comunnication.Connection.printClients">[docs]</a>    <span class="k">def</span> <span class="nf">printClients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Imprime na tela a lista de clientes mineradores e a lista de clientes negociadores.</span>
+<span class="sd">        &#39;&#39;&#39;</span>    
+
+        <span class="k">global</span> <span class="n">styleClient</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">styleClient</span> <span class="o">+</span> <span class="s1">&#39;Miners =&gt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">styleClient</span> <span class="o">+</span> <span class="s1">&#39;Traders =&gt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listTraders</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Connection.getMinersAndTraders"><a class="viewcode-back" href="../index.html#comunnication.Connection.getMinersAndTraders">[docs]</a>    <span class="k">def</span> <span class="nf">getMinersAndTraders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Adiciona nas respectivas listas os ips que são mineradores e ips que são traders.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">global</span> <span class="n">styleCommunication</span>
+        <span class="n">active</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">active</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listClients</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">listClients</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ip</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">myIp</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">active</span><span class="p">:</span>
+                        <span class="n">active</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">active</span><span class="p">:</span>
+                    <span class="n">socketClient</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">socketClient</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="mi">5055</span><span class="p">))</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                            <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Conection refused by </span><span class="si">{}</span><span class="s1">! Likely to be still starting&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">pass</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">active</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+
+                    <span class="n">socketClient</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;TypeOfClient&#39;</span><span class="p">)</span>
+                    
+                    <span class="n">msg</span> <span class="o">=</span> <span class="n">socketClient</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Miner&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Miner discovery =&gt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Trader&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Trader discovery =&gt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">listTraders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+
+                    <span class="n">socketClient</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">printClients</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Connection.listenConnection"><a class="viewcode-back" href="../index.html#comunnication.Connection.listenConnection">[docs]</a>    <span class="k">def</span> <span class="nf">listenConnection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5055</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Coloca o servidor para rodar de fato.</span>
+<span class="sd">        Após, fica escutando a porta e quando chegar alguma conexão, cria um thread para o cliente.</span>
+<span class="sd">        Trata envia para a função que irá tratar a requisição.</span>
+
+<span class="sd">        :param Ip: Endereço Ip que o servidor irá rodar</span>
+<span class="sd">        :param Port: Porta em que o servidor irá rodar</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">global</span> <span class="n">styleCommunication</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">server</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_myIp</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">)))</span>
+                <span class="n">server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error on start server&quot;</span><span class="p">)</span>
+    
+            <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s2">&quot;Server running on port </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+
+            <span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">conn</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s2">&quot;New Connection from </span><span class="si">{}</span><span class="s2"> with port </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">addr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">addr</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                    
+                    <span class="n">aux</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filterCommunication</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span><span class="n">addr</span><span class="p">))</span>			
+                    <span class="n">aux</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                    <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aux</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s2">&quot;Ending the server execution&quot;</span><span class="p">)</span>
+
+            <span class="n">server</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="ne">SystemExit</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s2">&quot;Finishing execution of Server...&quot;</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="Miner"><a class="viewcode-back" href="../index.html#comunnication.Miner">[docs]</a><span class="k">class</span> <span class="nc">Miner</span><span class="p">(</span><span class="n">Connection</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Classe do minerador.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">myIp</span><span class="p">,</span> <span class="n">listClients</span><span class="p">,</span> <span class="n">rich</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Construtor da classe do minerador.</span>
+
+<span class="sd">        :param myIp: ip.</span>
+<span class="sd">        :param listClients: lista de clientes.</span>
+<span class="sd">        :param rich: flag do minerador que utiliza a carteira.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">myIp</span><span class="p">,</span> <span class="n">listClients</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">miner</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flagRich</span> <span class="o">=</span> <span class="n">rich</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">myIp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span> <span class="o">=</span> <span class="n">MinerChain</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Miner.sendTransactionsToMiners"><a class="viewcode-back" href="../index.html#comunnication.Miner.sendTransactionsToMiners">[docs]</a>    <span class="k">def</span> <span class="nf">sendTransactionsToMiners</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Envia as transacoes para os mineradores.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">global</span> <span class="n">styleCommunication</span>
+        <span class="n">wallet</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">transactions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="p">)):</span>
+            <span class="n">socketMiner</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+            <span class="n">socketMiner</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="p">[</span><span class="n">ip</span><span class="p">],</span> <span class="mi">5055</span><span class="p">))</span>
+
+            <span class="n">socketMiner</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;MineThis&#39;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">socketMiner</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                <span class="n">socketMiner</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">wallet</span><span class="p">))</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">socketMiner</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Miner&#39;</span> <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="p">[</span><span class="n">ip</span><span class="p">])</span> <span class="o">+</span> <span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;receive the wallet with transactions sucessfully!&#39;</span><span class="p">)</span>
+
+        <span class="n">socketMiner</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">socketMiner</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">5055</span><span class="p">))</span>
+
+        <span class="n">socketMiner</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;MineThis&#39;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">socketMiner</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+            <span class="n">socketMiner</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">wallet</span><span class="p">))</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">socketMiner</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Miner&#39;</span> <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;receive the wallet with transactions sucessfully!&#39;</span><span class="p">)</span></div>
+        
+        
+
+
+<div class="viewcode-block" id="Miner.sendBlock"><a class="viewcode-back" href="../index.html#comunnication.Miner.sendBlock">[docs]</a>    <span class="k">def</span> <span class="nf">sendBlock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Envia o ultimo bloco minerado para todos na rede.</span>
+
+<span class="sd">        :param block: ultimo bloco minerado.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">global</span> <span class="n">styleCommunication</span>
+        <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">listClients</span><span class="p">:</span>
+            <span class="n">socketClient</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+            <span class="n">socketClient</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="mi">5055</span><span class="p">))</span>
+
+            <span class="n">socketClient</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;NewBlock&#39;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">socketClient</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                <span class="n">socketClient</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span><span class="o">+</span><span class="s1">&#39;Block added to blockChain&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">flagRich</span><span class="o">=</span><span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Nok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span><span class="o">+</span><span class="s1">&#39;Block discarted&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Miner.filterCommunication"><a class="viewcode-back" href="../index.html#comunnication.Miner.filterCommunication">[docs]</a>    <span class="k">def</span> <span class="nf">filterCommunication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">addr</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta de acordo ou executa ações.</span>
+
+<span class="sd">        TypeOfClient =&gt; retorna se o cliente é um minerador ou um negociador.</span>
+<span class="sd">        Rich =&gt; retorna se o cliente é um minerador que está armazenando transações na carteira.</span>
+<span class="sd">        NewTransaction =&gt; recebe uma nova transação a ser adicionada na carteira.</span>
+<span class="sd">        NewBlock =&gt; recebe a noticia que a chain foi atualizada, entao o cliente deve validar a sua chain.</span>
+
+<span class="sd">        :param conn: Socket de conexão com o cliente</span>
+<span class="sd">        :param addr: Endereço da conexão deste cliente</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">global</span> <span class="n">styleChain</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span> 
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;TypeOfClient&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">miner</span><span class="p">:</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Miner&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Trader&#39;</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Rich&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flagRich</span><span class="p">:</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span> 
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;False&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;NewTransaction&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+                    <span class="n">transaction</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">new_transaction</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">transaction</span><span class="p">))</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;New Transaction added to wallet&#39;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">finish_transactions</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sendTransactionsToMiners</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">flagRich</span><span class="o">=</span><span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;MineThis&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+                    <span class="n">wallet</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">finish_transactions</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">wallet</span><span class="p">)</span>
+                    <span class="c1"># threading.Thread(target=self.blockChain.mine).start()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">start_miner</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">block</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sendBlock</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">block</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;NewBlock&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+                    <span class="n">block</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+                    <span class="n">block</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Attention! New block added to chain!&#39;</span><span class="p">)</span>
+
+                    <span class="n">newChain</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="n">newChain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">valid_chain</span><span class="p">(</span><span class="n">newChain</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">chain</span><span class="o">=</span><span class="n">newChain</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Nok&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleChain</span> <span class="o">+</span> <span class="s1">&#39;Actual chain </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">chain</span><span class="p">))</span>
+
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span> <span class="k">break</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="Trader"><a class="viewcode-back" href="../index.html#comunnication.Trader">[docs]</a><span class="k">class</span> <span class="nc">Trader</span><span class="p">(</span><span class="n">Connection</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Classe do usuario comum.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">myIp</span><span class="p">,</span> <span class="n">listClients</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Construtor da classe do usuario comum.</span>
+
+<span class="sd">        :param myIp: ip.</span>
+<span class="sd">        :param listClients: lista de clientes.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">myIp</span><span class="p">,</span> <span class="n">listClients</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listTraders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">myIp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span> <span class="o">=</span> <span class="n">TraderChain</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Trader.runMethods"><a class="viewcode-back" href="../index.html#comunnication.Trader.runMethods">[docs]</a>    <span class="k">def</span> <span class="nf">runMethods</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Metodo em loop que fica pedindo ao usuário o texto que deve ser adicionado na chain.</span>
+<span class="sd">        Esta função acaba criando uma cadeia de chamadas de funções.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">userInput</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Trader.userInput"><a class="viewcode-back" href="../index.html#comunnication.Trader.userInput">[docs]</a>    <span class="k">def</span> <span class="nf">userInput</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Inicia a transação.</span>
+<span class="sd">        Descobre o ip do minerador que está com a flag rich.</span>
+<span class="sd">        Envia esta transação para o minerador com a flag rich.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">transaction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">new_transaction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">myIp</span><span class="p">)</span>
+        <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;minerRichIp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discoverMiner</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendToMiner</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Trader.discoverMiner"><a class="viewcode-back" href="../index.html#comunnication.Trader.discoverMiner">[docs]</a>    <span class="k">def</span> <span class="nf">discoverMiner</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Método que descobre qual o minerador que está aceitando transações para adicionar na carteira.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">global</span> <span class="n">styleCommunication</span>
+        <span class="n">ipMiner</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">miner</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">listMiners</span><span class="p">:</span>
+            
+            <span class="k">try</span><span class="p">:</span> 
+                <span class="n">miner</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="mi">5055</span><span class="p">))</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> not connected in Blockchain!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+                <span class="k">continue</span>
+
+            <span class="n">miner</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Rich&#39;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">miner</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                <span class="n">ipMiner</span> <span class="o">=</span> <span class="n">ip</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Miner Found! IP = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+                <span class="k">break</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span> 
+                <span class="n">miner</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">break</span>
+        
+        <span class="k">return</span> <span class="n">ipMiner</span></div>
+
+<div class="viewcode-block" id="Trader.sendToMiner"><a class="viewcode-back" href="../index.html#comunnication.Trader.sendToMiner">[docs]</a>    <span class="k">def</span> <span class="nf">sendToMiner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Envia a transação para o minerador.</span>
+<span class="sd">        Utiliza pickle para serializar o dado e enviar.</span>
+
+<span class="sd">        :param transaction: Transaction.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">connectionMiner</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">connectionMiner</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;minerRichIp&#39;</span><span class="p">],</span> <span class="mi">5055</span><span class="p">))</span>
+
+        <span class="n">connectionMiner</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;NewTransaction&#39;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">connectionMiner</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Sending the transaction to the Miner...&#39;</span><span class="p">)</span>
+
+            <span class="n">connectionMiner</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">transaction</span><span class="p">))</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">connectionMiner</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Transaction Sent to the Miner!&#39;</span><span class="p">)</span>
+        <span class="n">connectionMiner</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Trader.filterCommunication"><a class="viewcode-back" href="../index.html#comunnication.Trader.filterCommunication">[docs]</a>    <span class="k">def</span> <span class="nf">filterCommunication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">addr</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta.</span>
+
+<span class="sd">        :param conn: Socket de conexão com o cliente.</span>
+<span class="sd">        :param addr: Endereço da conexão deste cliente.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">global</span> <span class="n">styleChain</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;TypeOfClient&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">miner</span><span class="p">:</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Miner&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Trader&#39;</span><span class="p">)</span>
+
+
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;NewBlock&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)):</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+                    <span class="n">block</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+                    <span class="n">block</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleCommunication</span> <span class="o">+</span> <span class="s1">&#39;Attention! New block added to chain!&#39;</span><span class="p">)</span>
+
+                    <span class="n">newChain</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="n">newChain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">valid_chain</span><span class="p">(</span><span class="n">newChain</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">chain</span><span class="o">=</span><span class="n">newChain</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Nok&#39;</span><span class="p">)</span>
+
+                    <span class="nb">print</span><span class="p">(</span><span class="n">styleChain</span> <span class="o">+</span> <span class="s1">&#39;Actual chain </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blockChain</span><span class="o">.</span><span class="n">chain</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span> <span class="k">break</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, UniBlock.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -12,6 +12,9 @@ styleClient = Fore.GREEN + Style.BRIGHT
 styleChain = Fore.YELLOW + Style.BRIGHT
 
 class Connection:
+    '''
+    Classe base para conexoes
+    '''
     def __init__(self, myIp, listClients):
         self.myIp=myIp
         self.listClients = listClients
@@ -21,15 +24,25 @@ class Connection:
 
     @property
     def myIp(self):
+        '''
+        Metodo getter do myIp.
+
+        :returns: str -- ip.
+        '''
         return self._myIp
     
     @myIp.setter
     def myIp(self, value):
+        '''
+        Metodo setter do myIp.
+
+        :param value: valor do ip.
+        '''
         self._myIp=value
 
     def printClients(self):
         '''
-        Imprime na tela a lista de clientes mineradores e a lista de clientes negociadores
+        Imprime na tela a lista de clientes mineradores e a lista de clientes negociadores.
         '''    
 
         global styleClient
@@ -39,7 +52,7 @@ class Connection:
 
     def getMinersAndTraders(self):
         '''
-        Adiciona nas respectivas listas os ips que são mineradores e ips que são traders 
+        Adiciona nas respectivas listas os ips que são mineradores e ips que são traders.
         '''
         
         global styleCommunication
@@ -85,9 +98,10 @@ class Connection:
 
     def listenConnection(self, port=5055):
         '''
-        Coloca o servidor para rodar de fato
-        Após, fica escutando a porta e quando chegar alguma conexão, cria um thread para o cliente
-        e trata envia para a função que irá tratar a requisição
+        Coloca o servidor para rodar de fato.
+        Após, fica escutando a porta e quando chegar alguma conexão, cria um thread para o cliente.
+        Trata envia para a função que irá tratar a requisição.
+
         :param Ip: Endereço Ip que o servidor irá rodar
         :param Port: Porta em que o servidor irá rodar
         '''
@@ -123,7 +137,17 @@ class Connection:
             exit()
 
 class Miner(Connection):
+    '''
+    Classe do minerador.
+    '''
     def __init__(self, myIp, listClients, rich):
+        '''
+        Construtor da classe do minerador.
+
+        :param myIp: ip.
+        :param listClients: lista de clientes.
+        :param rich: flag do minerador que utiliza a carteira.
+        '''
         super().__init__(myIp, listClients)
         self.miner = True
         self.flagRich = rich
@@ -132,6 +156,9 @@ class Miner(Connection):
 
 
     def sendTransactionsToMiners(self):
+        '''
+        Envia as transacoes para os mineradores.
+        '''
         global styleCommunication
         wallet=self.blockChain.transactions.pop(0)
         for ip in range(1, len(self.listMiners)):
@@ -165,6 +192,11 @@ class Miner(Connection):
 
 
     def sendBlock(self, block):
+        '''
+        Envia o ultimo bloco minerado para todos na rede.
+
+        :param block: ultimo bloco minerado.
+        '''
         global styleCommunication
         for ip in self.listClients:
             socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -182,12 +214,12 @@ class Miner(Connection):
 
     def filterCommunication(self, conn, addr):
         '''
-        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta de acordo ou executa ações
+        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta de acordo ou executa ações.
 
-        TypeOfClient => retorna se o cliente é um minerador ou um negociador
-        Rich => retorna se o cliente é um minerador que está armazenando transações na carteira
-        NewTransaction => recebe uma nova transação a ser adicionada na carteira
-        NewBlock => recebe a noticia que a chain foi atualizada, entao o cliente deve validar a sua chain
+        TypeOfClient => retorna se o cliente é um minerador ou um negociador.
+        Rich => retorna se o cliente é um minerador que está armazenando transações na carteira.
+        NewTransaction => recebe uma nova transação a ser adicionada na carteira.
+        NewBlock => recebe a noticia que a chain foi atualizada, entao o cliente deve validar a sua chain.
 
         :param conn: Socket de conexão com o cliente
         :param addr: Endereço da conexão deste cliente
@@ -254,15 +286,24 @@ class Miner(Connection):
         conn.close()
 
 class Trader(Connection):
+    '''
+    Classe do usuario comum.
+    '''
     def __init__(self, myIp, listClients):
+        '''
+        Construtor da classe do usuario comum.
+
+        :param myIp: ip.
+        :param listClients: lista de clientes.
+        '''
         super().__init__(myIp, listClients)
         self.listTraders.append(self.myIp)
         self.blockChain = TraderChain()
 
     def runMethods(self):
         '''
-        Metodo em loop que fica pedindo ao usuário o texto que deve ser adicionado na chain
-        Esta função acaba criando uma cadeia de chamadas de funções
+        Metodo em loop que fica pedindo ao usuário o texto que deve ser adicionado na chain.
+        Esta função acaba criando uma cadeia de chamadas de funções.
         '''
 
         while True:
@@ -271,9 +312,9 @@ class Trader(Connection):
 
     def userInput(self):
         '''
-        Inicia a transação
-        Descobre o ip do minerador que está com a flag rich
-        Envia esta transação para o minerador com a flag rich
+        Inicia a transação.
+        Descobre o ip do minerador que está com a flag rich.
+        Envia esta transação para o minerador com a flag rich.
         '''
 
         transaction = self.blockChain.new_transaction(self.myIp)
@@ -282,7 +323,7 @@ class Trader(Connection):
 
     def discoverMiner(self):
         '''
-        Método que descobre qual o minerador que está aceitando transações para adicionar na carteira
+        Método que descobre qual o minerador que está aceitando transações para adicionar na carteira.
         '''
 
         global styleCommunication
@@ -313,11 +354,10 @@ class Trader(Connection):
 
     def sendToMiner(self, transaction):
         '''
-        Envia a transação para o minerador
+        Envia a transação para o minerador.
+        Utiliza pickle para serializar o dado e enviar.
 
-        Utiliza pickle para serializar o dado e enviar
-
-        :param transaction: Transaction
+        :param transaction: Transaction.
         '''
 
         connectionMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -338,9 +378,10 @@ class Trader(Connection):
 
     def filterCommunication(self, conn, addr):
         '''
-        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta
-        :param conn: Socket de conexão com o cliente
-        :param addr: Endereço da conexão deste cliente
+        Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta.
+
+        :param conn: Socket de conexão com o cliente.
+        :param addr: Endereço da conexão deste cliente.
         '''
         global styleChain
 

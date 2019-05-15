@@ -65,9 +65,9 @@
                  x (0,0,0,1,3) toc linked reference
                  > (0,0,0,1,1) linked reference
               SingleStyledText('3')
-      TableOfContentsEntry('3	UniBlock BlockChain	3')
+      TableOfContentsEntry('3	UniBlock BlockChain	4')
            > (0,0,0,1,2) toc level 1
-          MixedStyledText('3	UniBlock BlockChain	3')
+          MixedStyledText('3	UniBlock BlockChain	4')
             ReferenceField('3')
                  x (0,0,0,1,3) toc linked reference
                  > (0,0,0,1,1) linked reference
@@ -78,10 +78,10 @@
                  > (0,0,0,1,1) linked reference
               SingleStyledText('UniBlock BlockChain')
             Tab('	')
-            ReferenceField('3')
+            ReferenceField('4')
                  x (0,0,0,1,3) toc linked reference
                  > (0,0,0,1,1) linked reference
-              SingleStyledText('3')
+              SingleStyledText('4')
 #### UpExpandingContainer('header')
   Header('​ Table of Contents')
        > (0,0,0,0,2) header
@@ -93,16 +93,16 @@
       Field('Table of Contents')
         SingleStyledText('Table of Contents')
 #### DownExpandingContainer('footer')
-  Footer('	2/5')
+  Footer('	2/6')
        > (0,0,0,0,2) footer
          (0,0,0,0,1) body
-    MixedStyledText('	2/5')
+    MixedStyledText('	2/6')
       Tab('	')
       Field('2')
         SingleStyledText('2')
       SingleStyledText('/')
-      Field('5')
-        SingleStyledText('5')
+      Field('6')
+        SingleStyledText('6')
 ---------------------------------- page 3 ----------------------------------
 #### ChainedContainer('column1')
   DocumentTree()
@@ -140,11 +140,11 @@
                      > (0,0,3,0,6) object parentheses
         StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/main.py:docstring of main.main:None <desc_content>
              > (0,0,2,0,3) object description content
-          Paragraph('Função principal do programa')   /home/lucas/GitHub/UniBlock/main.py:docstring of main.main:1 <paragraph>
+          Paragraph('Função principal do programa.')   /home/lucas/GitHub/UniBlock/main.py:docstring of main.main:1 <paragraph>
                > (0,0,2,0,5) object description content paragraph
                  (0,0,0,0,2) body
-            MixedStyledText('Função principal do programa')
-              SingleStyledText('Função principal do programa')
+            MixedStyledText('Função principal do programa.')
+              SingleStyledText('Função principal do programa.')
       LabeledFlowable(style='object description')   None:None <desc>
            > (0,0,1,0,2) object description
         StaticGroupedFlowables(style='signatures')
@@ -199,6 +199,713 @@
             SingleStyledText('2')
             SingleStyledText(' ')
             SingleStyledText('UniBlock Comunnication')
+      LabeledFlowable(style='object description')   None:None <desc>
+           > (0,0,1,0,2) object description
+        StaticGroupedFlowables(style='signatures')
+             > (0,0,2,0,3) object signatures
+          Paragraph('class comunnication.Connection (...', id='comunnication.Connection')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection:None <desc_signature>
+               > (0,0,2,0,5) object signature
+                 (0,0,0,0,2) body
+            MixedStyledText('class comunnication.Connection (...')
+              MixedStyledText('class ', style='annotation')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection:None <desc_annotation>
+                   > (0,0,3,0,6) object annotation
+                SingleStyledText('class ')
+              MixedStyledText('comunnication.', style='additional name part')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection:None <desc_addname>
+                   > (0,0,3,0,6) additional name part
+                SingleStyledText('comunnication.')
+              MixedStyledText('Connection', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection:None <desc_name>
+                   > (0,0,3,0,6) object name
+                SingleStyledText('Connection')
+              MixedStyledText(' ( myIp, listClients ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection:None <desc_parameterlist>
+                MixedStyledText(' ( myIp, listClients')
+                  SingleStyledText(' ( ', style='parentheses')
+                       > (0,0,3,0,6) object parentheses
+                  MixedStyledText('myIp, listClients', style='parameter list')
+                       > (0,0,3,0,6) object parameter list
+                    MixedStyledText('myIp', style='parameter')   None:None <desc_parameter>
+                         > (0,0,3,0,6) object parameter
+                      SingleStyledText('myIp')
+                    SingleStyledText(', ')
+                    MixedStyledText('listClients', style='parameter')   None:None <desc_parameter>
+                         > (0,0,3,0,6) object parameter
+                      SingleStyledText('listClients')
+                SingleStyledText(' ) ', style='parentheses')
+                     > (0,0,3,0,6) object parentheses
+        StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection:None <desc_content>
+             > (0,0,2,0,3) object description content
+          Paragraph('Classe base para conexoes')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection:1 <paragraph>
+               > (0,0,2,0,5) object description content paragraph
+                 (0,0,0,0,2) body
+            MixedStyledText('Classe base para conexoes')
+              SingleStyledText('Classe base para conexoes')
+          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.getMinersAndTraders:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('getMinersAndTraders (  ) ', id='comunnication.Connection.getMinersAndTraders')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.getMinersAndTraders:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('getMinersAndTraders (  ) ')
+                  MixedStyledText('getMinersAndTraders', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.getMinersAndTraders:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('getMinersAndTraders')
+                  MixedStyledText(' (  ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.getMinersAndTraders:None <desc_parameterlist>
+                    MixedStyledText(' ( ')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.getMinersAndTraders:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Adiciona nas respectivas listas ...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.getMinersAndTraders:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Adiciona nas respectivas listas ...')
+                  SingleStyledText('Adiciona nas respectivas listas ...')
+          LabeledFlowable(style='object description')   None:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('listenConnection ( port=5055 ) ', id='comunnication.Connection.listenConnection')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.listenConnection:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('listenConnection ( port=5055 ) ')
+                  MixedStyledText('listenConnection', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.listenConnection:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('listenConnection')
+                  MixedStyledText(' ( port=5055 ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.listenConnection:None <desc_parameterlist>
+                    MixedStyledText(' ( port=5055')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('port=5055', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                        MixedStyledText('port=5055', style='parameter')   None:None <desc_parameter>
+                             > (0,0,3,0,6) object parameter
+                          SingleStyledText('port=5055')
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.listenConnection:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Coloca o servidor para rodar de ...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.listenConnection:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Coloca o servidor para rodar de ...')
+                  SingleStyledText('Coloca o servidor para rodar de ...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.listenConnection:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    List(style='bulleted')   None:None <bullet_list>
+                         > (0,0,1,0,2) bulleted list
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('Ip – Endereço Ip que o servidor ...')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('Ip – Endereço Ip que o servidor ...')
+                              MixedStyledText('Ip', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('Ip')
+                              SingleStyledText(' – ')
+                              SingleStyledText('Endereço Ip que o servidor irá r...')
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('Port – Porta em que o servidor i...')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('Port – Porta em que o servidor i...')
+                              MixedStyledText('Port', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('Port')
+                              SingleStyledText(' – ')
+                              SingleStyledText('Porta em que o servidor irá roda...')
+          LabeledFlowable(style='object description')   None:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('myIp', id='comunnication.Connection.myIp')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.myIp:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('myIp')
+                  MixedStyledText('myIp', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.myIp:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('myIp')
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.myIp:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Metodo getter do myIp.')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.myIp:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Metodo getter do myIp.')
+                  SingleStyledText('Metodo getter do myIp.')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Returns', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Returns')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.myIp:0 <field_name>
+                      SingleStyledText('Returns')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('str – ip.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('str – ip.')
+                        SingleStyledText('str – ip.')
+          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.printClients:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('printClients (  ) ', id='comunnication.Connection.printClients')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.printClients:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('printClients (  ) ')
+                  MixedStyledText('printClients', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.printClients:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('printClients')
+                  MixedStyledText(' (  ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.printClients:None <desc_parameterlist>
+                    MixedStyledText(' ( ')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.printClients:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Imprime na tela a lista de clien...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Connection.printClients:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Imprime na tela a lista de clien...')
+                  SingleStyledText('Imprime na tela a lista de clien...')
+      LabeledFlowable(style='object description')   None:None <desc>
+           > (0,0,1,0,2) object description
+        StaticGroupedFlowables(style='signatures')
+             > (0,0,2,0,3) object signatures
+          Paragraph('class comunnication.Miner ( myIp...', id='comunnication.Miner')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner:None <desc_signature>
+               > (0,0,2,0,5) object signature
+                 (0,0,0,0,2) body
+            MixedStyledText('class comunnication.Miner ( myIp...')
+              MixedStyledText('class ', style='annotation')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner:None <desc_annotation>
+                   > (0,0,3,0,6) object annotation
+                SingleStyledText('class ')
+              MixedStyledText('comunnication.', style='additional name part')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner:None <desc_addname>
+                   > (0,0,3,0,6) additional name part
+                SingleStyledText('comunnication.')
+              MixedStyledText('Miner', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner:None <desc_name>
+                   > (0,0,3,0,6) object name
+                SingleStyledText('Miner')
+              MixedStyledText(' ( myIp, listClients, rich ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner:None <desc_parameterlist>
+                MixedStyledText(' ( myIp, listClients, rich')
+                  SingleStyledText(' ( ', style='parentheses')
+                       > (0,0,3,0,6) object parentheses
+                  MixedStyledText('myIp, listClients, rich', style='parameter list')
+                       > (0,0,3,0,6) object parameter list
+                    MixedStyledText('myIp', style='parameter')   None:None <desc_parameter>
+                         > (0,0,3,0,6) object parameter
+                      SingleStyledText('myIp')
+                    SingleStyledText(', ')
+                    MixedStyledText('listClients', style='parameter')   None:None <desc_parameter>
+                         > (0,0,3,0,6) object parameter
+                      SingleStyledText('listClients')
+                    SingleStyledText(', ')
+                    MixedStyledText('rich', style='parameter')   None:None <desc_parameter>
+                         > (0,0,3,0,6) object parameter
+                      SingleStyledText('rich')
+                SingleStyledText(' ) ', style='parentheses')
+                     > (0,0,3,0,6) object parentheses
+        StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner:None <desc_content>
+             > (0,0,2,0,3) object description content
+          Paragraph('Classe do minerador.')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner:1 <paragraph>
+               > (0,0,2,0,5) object description content paragraph
+                 (0,0,0,0,2) body
+            MixedStyledText('Classe do minerador.')
+              SingleStyledText('Classe do minerador.')
+          LabeledFlowable(style='object description')   None:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('filterCommunication ( conn, addr...', id='comunnication.Miner.filterCommunication')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.filterCommunication:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('filterCommunication ( conn, addr...')
+                  MixedStyledText('filterCommunication', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.filterCommunication:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('filterCommunication')
+                  MixedStyledText(' ( conn, addr ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.filterCommunication:None <desc_parameterlist>
+                    MixedStyledText(' ( conn, addr')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('conn, addr', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                        MixedStyledText('conn', style='parameter')   None:None <desc_parameter>
+                             > (0,0,3,0,6) object parameter
+                          SingleStyledText('conn')
+                        SingleStyledText(', ')
+                        MixedStyledText('addr', style='parameter')   None:None <desc_parameter>
+                             > (0,0,3,0,6) object parameter
+                          SingleStyledText('addr')
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.filterCommunication:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Trata as conexões dos clients… R...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.filterCommunication:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Trata as conexões dos clients… R...')
+                  SingleStyledText('Trata as conexões dos clients… R...')
+              Paragraph('TypeOfClient => retorna se o cli...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.filterCommunication:3 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('TypeOfClient => retorna se o cli...')
+                  SingleStyledText('TypeOfClient => retorna se o cli...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.filterCommunication:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    List(style='bulleted')   None:None <bullet_list>
+                         > (0,0,1,0,2) bulleted list
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('conn – Socket de conexão com o c...')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('conn – Socket de conexão com o c...')
+                              MixedStyledText('conn', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('conn')
+                              SingleStyledText(' – ')
+                              SingleStyledText('Socket de conexão com o cliente')
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('addr – Endereço da conexão deste...')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('addr – Endereço da conexão deste...')
+                              MixedStyledText('addr', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('addr')
+                              SingleStyledText(' – ')
+                              SingleStyledText('Endereço da conexão deste client...')
+          LabeledFlowable(style='object description')   None:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('sendBlock ( block ) ', id='comunnication.Miner.sendBlock')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendBlock:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('sendBlock ( block ) ')
+                  MixedStyledText('sendBlock', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendBlock:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('sendBlock')
+                  MixedStyledText(' ( block ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendBlock:None <desc_parameterlist>
+                    MixedStyledText(' ( block')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('block', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                        MixedStyledText('block', style='parameter')   None:None <desc_parameter>
+                             > (0,0,3,0,6) object parameter
+                          SingleStyledText('block')
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendBlock:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Envia o ultimo bloco minerado pa...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendBlock:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Envia o ultimo bloco minerado pa...')
+                  SingleStyledText('Envia o ultimo bloco minerado pa...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendBlock:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('block – ultimo bloco minerado.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('block – ultimo bloco minerado.')
+                        MixedStyledText('block', style='literal strong')   None:None <literal_strong>
+                             > (0,0,1,0,1) literal strong
+                          SingleStyledText('block')
+                        SingleStyledText(' – ')
+                        SingleStyledText('ultimo bloco minerado.')
+#### UpExpandingContainer('header')
+  Header('1 UniBlock Main')
+       > (0,0,0,0,2) header
+         (0,0,0,0,1) body
+    MixedStyledText('1 UniBlock Main')
+      Field('1')
+        SingleStyledText('1')
+      SingleStyledText(' ')
+      Field('UniBlock Main')
+        SingleStyledText('UniBlock Main')
+#### DownExpandingContainer('footer')
+  Footer('	3/6')
+       > (0,0,0,0,2) footer
+         (0,0,0,0,1) body
+    MixedStyledText('	3/6')
+      Tab('	')
+      Field('3')
+        SingleStyledText('3')
+      SingleStyledText('/')
+      Field('6')
+        SingleStyledText('6')
+---------------------------------- page 4 ----------------------------------
+#### ChainedContainer('column1')
+  (continued) DocumentTree()
+    (continued) Section(id='uniblock-comunnication')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:13 <section>
+         > (0,0,0,1,2) chapter
+      (continued) LabeledFlowable(style='object description')   None:None <desc>
+           > (0,0,1,0,2) object description
+        (continued) StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner:None <desc_content>
+             > (0,0,2,0,3) object description content
+          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendTransactionsToMiners:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('sendTransactionsToMiners (  ) ', id='comunnication.Miner.sendTransactionsToMiners')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendTransactionsToMiners:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('sendTransactionsToMiners (  ) ')
+                  MixedStyledText('sendTransactionsToMiners', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendTransactionsToMiners:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('sendTransactionsToMiners')
+                  MixedStyledText(' (  ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendTransactionsToMiners:None <desc_parameterlist>
+                    MixedStyledText(' ( ')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendTransactionsToMiners:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Envia as transacoes para os mine...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Miner.sendTransactionsToMiners:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Envia as transacoes para os mine...')
+                  SingleStyledText('Envia as transacoes para os mine...')
+      LabeledFlowable(style='object description')   None:None <desc>
+           > (0,0,1,0,2) object description
+        StaticGroupedFlowables(style='signatures')
+             > (0,0,2,0,3) object signatures
+          Paragraph('class comunnication.Trader ( myI...', id='comunnication.Trader')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader:None <desc_signature>
+               > (0,0,2,0,5) object signature
+                 (0,0,0,0,2) body
+            MixedStyledText('class comunnication.Trader ( myI...')
+              MixedStyledText('class ', style='annotation')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader:None <desc_annotation>
+                   > (0,0,3,0,6) object annotation
+                SingleStyledText('class ')
+              MixedStyledText('comunnication.', style='additional name part')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader:None <desc_addname>
+                   > (0,0,3,0,6) additional name part
+                SingleStyledText('comunnication.')
+              MixedStyledText('Trader', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader:None <desc_name>
+                   > (0,0,3,0,6) object name
+                SingleStyledText('Trader')
+              MixedStyledText(' ( myIp, listClients ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader:None <desc_parameterlist>
+                MixedStyledText(' ( myIp, listClients')
+                  SingleStyledText(' ( ', style='parentheses')
+                       > (0,0,3,0,6) object parentheses
+                  MixedStyledText('myIp, listClients', style='parameter list')
+                       > (0,0,3,0,6) object parameter list
+                    MixedStyledText('myIp', style='parameter')   None:None <desc_parameter>
+                         > (0,0,3,0,6) object parameter
+                      SingleStyledText('myIp')
+                    SingleStyledText(', ')
+                    MixedStyledText('listClients', style='parameter')   None:None <desc_parameter>
+                         > (0,0,3,0,6) object parameter
+                      SingleStyledText('listClients')
+                SingleStyledText(' ) ', style='parentheses')
+                     > (0,0,3,0,6) object parentheses
+        StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader:None <desc_content>
+             > (0,0,2,0,3) object description content
+          Paragraph('Classe do usuario comum.')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader:1 <paragraph>
+               > (0,0,2,0,5) object description content paragraph
+                 (0,0,0,0,2) body
+            MixedStyledText('Classe do usuario comum.')
+              SingleStyledText('Classe do usuario comum.')
+          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.discoverMiner:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('discoverMiner (  ) ', id='comunnication.Trader.discoverMiner')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.discoverMiner:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('discoverMiner (  ) ')
+                  MixedStyledText('discoverMiner', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.discoverMiner:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('discoverMiner')
+                  MixedStyledText(' (  ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.discoverMiner:None <desc_parameterlist>
+                    MixedStyledText(' ( ')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.discoverMiner:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Método que descobre qual o miner...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.discoverMiner:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Método que descobre qual o miner...')
+                  SingleStyledText('Método que descobre qual o miner...')
+          LabeledFlowable(style='object description')   None:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('filterCommunication ( conn, addr...', id='comunnication.Trader.filterCommunication')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.filterCommunication:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('filterCommunication ( conn, addr...')
+                  MixedStyledText('filterCommunication', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.filterCommunication:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('filterCommunication')
+                  MixedStyledText(' ( conn, addr ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.filterCommunication:None <desc_parameterlist>
+                    MixedStyledText(' ( conn, addr')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('conn, addr', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                        MixedStyledText('conn', style='parameter')   None:None <desc_parameter>
+                             > (0,0,3,0,6) object parameter
+                          SingleStyledText('conn')
+                        SingleStyledText(', ')
+                        MixedStyledText('addr', style='parameter')   None:None <desc_parameter>
+                             > (0,0,3,0,6) object parameter
+                          SingleStyledText('addr')
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.filterCommunication:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Trata as conexões dos clients… R...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.filterCommunication:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Trata as conexões dos clients… R...')
+                  SingleStyledText('Trata as conexões dos clients… R...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.filterCommunication:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    List(style='bulleted')   None:None <bullet_list>
+                         > (0,0,1,0,2) bulleted list
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('conn – Socket de conexão com o c...')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('conn – Socket de conexão com o c...')
+                              MixedStyledText('conn', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('conn')
+                              SingleStyledText(' – ')
+                              SingleStyledText('Socket de conexão com o cliente.')
+                      ListItem()
+                           x (0,0,1,0,4) bulleted list item
+                           > fallback to default style
+                        ListItemLabel('•')
+                             > (0,0,1,0,6) bulleted list item label
+                               (0,0,0,0,2) list item label
+                            MixedStyledText('•')
+                              SingleStyledText('')
+                              SingleStyledText('•')
+                              SingleStyledText('')
+                        StaticGroupedFlowables()   None:None <list_item>
+                             > (0,0,0,0,3) list item body
+                          Paragraph('addr – Endereço da conexão deste...')   None:None <paragraph>
+                               > (0,0,0,0,5) list item paragraph
+                                 (0,0,0,0,2) body
+                            MixedStyledText('addr – Endereço da conexão deste...')
+                              MixedStyledText('addr', style='literal strong')   None:None <literal_strong>
+                                   > (0,0,1,0,1) literal strong
+                                SingleStyledText('addr')
+                              SingleStyledText(' – ')
+                              SingleStyledText('Endereço da conexão deste client...')
+          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.runMethods:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('runMethods (  ) ', id='comunnication.Trader.runMethods')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.runMethods:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('runMethods (  ) ')
+                  MixedStyledText('runMethods', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.runMethods:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('runMethods')
+                  MixedStyledText(' (  ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.runMethods:None <desc_parameterlist>
+                    MixedStyledText(' ( ')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.runMethods:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Metodo em loop que fica pedindo ...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.runMethods:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Metodo em loop que fica pedindo ...')
+                  SingleStyledText('Metodo em loop que fica pedindo ...')
+          LabeledFlowable(style='object description')   None:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('sendToMiner ( transaction ) ', id='comunnication.Trader.sendToMiner')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.sendToMiner:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('sendToMiner ( transaction ) ')
+                  MixedStyledText('sendToMiner', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.sendToMiner:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('sendToMiner')
+                  MixedStyledText(' ( transaction ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.sendToMiner:None <desc_parameterlist>
+                    MixedStyledText(' ( transaction')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('transaction', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                        MixedStyledText('transaction', style='parameter')   None:None <desc_parameter>
+                             > (0,0,3,0,6) object parameter
+                          SingleStyledText('transaction')
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.sendToMiner:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Envia a transação para o minerad...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.sendToMiner:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Envia a transação para o minerad...')
+                  SingleStyledText('Envia a transação para o minerad...')
+              DefinitionList(style='field list')   None:None <field_list>
+                   > (0,0,1,0,2) field list
+                     (0,0,0,0,2) definition list
+                LabeledFlowable()   None:None <field>
+                     > (0,0,1,0,4) field list item
+                       (0,0,0,0,4) definition list item
+                  Paragraph('Parameters', style='field name')
+                       > (0,0,2,0,6) field name
+                         (0,0,0,0,2) body
+                    MixedStyledText('Parameters')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.sendToMiner:0 <field_name>
+                      SingleStyledText('Parameters')
+                  StaticGroupedFlowables()   None:None <field_body>
+                    Paragraph('transaction – Transaction.')   None:None <paragraph>
+                         > (0,0,0,0,2) body
+                      MixedStyledText('transaction – Transaction.')
+                        MixedStyledText('transaction', style='literal strong')   None:None <literal_strong>
+                             > (0,0,1,0,1) literal strong
+                          SingleStyledText('transaction')
+                        SingleStyledText(' – ')
+                        SingleStyledText('Transaction.')
+          LabeledFlowable(style='object description')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.userInput:None <desc>
+               > (0,0,1,0,2) object description
+            StaticGroupedFlowables(style='signatures')
+                 > (0,0,2,0,3) object signatures
+              Paragraph('userInput (  ) ', id='comunnication.Trader.userInput')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.userInput:None <desc_signature>
+                   > (0,0,2,0,5) object signature
+                     (0,0,0,0,2) body
+                MixedStyledText('userInput (  ) ')
+                  MixedStyledText('userInput', style='main object name')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.userInput:None <desc_name>
+                       > (0,0,3,0,6) object name
+                    SingleStyledText('userInput')
+                  MixedStyledText(' (  ) ')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.userInput:None <desc_parameterlist>
+                    MixedStyledText(' ( ')
+                      SingleStyledText(' ( ', style='parentheses')
+                           > (0,0,3,0,6) object parentheses
+                      MixedStyledText('', style='parameter list')
+                           > (0,0,3,0,6) object parameter list
+                    SingleStyledText(' ) ', style='parentheses')
+                         > (0,0,3,0,6) object parentheses
+            StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.userInput:None <desc_content>
+                 > (0,0,2,0,3) object description content
+              Paragraph('Inicia a transação. Descobre o i...')   /home/lucas/GitHub/UniBlock/comunnication.py:docstring of comunnication.Trader.userInput:1 <paragraph>
+                   > (0,0,2,0,5) object description content paragraph
+                     (0,0,0,0,2) body
+                MixedStyledText('Inicia a transação. Descobre o i...')
+                  SingleStyledText('Inicia a transação. Descobre o i...')
     Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
          > (0,0,0,1,2) chapter
       Heading('3 UniBlock BlockChain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <title>
@@ -399,6 +1106,36 @@
                          > (0,0,0,0,2) body
                       MixedStyledText('int – ultima prova de trabalho.')
                         SingleStyledText('int – ultima prova de trabalho.')
+#### UpExpandingContainer('header')
+  Header('3 UniBlock BlockChain')
+       > (0,0,0,0,2) header
+         (0,0,0,0,1) body
+    MixedStyledText('3 UniBlock BlockChain')
+      Field('3')
+        SingleStyledText('3')
+      SingleStyledText(' ')
+      Field('UniBlock BlockChain')
+        SingleStyledText('UniBlock BlockChain')
+#### DownExpandingContainer('footer')
+  Footer('	4/6')
+       > (0,0,0,0,2) footer
+         (0,0,0,0,1) body
+    MixedStyledText('	4/6')
+      Tab('	')
+      Field('4')
+        SingleStyledText('4')
+      SingleStyledText('/')
+      Field('6')
+        SingleStyledText('6')
+---------------------------------- page 5 ----------------------------------
+#### ChainedContainer('column1')
+  (continued) DocumentTree()
+    (continued) Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
+         > (0,0,0,1,2) chapter
+      (continued) LabeledFlowable(style='object description')   None:None <desc>
+           > (0,0,1,0,2) object description
+        (continued) StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain:None <desc_content>
+             > (0,0,2,0,3) object description content
           LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
@@ -591,49 +1328,6 @@
                                 SingleStyledText('proof')
                               SingleStyledText(' – ')
                               SingleStyledText('prova atual.')
-#### UpExpandingContainer('header')
-  Header('1 UniBlock Main')
-       > (0,0,0,0,2) header
-         (0,0,0,0,1) body
-    MixedStyledText('1 UniBlock Main')
-      Field('1')
-        SingleStyledText('1')
-      SingleStyledText(' ')
-      Field('UniBlock Main')
-        SingleStyledText('UniBlock Main')
-#### DownExpandingContainer('footer')
-  Footer('	3/5')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('	3/5')
-      Tab('	')
-      Field('3')
-        SingleStyledText('3')
-      SingleStyledText('/')
-      Field('5')
-        SingleStyledText('5')
----------------------------------- page 4 ----------------------------------
-#### ChainedContainer('column1')
-  (continued) DocumentTree()
-    (continued) Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
-         > (0,0,0,1,2) chapter
-      (continued) LabeledFlowable(style='object description')   None:None <desc>
-           > (0,0,1,0,2) object description
-        (continued) StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain:None <desc_content>
-             > (0,0,2,0,3) object description content
-          (continued) LabeledFlowable(style='object description')   None:None <desc>
-               > (0,0,1,0,2) object description
-            (continued) StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.BlockChain.valid_proof:None <desc_content>
-                 > (0,0,2,0,3) object description content
-              (continued) DefinitionList(style='field list')   None:None <field_list>
-                   > (0,0,1,0,2) field list
-                     (0,0,0,0,2) definition list
-                (continued) LabeledFlowable()   None:None <field>
-                     > (0,0,1,0,4) field list item
-                       (0,0,0,0,4) definition list item
-                  (continued) StaticGroupedFlowables()   None:None <field_body>
-                    (continued) List(style='bulleted')   None:None <bullet_list>
-                         > (0,0,1,0,2) bulleted list
                       ListItem()
                            x (0,0,1,0,4) bulleted list item
                            > fallback to default style
@@ -984,6 +1678,36 @@
                          > (0,0,0,0,2) body
                       MixedStyledText('int – indice do proximo bloco.')
                         SingleStyledText('int – indice do proximo bloco.')
+#### UpExpandingContainer('header')
+  Header('3 UniBlock BlockChain')
+       > (0,0,0,0,2) header
+         (0,0,0,0,1) body
+    MixedStyledText('3 UniBlock BlockChain')
+      Field('3')
+        SingleStyledText('3')
+      SingleStyledText(' ')
+      Field('UniBlock BlockChain')
+        SingleStyledText('UniBlock BlockChain')
+#### DownExpandingContainer('footer')
+  Footer('	5/6')
+       > (0,0,0,0,2) footer
+         (0,0,0,0,1) body
+    MixedStyledText('	5/6')
+      Tab('	')
+      Field('5')
+        SingleStyledText('5')
+      SingleStyledText('/')
+      Field('6')
+        SingleStyledText('6')
+---------------------------------- page 6 ----------------------------------
+#### ChainedContainer('column1')
+  (continued) DocumentTree()
+    (continued) Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
+         > (0,0,0,1,2) chapter
+      (continued) LabeledFlowable(style='object description')   None:None <desc>
+           > (0,0,1,0,2) object description
+        (continued) StaticGroupedFlowables(style='content')   /home/lucas/GitHub/UniBlock/BlockChain.py:docstring of BlockChain.MinerChain:None <desc_content>
+             > (0,0,2,0,3) object description content
           LabeledFlowable(style='object description')   None:None <desc>
                > (0,0,1,0,2) object description
             StaticGroupedFlowables(style='signatures')
@@ -1114,32 +1838,6 @@
                          > (0,0,0,0,2) body
                       MixedStyledText('list – lista de transacoes.')
                         SingleStyledText('list – lista de transacoes.')
-#### UpExpandingContainer('header')
-  Header('3 UniBlock BlockChain')
-       > (0,0,0,0,2) header
-         (0,0,0,0,1) body
-    MixedStyledText('3 UniBlock BlockChain')
-      Field('3')
-        SingleStyledText('3')
-      SingleStyledText(' ')
-      Field('UniBlock BlockChain')
-        SingleStyledText('UniBlock BlockChain')
-#### DownExpandingContainer('footer')
-  Footer('	4/5')
-       > (0,0,0,0,2) footer
-         (0,0,0,0,1) body
-    MixedStyledText('	4/5')
-      Tab('	')
-      Field('4')
-        SingleStyledText('4')
-      SingleStyledText('/')
-      Field('5')
-        SingleStyledText('5')
----------------------------------- page 5 ----------------------------------
-#### ChainedContainer('column1')
-  (continued) DocumentTree()
-    (continued) Section(id='uniblock-blockchain')   /home/lucas/GitHub/UniBlock/docs/source/index.rst:18 <section>
-         > (0,0,0,1,2) chapter
       LabeledFlowable(style='object description')   None:None <desc>
            > (0,0,1,0,2) object description
         StaticGroupedFlowables(style='signatures')
@@ -1237,13 +1935,13 @@
       Field('UniBlock BlockChain')
         SingleStyledText('UniBlock BlockChain')
 #### DownExpandingContainer('footer')
-  Footer('	5/5')
+  Footer('	6/6')
        > (0,0,0,0,2) footer
          (0,0,0,0,1) body
-    MixedStyledText('	5/5')
+    MixedStyledText('	6/6')
       Tab('	')
-      Field('5')
-        SingleStyledText('5')
+      Field('6')
+        SingleStyledText('6')
       SingleStyledText('/')
-      Field('5')
-        SingleStyledText('5')
+      Field('6')
+        SingleStyledText('6')
