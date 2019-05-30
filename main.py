@@ -17,6 +17,9 @@ def parseArguments():
     parser.add_argument("-v", "--version", action='version', version='Uniblock v1.0 \nRepository Link => https://github.com/homdreen/UniBlock')
     parser.add_argument("--miner", action="store_const", const=True, help="Define user as miner")
     parser.add_argument("--rich", action="store_const", const=True, help="Define miner as rich")
+    parser.add_argument("--keeper", action="store_const", const=True, help="Define keeper")
+    parser.add_argument("--keeperip", action="store_const", const=True, help="Define keeper ip")
+    parser.add_argument("--keeperport", action="store_const", const=True, help="Define keeper port")
 
     return parser.parse_args()
 
@@ -33,6 +36,20 @@ def main():
 
     if args.miner == True: 
         print(style + 'User detected as ' + Fore.RED + 'miner')
+    
+    if args.keeper == True: #Testa se é o keeper
+        pass
+    else: #Se nao é o keeper, é necessário saber quem é
+        if args.keeperip == True:#Testa se o ip do keeper foi fornecido
+            pass
+        else: #Se nao passou o ip do keeper tem que dar ruim?
+            pass
+        
+        if args.keeperport == True: #Testa se a porta do keeper foi fornecida
+            pass
+        else: #Sem a porta do keeper tem que encerrar?
+            pass
+
 
     for i in range(args.users): #Pega inputs de IP's dos usuários e adiciona à lista.
         if i == 0:
@@ -47,6 +64,7 @@ def main():
             client=Miner(users[0], listClients=users, rich=True)
         else:
             client=Miner(users[0], listClients=users, rich=False)
+    
     else: #Se não entrar no teste anterior, é trader.
         client=Trader(users[0], listClients=users)
 
