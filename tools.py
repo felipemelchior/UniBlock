@@ -80,11 +80,11 @@ class Chain(object):
     '''
     Classe que implementa a chain da blockchain
     '''
-    def __init__(self):
+    def __init__(self, path_blocks):
         '''
         Construtor da classe chain
         '''
-        self.path_blocks='Blocks'# port
+        self.path_blocks=path_blocks# port
         if os.path.isdir(self.path_blocks):#remove a pasta, se existir
             shutil.rmtree(self.path_blocks)
         os.mkdir(self.path_blocks)#cria a pasta sem blocos
@@ -250,4 +250,4 @@ class Chain(object):
         return list_blocks
 
 if __name__ == "__main__":
-    chain=Chain()
+    pass
