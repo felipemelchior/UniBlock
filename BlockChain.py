@@ -3,6 +3,7 @@ import json
 import re
 from time import time
 from colorama import Fore, Style
+import tools
 
 styleCommunication = Fore.MAGENTA + Style.BRIGHT
 styleClient = Fore.GREEN + Style.BRIGHT
@@ -16,20 +17,12 @@ class BlockChain(object):
 	Implementa os metodos essenciais para a blockchain.
 	'''
 
-	def __init__(self):
+	def __init__(self, path_blocks):
 		'''
 		Construtor da classe BlockChain.
 		Inicia a lista chain da classe e a regra da prova de trabalho.
 		'''
-		self.chain=[]#chain da blockchain
-		self.chain.append({
-			'index':len(self.chain)+1,
-			'timestamp':0,
-			'transactions':[],
-			'proof':0,
-			'previous_hash':0,
-			'hash_proof':0,
-		})
+		self._chain=tools.Chain(path_blocks)#chain da blockchain
 		self.rule='0000'#a regra inicialmente comeca com quatro zeros
     
 	@property
@@ -91,7 +84,7 @@ class BlockChain(object):
 
 		:returns: list -- cadeia de blocos.
 		'''
-		return self._chain
+		return self._chain.list_blocks
 
 	@chain.setter
 	def chain(self, chain):
@@ -100,7 +93,7 @@ class BlockChain(object):
 
 		:param chain: cadeia de blocos.
 		'''
-		self._chain=chain
+		self._chain.list_blocks=chain
 
 	@property
 	def last_block(self):
@@ -109,7 +102,7 @@ class BlockChain(object):
 
 		:returns: list -- ultimo bloco da cadeia de blocos.
 		'''
-		return self.chain[-1]
+		return self._chain.last_block
 
 	@last_block.setter
 	def last_block(self, block):
@@ -118,7 +111,7 @@ class BlockChain(object):
 		
 		:param block: bloco que sera inserido na cadeia de blocos.
 		'''
-		self._chain.append(block)
+		self._chain.last_block=block
 
 	def valid_chain(self, chain):
 		'''
@@ -134,6 +127,10 @@ class BlockChain(object):
 				return False
 		return True
 
+	@property
+	def full_chain(self):
+		return self._chain.range_blocks(range(int(self.chain[len(self.chain)-1]['index'])+1))
+
 class MinerChain(BlockChain):
 
 	'''
@@ -141,13 +138,13 @@ class MinerChain(BlockChain):
 	Classe que implementa os metodos da chain utilizada pelos mineradores da blockchain
 	'''
 
-	def __init__(self):
+	def __init__(self, path_blocks):
 		'''
 		Construtor da classe 
 		Cria a lista de transacoes
 		Inicia a flag que diz quando um block pode comecar a ser minerado
 		'''
-		super().__init__()
+		super().__init__(path_blocks)
 		self.transactions=[[]]
 		self.start_miner=False
 		self.block=None
@@ -309,11 +306,11 @@ class TraderChain(BlockChain):
 	Classe que implementa a chain dos traders
 	'''
 
-	def __init__(self):
+	def __init__(self, path_blocks):
 		'''
 		Construtor da classe
 		'''
-		super().__init__()
+		super().__init__(path_blocks)
 
 	def new_transaction(self, myIp):
 		'''
@@ -336,8 +333,5 @@ class TraderChain(BlockChain):
 
 		return transaction
 
-def main():
-	pass
-
 if __name__=='__main__':
-	main()
+	pass
