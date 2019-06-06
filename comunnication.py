@@ -243,6 +243,18 @@ class Miner(Connection):
             try: 
                 msg = conn.recv(1024)
 
+                if re.search('DEAD', msg.decode("utf-8")):
+                    # Dead's actions
+                    pass
+
+                if re.search('NEW', msg.decode("utf-8")):
+                    # New's actions
+                    pass
+
+                if re.search('UAlive?', msg.decode("utf-8")):
+                    # Aliver's actions
+                    pass
+
                 if re.search('TypeOfClient', msg.decode("utf-8")): #Envia resposta sobre qual é o tipo de cliente.
                     if self.miner:
                         conn.send(b'Miner')
