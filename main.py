@@ -1,10 +1,25 @@
 import argparse
 import threading
+import socket
+import pickle
 from argparse import RawTextHelpFormatter
+from Keeper import Keeper
 from comunnication import Connection, Miner, Trader
 from colorama import Fore, Back, Style, init
 init(autoreset=True) # autoreset de estilos do colorama
 
+def connectKeeper(keeperIp, keeperPort):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((keeperIp, keeperPort))
+    sock.send(b'EnterBlockchain')
+    myAddress = sock.recv(4096)
+    myAddress = pickle.loads(myAddress)
+    sock.send(b'Ok')
+
+    users = sock.recv(4096)
+    users = pickle.loads(users)
+
+    return myPort, users
 def parseArguments():
     '''
     Função que identifica os argumentos passados.
@@ -15,11 +30,11 @@ def parseArguments():
     parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v1.0', formatter_class=RawTextHelpFormatter)
     parser.add_argument("-u", "--users", default=1, type=int, help="Number of users of blockchain")
     parser.add_argument("-v", "--version", action='version', version='Uniblock v1.0 \nRepository Link => https://github.com/homdreen/UniBlock')
-    parser.add_argument("--miner", action="store_const", const=True, help="Define user as miner")
+    parser.add_argument("--miner", action="store_const",const=True, help="Define user as miner")
     parser.add_argument("--rich", action="store_const", const=True, help="Define miner as rich")
     parser.add_argument("--keeper", action="store_const", const=True, help="Define keeper")
-    parser.add_argument("--keeperip", action="store_const", const=True, help="Define keeper ip")
-    parser.add_argument("--keeperport", action="store_const", const=True, help="Define keeper port")
+    parser.add_argument("-ki","--keeperip", action="store_const", required=True, const=True, help="Define keeper ip")
+    parser.add_argument("-kp","--keeperport", action="store_const", required=True, const=True, help="Define keeper port")
 
     return parser.parse_args()
 
@@ -27,34 +42,28 @@ def main():
     '''
     Função principal do programa.
     '''
-
-    users = []
+    listUsers = []
     style = Fore.GREEN + Style.BRIGHT
     args = parseArguments()
 
-    print(style + 'Connecting/Initialyzing with ' + Fore.RED + str(args.users) + style + ' users')
-
-    if args.miner == True: 
-        print(style + 'User detected as ' + Fore.RED + 'miner')
-    
     if args.keeper == True: #Testa se é o keeper
-        pass
-    else: #Se nao é o keeper, é necessário saber quem é
-        if args.keeperip == True:#Testa se o ip do keeper foi fornecido
-            pass
-        else: #Se nao passou o ip do keeper tem que dar ruim?
-            pass
-        
-        if args.keeperport == True: #Testa se a porta do keeper foi fornecida
-            pass
-        else: #Sem a porta do keeper tem que encerrar?
-            pass
+        print(style + 'User detected as ' + Fore.RED + 'keeper')
 
+        keeper = Keeper(args.keeperip, args.keeperport)
+        keeper.start_server()
+    else: #Se nao é o keeper, é necessário saber quem é
+        myAddress, listUsers = connectKeeper(args.keeperip, args.keeperport)
+        
+        if args.miner == True:
+            print(style + 'User detected as ' + Fore.RED + 'miner')
+
+        elif args.trader == True:
+            print(style + 'User detected as ' + Fore.RED + 'trader')
 
     for i in range(args.users): #Pega inputs de IP's dos usuários e adiciona à lista.
         if i == 0:
             user = str(input(style + 'Enter ' + Fore.RED + 'your IP ' + style + ' => '))
-        else: 
+        else:
             user = str(input(style + 'Enter the IP for user ' + Fore.RED + str(i) + style + ' => '))
         users.append(user)
         print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
@@ -64,7 +73,7 @@ def main():
             client=Miner(users[0], listClients=users, rich=True)
         else:
             client=Miner(users[0], listClients=users, rich=False)
-    
+
     else: #Se não entrar no teste anterior, é trader.
         client=Trader(users[0], listClients=users)
 
@@ -83,4 +92,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    

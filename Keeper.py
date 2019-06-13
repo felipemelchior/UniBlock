@@ -100,12 +100,8 @@ class Keeper():
                 msg = conn.recv(1024)
                 if re.search('EnterBlockChain', msg.decode('utf-8')):
                     self.listClients.append((addr[0], addr[1]))
-                    conn.send(addr[1])
+                    conn.send(pickle.dumps(addr)
                     self.notify_ip((addr[0], addr[1]), 'NEW')
-                    msg = conn.recv(1024)
-
-                    if re.search('Ok', msg.decode('utf-8')):
-                        conn.send(pickle.dumps(self.listClients))
 
     def start_server(self):
         global styleKeeper
