@@ -21,6 +21,7 @@ class Keeper():
         self.ip = ip
         self.port = port
         self.listClients = []
+        self.threads = []
 
     @property
     def ip(self):
@@ -100,16 +101,15 @@ class Keeper():
                 msg = conn.recv(1024)
                 if re.search('EnterBlockChain', msg.decode('utf-8')):
                     self.listClients.append((addr[0], addr[1]))
-                    conn.send(addr[1])
+                    conn.send(pickle.dumps(addr))
                     self.notify_ip((addr[0], addr[1]), 'NEW')
-                    msg = conn.recv(1024)
-
-                    if re.search('Ok', msg.decode('utf-8')):
-                        conn.send(pickle.dumps(self.listClients))
+                if re.search('GiveMeUsers', msg.decode('utf-8')):
+                    conn.send(pickle.dumps(self.listClients))
+            except:
+                pass
 
     def start_server(self):
         global styleKeeper
-
         try:
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
@@ -124,14 +124,15 @@ class Keeper():
                 while True:
                     conn, addr = server.accept()
                     print(styleKeeper + "New connection from {} with port {}".format(addr[0], addr[1]))
-                    threading.Thread(target=self.connected, args=(conn,addr))
+                    thread = threading.Thread(target=self.connected, args=(conn,addr))
+                    thread.start()
+                    self.threads.append(thread)
             except:
                 server.close()
                 print(styleKeeper + "Ending the execution of server - No messages!")
 
         except (KeyboardInterrupt, SystemExit):
             print(styleKeeper + "Finishing the execution of server...")
-
 
 
 
