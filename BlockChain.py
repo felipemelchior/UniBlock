@@ -3,7 +3,7 @@ import json
 import re
 from time import time
 from colorama import Fore, Style
-import tools
+import tools as tls
 
 styleCommunication = Fore.MAGENTA + Style.BRIGHT
 styleClient = Fore.GREEN + Style.BRIGHT
@@ -22,7 +22,7 @@ class BlockChain(object):
 		Construtor da classe BlockChain.
 		Inicia a lista chain da classe e a regra da prova de trabalho.
 		'''
-		self._chain=tools.Chain(path_blocks)#chain da blockchain
+		self._chain=tls.Chain(path_blocks)#chain da blockchain
 		self.rule='0000'#a regra inicialmente comeca com quatro zeros
     
 	@property
