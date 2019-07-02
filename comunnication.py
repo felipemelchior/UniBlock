@@ -15,30 +15,30 @@ class Connection:
     '''
     Classe base para conexoes
     '''
-    def __init__(self, myIp, listClients):
-        self.myIp=myIp
+    def __init__(self, my_address, listClients):
+        self.my_address=my_address
         self.listClients = listClients
         self.listMiners = []
         self.listTraders = []
         self.miner = False
 
     @property
-    def myIp(self):
+    def my_address(self):
         '''
-        Metodo getter do myIp.
+        Metodo getter do my_address.
 
         :returns: str -- ip.
         '''
-        return self._myIp
+        return self._my_address
     
-    @myIp.setter
-    def myIp(self, value):
+    @my_address.setter
+    def my_address(self, value):
         '''
-        Metodo setter do myIp.
+        Metodo setter do my_address.
 
         :param value: valor do ip.
         '''
-        self._myIp=value
+        self._my_address=value
 
     def printClients(self):
         '''
@@ -50,50 +50,49 @@ class Connection:
         print(styleClient + 'Miners => {}'.format(self.listMiners))
         print(styleClient + 'Traders => {}'.format(self.listTraders))
 
-    def getMinersAndTraders(self):
-        '''
-        Adiciona nas respectivas listas os ips que são mineradores e ips que são traders.
-        '''
-        
-        global styleCommunication
-        active = []
-        visited = []
+    # def getMinersAndTraders(self):
+    #     '''
+    #     Adiciona nas respectivas listas os ips que são mineradores e ips que são traders.
+    #     '''
+    #     global styleCommunication
+    #     active = []
+    #     visited = []
 
-        while (len(active) != len(self.listClients)): #Loop que adiciona os clientes ao seus respectivos tipos.
-            for ip in self.listClients:
-                if ip == self.myIp:
-                    if ip not in active: #Adiciona à lista de clientes ativos
-                        active.append(ip)
-                    continue
+    #     while (len(active) != len(self.listClients)): #Loop que adiciona os clientes ao seus respectivos tipos.
+    #         for ip in self.listClients:
+    #             if ip == self.my_address:
+    #                 if ip not in active: #Adiciona à lista de clientes ativos
+    #                     active.append(ip)
+    #                 continue
 
-                if ip not in active: #Tenta conexão com cliente.
-                    socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    try:
-                        socketClient.connect((ip, 5055))
-                    except:
-                        if ip not in visited: 
-                            visited.append(ip)
-                            print(styleCommunication + 'Conection refused by {}! Likely to be still starting'.format(ip))
-                        else:
-                            pass
-                        continue
+    #             if ip not in active: #Tenta conexão com cliente.
+    #                 socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #                 try:
+    #                     socketClient.connect((ip, 5055))
+    #                 except:
+    #                     if ip not in visited: 
+    #                         visited.append(ip)
+    #                         print(styleCommunication + 'Conection refused by {}! Likely to be still starting'.format(ip))
+    #                     else:
+    #                         pass
+    #                     continue
 
-                    active.append(ip) #Adiciona à lista de ativos.
+    #                 active.append(ip) #Adiciona à lista de ativos.
 
-                    socketClient.send(b'TypeOfClient') #Envia requisição sobre qual é o tipo do cliente.
+    #                 socketClient.send(b'TypeOfClient') #Envia requisição sobre qual é o tipo do cliente.
                     
-                    msg = socketClient.recv(1024)
+    #                 msg = socketClient.recv(1024)
                     
-                    if re.search('Miner', msg.decode("utf-8")): #Adiciona à lista de acordo com a mensagem e o tipo.
-                        print(styleCommunication + 'Miner discovery => {}'.format(ip))
-                        self.listMiners.append(ip)
-                    elif re.search('Trader', msg.decode("utf-8")):
-                        print(styleCommunication + 'Trader discovery => {}'.format(ip))
-                        self.listTraders.append(ip)
+    #                 if re.search('Miner', msg.decode("utf-8")): #Adiciona à lista de acordo com a mensagem e o tipo.
+    #                     print(styleCommunication + 'Miner discovery => {}'.format(ip))
+    #                     self.listMiners.append(ip)
+    #                 elif re.search('Trader', msg.decode("utf-8")):
+    #                     print(styleCommunication + 'Trader discovery => {}'.format(ip))
+    #                     self.listTraders.append(ip)
 
-                    socketClient.close()
+    #                 socketClient.close()
         
-        self.printClients()
+    #     self.printClients()
 
 
     def listenConnection(self, port=5055):
@@ -110,7 +109,7 @@ class Connection:
         try:
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
-                server.bind((self._myIp, int(port)))
+                server.bind((self._my_address, int(port)))
                 server.listen(10)
             except:
                 print("Error on start server")
@@ -140,19 +139,17 @@ class Miner(Connection):
     '''
     Classe do minerador.
     '''
-    def __init__(self, myIp, listClients, rich):
+    def __init__(self, my_address, listClients):
         '''
         Construtor da classe do minerador.
 
-        :param myIp: ip.
+        :param my_address: ip.
         :param listClients: lista de clientes.
         :param rich: flag do minerador que utiliza a carteira.
         '''
-        super().__init__(myIp, listClients)
+        super().__init__(my_address, listClients)
         self.miner = True
-        self.flagRich = rich
-        self.listMiners.append(self.myIp)
-        self.blockChain = MinerChain()
+        self.blockChain = MinerChain(self.my_address)
 
 
     def sendTransactionsToMiners(self):
@@ -315,16 +312,15 @@ class Trader(Connection):
     '''
     Classe do usuario comum.
     '''
-    def __init__(self, myIp, listClients):
+    def __init__(self, my_address, listClients):
         '''
         Construtor da classe do usuario comum.
 
-        :param myIp: ip.
+        :param my_address: ip.
         :param listClients: lista de clientes.
         '''
-        super().__init__(myIp, listClients)
-        self.listTraders.append(self.myIp)
-        self.blockChain = TraderChain()
+        super().__init__(my_address, listClients)
+        self.blockChain = TraderChain(self.my_address)
 
     def runMethods(self):
         '''
@@ -343,44 +339,44 @@ class Trader(Connection):
         Envia esta transação para o minerador com a flag rich.
         '''
 
-        transaction = self.blockChain.new_transaction(self.myIp)
+        transaction = self.blockChain.new_transaction(self.my_address)
         transaction['minerRichIp'] = self.discoverMiner()
         self.sendToMiner(transaction)
 
-    def discoverMiner(self):
-        '''
-        Método que descobre qual o minerador que está aceitando transações para adicionar na carteira.
-        '''
+    # def discoverMiner(self):
+    #     '''
+    #     Método que descobre qual o minerador que está aceitando transações para adicionar na carteira.
+    #     '''
 
-        global styleCommunication
-        ipMiner = ''
+    #     global styleCommunication
+    #     ipMiner = ''
 
-        for ip in self.listMiners: #Percorre a lista de mineradores prourando qual possui a flag de rich.
-            miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #     for ip in self.listMiners: #Percorre a lista de mineradores prourando qual possui a flag de rich.
+    #         miner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             
-            try: 
-                miner.connect((ip, 5055))
-            except:
-                print(styleCommunication + '{} not connected in Blockchain!'.format(ip))
-                continue
+    #         try: 
+    #             miner.connect((ip, 5055))
+    #         except:
+    #             print(styleCommunication + '{} not connected in Blockchain!'.format(ip))
+    #             continue
 
-            miner.send(b'Rich')
-            msg = miner.recv(1024)
+    #         miner.send(b'Rich')
+    #         msg = miner.recv(1024)
 
-            if re.search('True', msg.decode("utf-8")): #Se recebeu True, achou o minerador.
-                ipMiner = ip
-                print(styleCommunication + 'Miner Found! IP = {}'.format(ip))
-                # miner.close()
-                # break
+    #         if re.search('True', msg.decode("utf-8")): #Se recebeu True, achou o minerador.
+    #             ipMiner = ip
+    #             print(styleCommunication + 'Miner Found! IP = {}'.format(ip))
+    #             # miner.close()
+    #             # break
 
-            # if not msg: 
-                # miner.close()
-            #     break
-            # miner.close()
-            # time.sleep(1)
-            miner.close()
+    #         # if not msg: 
+    #             # miner.close()
+    #         #     break
+    #         # miner.close()
+    #         # time.sleep(1)
+    #         miner.close()
         
-        return ipMiner
+    #     return ipMiner
 
     def sendToMiner(self, transaction):
         '''
@@ -447,4 +443,3 @@ class Trader(Connection):
                 pass
 
         conn.close()
-
