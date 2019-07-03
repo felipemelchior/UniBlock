@@ -8,16 +8,17 @@ from comunnication import Connection, Miner, Trader
 from colorama import Fore, Back, Style, init
 init(autoreset=True) # autoreset de estilos do colorama
 
-def connectKeeper(keeperIp, keeperPort):
+def connectKeeper(keeperIp, keeperPort, client_type):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((keeperIp, keeperPort))
-    sock.send(b'EnterBlockChain')
+    client_type = bytes('NEW{}'.format(client_type), 'utf-8')
+    sock.send(client_type)
     myAddress = sock.recv(4096)
     myAddress = pickle.loads(myAddress)
     sock.send(b'GiveMeUsers')
     users = sock.recv(4096)
     users = pickle.loads(users)
-
+    sock.close()
     return myAddress, users
 def parseArguments():
     '''
@@ -52,23 +53,24 @@ def main():
         this = Keeper(args.keeperip, args.keeperport)
         this.start_server()
     else: #Se nao é o keeper, é necessário saber quem é
-        myAddress, listUsers = connectKeeper(args.keeperip, args.keeperport)
         if args.miner == True:
+            myAddress, listUsers = connectKeeper(args.keeperip, args.keeperport, 'Miner')
             print(style + 'User detected as ' + Fore.RED + 'miner')
-            this = Miner(str(myAddress[1]), listUsers)
+            this = Miner(myAddress, listUsers)
             serverCommunication = threading.Thread(target=this.listenConnection, args=()) #Inicia comunicação.
             serverCommunication.start()
+            inputThread = threading.Thread(target=this.runMethods)
+            inputThread.start()
             # TODO
 
         elif args.trader == True:
+            myAddress, listUsers = connectKeeper(args.keeperip, args.keeperport, 'Trader')
             print(style + 'User detected as ' + Fore.RED + 'trader')
-            this = Trader(str(myAddress[1]), listUsers)
+            this = Trader(myAddress, listUsers)
             serverCommunication = threading.Thread(target=this.listenConnection, args=()) #Inicia comunicação.
             serverCommunication.start()
             # clientThread = threading.Thread(target=this.getMinersAndTraders, args=()) #Adiciona os clientes.
             # clientThread.start()
-            while clientThread.is_alive():
-                pass
             clientThread = threading.Thread(target=this.runMethods) #Chama cadeia de funções que inicia o blockchain.
             clientThread.start()
             # TODO  

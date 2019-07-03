@@ -88,6 +88,7 @@ class Chain(object):
         if os.path.isdir(self.path_blocks):#remove a pasta, se existir
             shutil.rmtree(self.path_blocks)
         os.mkdir(self.path_blocks)#cria a pasta sem blocos
+        self._list_blocks = []
         self.list_blocks=[]
         self.last_block={
             'index':0,
