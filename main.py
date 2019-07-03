@@ -27,9 +27,8 @@ def parseArguments():
     :returns: parser -- objetos contendo os argumentos.
     '''
 
-    parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v1.0', formatter_class=RawTextHelpFormatter)
-    parser.add_argument("-u", "--users", default=1, type=int, help="Number of users of blockchain")
-    parser.add_argument("-v", "--version", action='version', version='Uniblock v1.0 \nRepository Link => https://github.com/homdreen/UniBlock')
+    parser = argparse.ArgumentParser(description='Didactic implementation of a blockchain v2.0', formatter_class=RawTextHelpFormatter)
+    parser.add_argument("-v", "--version", action='version', version='Uniblock v2.0 \nRepository Link => https://github.com/homdreen/UniBlock')
     parser.add_argument("--miner", action="store_const",const=True, help="Define user as miner")
     parser.add_argument("--trader", action="store_const", const=True, help="Define user as trader")
     parser.add_argument("--keeper", action="store_const", const=True, help="Define keeper")
