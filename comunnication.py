@@ -276,9 +276,6 @@ class Miner(Connection):
                 except:
                     pass
 
-                
-
-
     def filterCommunication(self, conn, addr):
         '''
         Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta de acordo ou executa ações.
@@ -416,7 +413,7 @@ class Trader(Connection):
         Envia esta transação para o minerador com a flag rich.
         '''
 
-        case = input(styleClient + '\nEnter your command => ')
+        case = input(styleClient + '\nEnter your command (type help to list commands) => ')
 
         if re.search('exit', case):
             exit(0)
@@ -427,11 +424,15 @@ class Trader(Connection):
             print(styleClient + '\tsc - show chain')
         elif re.search('lu', case):
             self.show_clients()
-        elif re.search('st', case):
-            transaction = self.blockChain.new_transaction(self.my_address)
-            self.sendToMiner(transaction)
-        elif re.search('sc', case):
-            print(styleChain + '\nActual chain {}\n'.format(self.blockChain.chain))
+        
+        if len(self.listMiners) != 0:
+            if re.search('st', case):
+                transaction = self.blockChain.new_transaction(self.my_address)
+                self.sendToMiner(transaction)
+            elif re.search('sc', case):
+                print(styleChain + '\nActual chain {}\n'.format(self.blockChain.chain))
+        else:
+            print(styleClient + 'Attention! No miners available! Please, try again later.')
 
     def sendToMiner(self, transaction):
         '''
@@ -505,7 +506,6 @@ class Trader(Connection):
                     pass
 
                 if re.search('NewBlock', msg.decode("utf-8")):
-                    print('trader quer add block')
                     conn.send(b'Ok')
                     block=conn.recv(4096)
                     self.con_block = block
@@ -515,7 +515,6 @@ class Trader(Connection):
                     if self.blockChain.last_block['previous_hash'] != block['previous_hash']:
                         self.blockChain.chain = newChain
                     mine = True
-                    print('trader add block')
 
                 if re.search('valid', msg.decode('utf-8')):
                     conn.send(b'Ok')
@@ -526,10 +525,8 @@ class Trader(Connection):
                     if self.blockChain.valid_chain(newChain) and self.mine:#Testa se a nova cadeia é vaĺida.
                         mine = False
                         conn.send(b'Ok')
-                        print('validou')
                     else:
                         conn.send(b'Nok')
-                    print('trader ok')
                     # if self.blockChain.valid_chain(newChain):#Testa se a nova cadeia é vaĺida.
                     #     conn.send(b'Ok')
                     # else:
