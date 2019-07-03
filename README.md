@@ -28,11 +28,11 @@ O código possui 3 tipos de usuários:
 
 | Tipo de Usuário       | Como Funciona           | Como iniciar  |
 | ------------- |:-------------:| -----:|
-| Trader      | Usuário que adicionará dados no BlockChain | ```$ python3 main.py -u <usuarios> ``` |
-| Miner Rich      | Minerador que começará guardando transações na carteira      |   ```$ python3 main.py -u <usuarios> --miner --rich``` |
-| Miner | Usuário que minera o Bloco      |    ```$ python3 main.py -u <usuarios> --miner``` |
+| Trader      | Usuário que adicionará dados no BlockChain | ```$ python3 main.py -ki <keeperIP> -kp <keeperport> --trader ``` |
+| Miner      | Usuário que minera o Bloco      |   ```$ python3 main.py -ki <keeperIP> -kp <keeperport> --miner``` |
+| Keeper | Usuário que coordena a entrada de novos usuários na BlockChain     |    ```$ python3 main.py -ki <keeperIP> -kp <keeperport> --keeper``` |
 
-**Nota:** Quando o sistema for iniciado, somente um Miner Rich pode ser iniciado!
+**Nota:** Quando o sistema for iniciado, inicializar apenas um Keeper e primeiro que os demais.
 
 Maiores Informações sobre a implementação, consulte a página de [documentação do projeto](https://github.com/homdreen/UniBlock/tree/master/docs). 
 
