@@ -4,6 +4,7 @@ import re
 import pickle
 import time
 from BlockChain import MinerChain, TraderChain
+from random import randint
 from colorama import Fore, Style
 
 # Variaveis globais, apenas para a concatenação da string e colorir a mesma (Biblioteca Colorama)
@@ -19,51 +20,6 @@ class Connection:
         self.my_address = my_address
         self.clients = clients
         self.mine = True
-
-    # def consensus(self, block):
-    #     cont = 0
-    #     cont2 = 0
-    #     print(self.clients)
-    #     for client in self.listClients: #Percorre a lista de clientes.
-    #         socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #         try:
-    #             print(client)
-    #             print(self.listClients)
-    #             socketClient.connect(client)
-    #             socketClient.send(b'valid')
-    #             print('!')         
-    #             msg = socketClient.recv(1024)
-    #             if re.search('Ok', msg.decode('utf-8')):
-    #                 socketClient.send(pickle.dumps(block))
-    #                 msg = socketClient.recv(1024)
-    #                 if re.search('Ok', msg.decode('utf-8')):
-    #                     cont +=1
-    #                 elif re.search('Nok', msg.decode('utf-8')):
-    #                     pass
-    #         except:
-    #             pass
-    #     if cont > int(len(self.listClients)/2):
-    #         for client in self.listClients: #Percorre a lista de clientes.
-    #             socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #             try:
-    #                 socketClient.connect(client)
-    #                 socketClient.send(b'consensus')
-    #                 msg = socketClient.recv(1024)
-    #                 if re.search('Ok', msg.decode('utf-8')):
-    #                     socketClient.send(pickle.dumps(block))
-    #                     msg = socketClient.recv(1024)
-    #                     if re.search('Ok', msg.decode('utf-8')):
-    #                         cont2 +=1
-    #                     elif re.search('Nok', msg.decode('utf-8')):
-    #                         pass
-    #             except:
-    #                 pass
-    #         if cont2 > int(len(self.listClients)/2):
-    #             return True
-    #         else:
-    #             return False
-    #     else:
-    #         return False
 
     def show_clients(self):
         global styleClient
@@ -113,6 +69,31 @@ class Connection:
         '''
         self._my_address=value
 
+    def getBlockChain(self):
+        clients = self.listClients
+        clients.remove(self.my_address)
+        while True:
+            client = self.clients[randint(0, len(self.clients)-1)]
+            try:
+                socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                socketClient.connect(client[0])
+            except:
+                pass
+
+            socketClient.send(b'GetBlock')
+            msg = socketClient.recv(1024)
+            if re.search('Ok', msg.decode('utf-8')):
+                socketClient.send(bytes(str(len(self.blockChain.chain)+1),('utf-8')))
+                block = socketClient.recv(4096)
+                block = pickle.loads(block)
+                if block['index'] == '':
+                    break
+
+                newChain=self.blockChain.chain.copy()
+                newChain.append(block)
+                if self.blockChain.last_block['previous_hash'] != block['previous_hash']:
+                    self.blockChain.chain = newChain
+              
     def remove_client(self, client):
         if client in self.clients[0]:
             self.clients[0].remove(client)
@@ -149,9 +130,6 @@ class Connection:
                 print(styleCommunication + "Server running on port {}".format(self.my_port))
             except:
                 print("Error on start server")
-    
-
-            threads = []
 
             try:
                 while True: #Loop que mantem conexão.
@@ -190,6 +168,9 @@ class Miner(Connection):
         Esta função acaba criando uma cadeia de chamadas de funções.
         '''
 
+        if len(self.listClients) != 1:
+            self.getBlockChain()
+
         while True:
             time.sleep(1) #Sleep para sincronizar as threads.
             self.userInput() #Inicia as transações.
@@ -200,9 +181,10 @@ class Miner(Connection):
         Descobre o ip do minerador que está com a flag rich.
         Envia esta transação para o minerador com a flag rich.
         '''
-        case = input(styleClient + '\nEnter your command => ')
+        case = input(styleClient + '\nEnter your command (type help to list commands) => ')
 
         if re.search('exit', case):
+            del self.blockChain._chain
             exit(0)
         elif re.search('help', case):
             print(styleClient + 'help:')
@@ -355,6 +337,8 @@ class Miner(Connection):
                     newChain.append(block)
                     if self.blockChain.last_block['previous_hash'] != block['previous_hash']:
                         self.blockChain.chain = newChain
+                        print(styleChain + '\n\tNew block added to BlockChain!')
+                        print(styleClient + 'Enter your command (type help to list commands) =>', end='')
                     self.mine = True
 
                 if re.search('valid', msg.decode('utf-8')):
@@ -366,10 +350,14 @@ class Miner(Connection):
                     if self.blockChain.valid_chain(newChain) and self.mine:#Testa se a nova cadeia é vaĺida.
                         self.mine = False
                         conn.send(b'Ok')
-                        print('validou')
                     else:
                         conn.send(b'Nok')
-                    print('miner ok')
+                
+                if re.search('GetBlock', msg.decode('utf-8')):
+                    conn.send(b'Ok')
+                    index = conn.recv(1024)
+                    block = self.blockChain._chain.block(int(index))
+                    conn.send(pickle.dumps(block))
                     # if self.blockChain.valid_chain(newChain):#Testa se a nova cadeia é vaĺida.
                     #     conn.send(b'Ok')
                     # else:
@@ -402,6 +390,10 @@ class Trader(Connection):
         Esta função acaba criando uma cadeia de chamadas de funções.
         '''
 
+        if len(self.listClients) != 1:
+            print('aaa  ')
+            self.getBlockChain()
+        
         while True:
             time.sleep(1) #Sleep para sincronizar as threads.
             self.userInput() #Inicia as transações.
@@ -416,6 +408,7 @@ class Trader(Connection):
         case = input(styleClient + '\nEnter your command (type help to list commands) => ')
 
         if re.search('exit', case):
+            del self.blockChain._chain
             exit(0)
         elif re.search('help', case):
             print(styleClient + 'help:')
@@ -442,6 +435,7 @@ class Trader(Connection):
         :param transaction: Transaction.
         '''
 
+        print(styleCommunication + '\tSending the transaction to {} Miner...'.format(len(self.listMiners)))
 
         for miner in self.listMiners:
             connectionMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -451,13 +445,12 @@ class Trader(Connection):
             msg = connectionMiner.recv(1024)
 
             if re.search('Ok', msg.decode("utf-8")):
-                print(styleCommunication + '\tSending the transaction to the Miner...')
 
                 connectionMiner.send(pickle.dumps(transaction)) #Empacota transação.
                 msg = connectionMiner.recv(1024)
 
                 if re.search('Ok', msg.decode("utf-8")): #Testa se foi possível enviar a transação.
-                    print(styleCommunication + '\tTransaction Sent to the Miner!')
+                    pass
             connectionMiner.close()
 
     def filterCommunication(self, conn, addr):
@@ -514,7 +507,9 @@ class Trader(Connection):
                     newChain.append(block)
                     if self.blockChain.last_block['previous_hash'] != block['previous_hash']:
                         self.blockChain.chain = newChain
-                    mine = True
+                        print(styleChain + '\n\tNew block added to BlockChain!')
+                        print(styleClient + 'Enter your command (type help to list commands) =>' , end='')
+                    self.mine = True
 
                 if re.search('valid', msg.decode('utf-8')):
                     conn.send(b'Ok')
@@ -523,14 +518,16 @@ class Trader(Connection):
                     newChain=self.blockChain.chain.copy()
                     newChain.append(block)
                     if self.blockChain.valid_chain(newChain) and self.mine:#Testa se a nova cadeia é vaĺida.
-                        mine = False
+                        self.mine = False
                         conn.send(b'Ok')
                     else:
                         conn.send(b'Nok')
-                    # if self.blockChain.valid_chain(newChain):#Testa se a nova cadeia é vaĺida.
-                    #     conn.send(b'Ok')
-                    # else:
-                    #     conn.send(b'Nok')
+        
+                if re.search('GetBlock', msg.decode('utf-8')):
+                    conn.send(b'Ok')
+                    index = conn.recv(1024)
+                    block = self.blockChain._chain.block(int(index))
+                    conn.send(pickle.dumps(block))
 
                 if not msg: break
             except:

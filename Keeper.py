@@ -58,7 +58,7 @@ class Keeper():
         while True:
             flag_dead = False
             deads = []
-            time.sleep(20)
+            time.sleep(10)
 
             print(styleHeartbeat + '\nInitializing Heartbeat on clients:')
 
@@ -168,10 +168,10 @@ class Keeper():
             try:
                 server.bind((self.ip, self.port))
                 server.listen(10)
+                print(styleKeeper + "Server Running on port {}\n".format(self.port))
             except:
-                print(styleKeeper + "\nError on start server - Bind port!\n")
+                print(styleKeeper + "Error on start server - Bind port!\n")
         
-            print(styleKeeper + "\nServer Running on port {}\n".format(self.port))
 
             thread_heartbeat = threading.Thread(target=self.heartbeat, args=())
             thread_heartbeat.start()
@@ -179,16 +179,16 @@ class Keeper():
             try:
                 while True:
                     conn, addr = server.accept()
-                    print(styleKeeper + "\nNew connection from {} with port {}:".format(addr[0], addr[1]))
+                    print(styleKeeper + "New connection from {} with port {}:".format(addr[0], addr[1]))
                     thread = threading.Thread(target=self.connected, args=(conn,addr))
                     thread.start()
                     # self.threads.append(thread)
             except:
                 server.close()
-                print(styleKeeper + "\nEnding the execution of server - No messages!\n")
+                print(styleKeeper + "Ending the execution of server - No messages!\n")
 
         except (KeyboardInterrupt, SystemExit):
-            print(styleKeeper + "\nFinishing the execution of server...\n")
+            print(styleKeeper + "Finishing the execution of server...\n")
 
 
 

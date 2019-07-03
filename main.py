@@ -61,7 +61,7 @@ def main():
             serverCommunication.start()
             inputThread = threading.Thread(target=this.runMethods)
             inputThread.start()
-            # TODO
+
 
         elif args.trader == True:
             myAddress, listUsers = connectKeeper(args.keeperip, args.keeperport, 'Trader')
@@ -69,41 +69,8 @@ def main():
             this = Trader(myAddress, listUsers)
             serverCommunication = threading.Thread(target=this.listenConnection, args=()) #Inicia comunicação.
             serverCommunication.start()
-            # clientThread = threading.Thread(target=this.getMinersAndTraders, args=()) #Adiciona os clientes.
-            # clientThread.start()
             clientThread = threading.Thread(target=this.runMethods) #Chama cadeia de funções que inicia o blockchain.
-            clientThread.start()
-            # TODO  
-
-    # for i in range(args.users): #Pega inputs de IP's dos usuários e adiciona à lista.
-    #     if i == 0:
-    #         user = str(input(style + 'Enter ' + Fore.RED + 'your IP ' + style + ' => '))
-    #     else:
-    #         user = str(input(style + 'Enter the IP for user ' + Fore.RED + str(i) + style + ' => '))
-    #     users.append(user)
-    #     print(style + 'User ' + Fore.RED + user + style + ' added to users list!')
-
-    # if args.miner: #Testa se é minerador e se o mesmo é o que possui a carteira.
-    #     if args.rich:
-    #         client=Miner(users[0], listClients=users, rich=True)
-    #     else:
-    #         client=Miner(users[0], listClients=users, rich=False)
-
-    # else: #Se não entrar no teste anterior, é trader.
-    #     client=Trader(users[0], listClients=users)
-
-    # serverCommunication = threading.Thread(target=this.listenConnection, args=()) #Inicia comunicação.
-    # serverCommunication.start()
-
-
-    # clientThread = threading.Thread(target=this.getMinersAndTraders, args=()) #Adiciona os clientes.
-    # clientThread.start()
-
-    # if args.miner == None:
-    #     while clientThread.is_alive():
-    #         pass
-    #     clientThread = threading.Thread(target=client.runMethods) #Chama cadeia de funções que inicia o blockchain.
-    #     clientThread.start()
+            clientThread.start()  
 
 if __name__ == '__main__':
     main()
