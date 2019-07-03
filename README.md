@@ -28,9 +28,9 @@ O código possui 3 tipos de usuários:
 
 | Tipo de Usuário       | Como Funciona           | Como iniciar  |
 | ------------- |:-------------:| -----:|
-| Trader      | Usuário que adicionará dados no BlockChain | ```$ python3 main.py -ki <keeperIP> -kp <keeperport> --trader ``` |
-| Miner      | Usuário que minera o Bloco      |   ```$ python3 main.py -ki <keeperIP> -kp <keeperport> --miner``` |
-| Keeper | Usuário que coordena a entrada de novos usuários na BlockChain     |    ```$ python3 main.py -ki <keeperIP> -kp <keeperport> --keeper``` |
+| Trader      | Usuário que adicionará dados no BlockChain | ```$ python3 main.py -ki <keeperIP> -kp <keeperPORT> --trader ``` |
+| Miner      | Usuário que minera o Bloco      |   ```$ python3 main.py -ki <keeperIP> -kp <keeperPORT> --miner``` |
+| Keeper | Usuário que coordena a entrada de novos usuários na BlockChain     |    ```$ python3 main.py -ki <keeperIP> -kp <keeperPORT> --keeper``` |
 
 **Nota:** Quando o sistema for iniciado, inicializar apenas um Keeper e primeiro que os demais.
 
