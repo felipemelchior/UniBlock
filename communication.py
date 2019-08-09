@@ -124,7 +124,9 @@ class Connection:
         try:
             try:
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                server.bind(self._my_address)
+                print ("server: " + server)
+                print ("port: " + int(port))
+                server.bind(self._my_address) # FIXME
                 # server.bind((self.my_ip, int(port)))
                 server.listen(10)
                 print(styleCommunication + "Server running on port {}".format(self.my_port))
@@ -414,6 +416,7 @@ class Trader(Connection):
             print(styleClient + '\tlu - list users')
             print(styleClient + '\tst - send transaction')
             print(styleClient + '\tsc - show chain')
+            print(styleClient + '\texit - quit trader')
         elif re.search('lu', case):
             self.show_clients()
         
