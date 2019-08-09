@@ -57,3 +57,4 @@ Pull-Requests são bem-vindos e encorajados!
 Copyright (C) Felipe Homrich Melchior (2019-), Guilherme Neri Bustamante Sá (2019-), Lucas Antunes de Almeida (2019-) and Rafael Fernandes da Silva (2019-), kd (2019-)
 
 Licensed under the Apache License, Version 2.0
+

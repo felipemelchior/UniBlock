@@ -6,6 +6,7 @@ import time
 from BlockChain import MinerChain, TraderChain
 from random import randint
 from colorama import Fore, Style
+import traceback
 
 # Variaveis globais, apenas para a concatenação da string e colorir a mesma (Biblioteca Colorama)
 styleCommunication = Fore.MAGENTA + Style.BRIGHT
@@ -58,16 +59,14 @@ class Connection:
 
         :returns: str -- ip.
         '''
-        return self._my_address
+        return self._my_ip_port
     
     @my_address.setter
-    def my_address(self, value):
+    def my_address(self, ip_port):
         '''
-        Metodo setter do my_address.
-
-        :param value: valor do ip.
+        :param ip_port: tupla ip e port
         '''
-        self._my_address=value
+        self._my_ip_port=ip_port
 
     def getBlockChain(self):
         clients = self.listClients
@@ -124,13 +123,12 @@ class Connection:
         try:
             try:
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                print ("server: " + server)
-                print ("port: " + int(port))
-                server.bind(self._my_address) # FIXME
-                # server.bind((self.my_ip, int(port)))
+                print ("ip: ", self._my_ip_port)
+                server.bind(self._my_ip_port) # FIXME
                 server.listen(10)
                 print(styleCommunication + "Server running on port {}".format(self.my_port))
             except:
+                traceback.print_exception()
                 print("Error on start server")
 
             try:
