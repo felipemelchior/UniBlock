@@ -4,7 +4,7 @@ import socket
 import pickle
 from argparse import RawTextHelpFormatter
 from Keeper import Keeper
-from comunnication import Connection, Miner, Trader
+from communication import Connection, Miner, Trader
 from colorama import Fore, Back, Style, init
 init(autoreset=True) # autoreset de estilos do colorama
 

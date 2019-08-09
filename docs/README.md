@@ -19,7 +19,7 @@ Função que identifica os argumentos passados.
 ## UniBlock Comunnication
 
 
-#### class comunnication.Connection(myIp, listClients)
+#### class Communication.Connection(myIp, listClients)
 Classe base para conexoes
 
 
@@ -55,7 +55,7 @@ Metodo getter do myIp.
 Imprime na tela a lista de clientes mineradores e a lista de clientes negociadores.
 
 
-#### class comunnication.Miner(myIp, listClients, rich)
+#### class Communication.Miner(myIp, listClients, rich)
 Classe do minerador.
 
 
@@ -90,7 +90,7 @@ Envia o ultimo bloco minerado para todos na rede.
 Envia as transacoes para os mineradores.
 
 
-#### class comunnication.Trader(myIp, listClients)
+#### class Communication.Trader(myIp, listClients)
 Classe do usuario comum.
 
 

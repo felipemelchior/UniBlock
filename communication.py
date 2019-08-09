@@ -391,7 +391,6 @@ class Trader(Connection):
         '''
 
         if len(self.listClients) != 1:
-            print('aaa  ')
             self.getBlockChain()
         
         while True:
