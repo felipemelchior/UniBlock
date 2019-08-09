@@ -6,4 +6,8 @@
 
 (4) Ha algo de errado com o Keeper. Se fecho o cliente e abro novamente, nao funciona, nao rola.
 
+(5) Melhorar a parte dos listen de todos os "trens". Nao deve precisar ficar trocando de porta toda hora. Configurar os sockets TCP para reutilizacao de portas (no codigo Python).
+
+(6) O keeper precisa ter dois pools de threads, uma para receber as conexoes (uma thread por conexao) e outra para realizar conexoes (uma thread por cliente).
+
 
