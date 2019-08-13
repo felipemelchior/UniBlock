@@ -1,8 +1,0 @@
-{
-	"index":"10",
-	"timestamp":"1565659375.0834167",
-	"transactions":"[{'address': ('127.0.0.1', 59401), 'userInput': 't1-msg-13-29618'}, {'address': ('127.0.0.1', 59401), 'userInput': 't1-msg-14-17279'}]",
-	"proof":"125728",
-	"previous_hash":"af446149589e2690e99055129c996afbfad9e751bf06ba7387a4ddfb0daf032a",
-	"hash_proof":"0000ffaae59ae5f7483bfb7c74a6401ba906ba2a3888c9c865726c5c2f8abd09"
-}
