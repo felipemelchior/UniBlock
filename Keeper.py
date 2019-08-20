@@ -10,17 +10,19 @@ from argparse import RawTextHelpFormatter
 styleKeeper = Fore.CYAN + Style.BRIGHT
 styleHeartbeat = Fore.RED + Style.BRIGHT
 
+
 class Keeper():
-    def __init__(self, ip, port):        
+    def __init__(self, ip, port):
         '''
         Construtor da classe do servidor centralizado.
 
-        :param ip: 
+        :param ip:
         '''
-        
+
         self.ip = ip
         self.port = port
         self.clients = ([], [])
+        self.clientsSockets = []
 
     def show_clients(self):
         global styleKeeper
@@ -39,7 +41,7 @@ class Keeper():
     @property
     def ip(self):
         return self._ip
-    
+
     @property
     def port(self):
         return self._port
@@ -102,7 +104,7 @@ class Keeper():
         for ip in self.listClients:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect(ip)
-            
+
             if re.search('DEAD', case):
                 sock.send(b'DEAD')
                 msg = sock.recv(1024)
@@ -111,8 +113,9 @@ class Keeper():
                     sock.send(pickle.dumps(address))
                     msg = sock.recv(1024)
                     if re.search('Ok', msg.decode('utf-8')):
-                        print(styleKeeper + '\tClient {} notified for dead client'.format(ip))
-            
+                        print(styleKeeper +
+                              '\tClient {} notified for dead client'.format(ip))
+
             if re.search('NEWMiner', case):
                 sock.send(b'NEWMiner')
                 msg = sock.recv(1024)
@@ -134,26 +137,31 @@ class Keeper():
 
                     if re.search('Ok', msg.decode('utf-8')):
                         print(styleKeeper + '\t\tsent to {}'.format(ip))
-            
+
             sock.close()
 
     def connected(self, conn, addr):
         global styleKeeper
-        port = addr[1] + 1
         ip = addr[0]
         while True:
+            msg = conn.recv(1024)
             try:
-                msg = conn.recv(1024)
                 if re.search('NEWMiner', msg.decode('utf-8')):
-                    print(styleKeeper + '\tNew Miner {}'.format((ip, port)))
-                    self.notify_ip((ip, port), 'NEWMiner')
-                    self.clients[0].append((ip, port))
-                    conn.send(pickle.dumps((ip, port)))
+                    conn.send(b'Ok')
+                    serverPort = conn.recv(1024)
+                    print(styleKeeper + '\tNew Miner {}'.format((ip, serverPort)))
+                    self.notify_ip((ip, int(serverPort)), 'NEWMiner')
+                    self.clients[0].append((ip, int(serverPort)))
+                    conn.send(b'Ok')
                 elif re.search('NEWTrader', msg.decode('utf-8')):
-                    print(styleKeeper + '\tNew Trader {}'.format((ip, port)))
-                    self.notify_ip((ip, port), 'NEWTrader')
-                    self.clients[1].append((ip, port))
-                    conn.send(pickle.dumps((ip, port)))
+                    conn.send(b'Ok')
+                    serverPort = conn.recv(1024)
+                    print(
+                        styleKeeper + '\tNew Trader {}'.format((ip, serverPort)))
+                    self.notify_ip((ip, int(serverPort)), 'NEWTrader')
+                    self.clients[1].append((ip, int(serverPort)))
+                    conn.send(b'Ok')
+
                 if re.search('GiveMeUsers', msg.decode('utf-8')):
                     conn.send(pickle.dumps(self.clients))
                     break
@@ -171,7 +179,6 @@ class Keeper():
                 print(styleKeeper + "Server Running on port {}\n".format(self.port))
             except:
                 print(styleKeeper + "Error on start server - Bind port!\n")
-        
 
             thread_heartbeat = threading.Thread(target=self.heartbeat, args=())
             thread_heartbeat.start()
@@ -179,8 +186,10 @@ class Keeper():
             try:
                 while True:
                     conn, addr = server.accept()
-                    print(styleKeeper + "New connection from {} with port {}:".format(addr[0], addr[1]))
-                    thread = threading.Thread(target=self.connected, args=(conn,addr))
+                    print(
+                        styleKeeper + "New connection from {} with port {}:".format(addr[0], addr[1]))
+                    thread = threading.Thread(
+                        target=self.connected, args=(conn, addr))
                     thread.start()
                     # self.threads.append(thread)
             except:
@@ -189,6 +198,3 @@ class Keeper():
 
         except (KeyboardInterrupt, SystemExit):
             print(styleKeeper + "Finishing the execution of server...\n")
-
-
-
