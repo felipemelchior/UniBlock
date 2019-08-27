@@ -1,4 +1,4 @@
-(1) Refatorar o modulo communication.py (soh deve conter coisas de comunicacao)
+ok - (1) Refatorar o modulo communication.py (soh deve conter coisas de comunicacao)
 
 (2) Melhorar os helps (incluir exit e, talvez, colocar os comandos por extenso ao inves de abreviado, pois ajuda na memorizacao/utilizacao). Raramente os bons sistemas utilizam abreviacao de comandos. Exemplo: eh "show" e não "sc". Ou ainda, "show chain", "show ip", "show port", ao inves de "sc".
 

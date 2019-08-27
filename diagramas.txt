@@ -1,0 +1,44 @@
+Ferramenta utilizada: https://sequencediagram.org
+
+1 - Diagrama de conexão:
+
+title Uniblock - Diagrama de conexão
+
+participant Blockchain (Usuários)
+participant Keeper
+note over Cliente: Escuta uma porta
+note over Cliente: Faz o bind da porta
+Cliente->Keeper: Notifica a porta
+note over Keeper, Cliente: Realiza conexão
+Keeper->Blockchain (Usuários):Notifica novo usuário
+
+####################################################
+
+2 - Diagrama de comunicação:
+
+
+title Uniblock - Diagrama de comunicação
+
+Traders->Miners:Envia nova transação
+Traders->Miners:Envia nova transação
+Traders->Miners:Envia nova transação
+note over Miners: Armazena transações
+opt Lock
+note over Miners: Fecha carteira e adiciona a fila de execução
+note over Miners: Cria nova carteira
+end
+note over Miners: Minera bloco e envia novo bloco
+note over Traders, Miners:Atualiza blockchain
+
+####################################################
+
+3 - Diagrama de saída da rede
+
+title Uniblock - Diagrama de saída da rede
+
+participant Blockchain (Usuários)
+Keeper->Cliente: Verifica se está vivo
+Cliente->Keeper: Ok
+Keeper-xCliente: Verifica se está vivo
+note over Keeper: Atualiza lista de ativos
+Keeper->Blockchain (Usuários):Notifica saída de usuário

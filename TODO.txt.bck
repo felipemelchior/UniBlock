@@ -141,3 +141,6 @@ ConnectionRefusedError: [Errno 111] Connection refused
 
 (17) Em resumo, ha problemas de concorrencia e funcionamento serios no sistema, em especial quando comeca a aumentar o numero de Traders e Miners. Com 3 Miners e 4 Traders, o sistema nao funcionou nenhuma vez sem dar zebra.
 
+(18) Definir tempo para que uma carteira receba transações
+
+(19) Criar lista de carteiras e colocá-las em uma fila de execução (Controle de concorrência ao fechar carteira e criar nova. Criar lock no processo.)
