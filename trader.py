@@ -58,7 +58,7 @@ class Trader(Connection):
             print(styleClient + '\tst - send transaction')
             print(styleClient + '\tsc - show chain')
             print(styleClient + '\texit - quit trader')
-        elif re.search('list users', case):
+        elif re.search('lu', case):
             self.show_clients()
         
         if len(self.listMiners) != 0:
