@@ -21,7 +21,7 @@ def read_block(index, path_blocks='.'):
     file.close()
     return info
 
-def write_block(index, info, path_blocks='./blocks'):
+def write_block(index, info, path_blocks='.'):
     '''
     Função de persistência do bloco
 
