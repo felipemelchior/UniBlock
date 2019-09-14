@@ -121,7 +121,7 @@ class Chain(object):
             del temp
         if input('Do you want delete existing blocks? [y/n]')=='y':#apaga a pasta com os blocos se o usuário digitar s
             if os.path.isdir(self.path_blocks):
-                shutil.rmtree('./blocks')
+                shutil.rmtree('./{}'.format(self.path_blocks))
 
     def block(self, index):
         '''
@@ -211,7 +211,7 @@ class Chain(object):
         os.mkdir(self.path_blocks)#cria a pasta sem blocos
         list_blocks=self.to_list_blocks(list_info)#cria uma nova lista de blocos
         for block in list_blocks:#sobrescreve a lista de blocos no disco
-            write_block(block.index, str(block))
+            write_block(block.index, str(block), self.path_blocks)
         self._list_blocks=list_blocks[-10:]
 
     @property
@@ -235,7 +235,7 @@ class Chain(object):
             del temp
         new_block=Block(info)
         self._list_blocks.append(new_block)
-        write_block(new_block.index, str(new_block))#grava o bloco em disco
+        write_block(new_block.index, str(new_block), self.path_blocks)#grava o bloco em disco
 
     def range_blocks(self, range_index):
         '''

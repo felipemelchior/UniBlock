@@ -25,7 +25,8 @@ class Trader(Connection):
         :param listClients: lista de clientes.
         '''
         super().__init__(my_address, clients)
-        self.blockChain = TraderChain(str(self.my_port))
+        self.blockChain = TraderChain('blocks')
+        # self.blockChain = TraderChain(str(self.my_port))
 
     def runMethods(self):
         '''
