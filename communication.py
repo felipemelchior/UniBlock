@@ -70,29 +70,29 @@ class Connection:
 
     def getBlockChain(self):
         clients = self.listClients
-        clients.remove(self.my_address)
+        if self.my_address in clients:
+            clients.remove(self.my_address)
         while True:
             client = self.clients[randint(0, len(self.clients)-1)]
             try:
                 socketClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 socketClient.connect(client[0])
+                socketClient.send(b'GetBlock')
+                msg = socketClient.recv(1024)
+                if re.search('Ok', msg.decode('utf-8')):
+                    socketClient.send(bytes(str(len(self.blockChain.chain)+1),('utf-8')))
+                    block = socketClient.recv(4096)
+                    block = pickle.loads(block)
+                    if block['index'] == '':
+                        break
+
+                    newChain=self.blockChain.chain.copy()
+                    newChain.append(block)
+                    if self.blockChain.last_block['previous_hash'] != block['previous_hash']:
+                        self.blockChain.chain = newChain
             except:
-                pass
-
-            socketClient.send(b'GetBlock')
-            msg = socketClient.recv(1024)
-            if re.search('Ok', msg.decode('utf-8')):
-                socketClient.send(bytes(str(len(self.blockChain.chain)+1),('utf-8')))
-                block = socketClient.recv(4096)
-                block = pickle.loads(block)
-                if block['index'] == '':
-                    break
-
-                newChain=self.blockChain.chain.copy()
-                newChain.append(block)
-                if self.blockChain.last_block['previous_hash'] != block['previous_hash']:
-                    self.blockChain.chain = newChain
-              
+                continue
+                
     def remove_client(self, client):
         if client in self.clients[0]:
             self.clients[0].remove(client)
@@ -123,7 +123,7 @@ class Connection:
         try:
             try:
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                print ("ip: ", self._my_ip_port)
+                server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 server.bind(self._my_ip_port) # FIXME
                 server.listen(10)
                 print(styleCommunication + "Server running on port {}".format(self.my_port))

@@ -60,7 +60,7 @@ class Keeper():
         while True:
             flag_dead = False
             deads = []
-            time.sleep(10)
+            time.sleep(1)
 
             print(styleHeartbeat + '\nInitializing Heartbeat on clients:')
 
@@ -91,6 +91,7 @@ class Keeper():
                 self.notify_ip(dead, 'DEAD')
             if flag_dead:
                 self.show_clients()
+                flag_dead = False
 
     def remove_client(self, client):
         if client in self.clients[0]:
@@ -173,6 +174,7 @@ class Keeper():
         global styleKeeper
         try:
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             try:
                 server.bind((self.ip, self.port))
                 server.listen(10)

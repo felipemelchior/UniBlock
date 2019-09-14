@@ -53,7 +53,7 @@ class Miner(Connection):
             exit(0)
         elif re.search('help', case):
             print(styleClient + 'help:')
-            print(styleClient + '\tlu - list users')
+            print(styleClient + '\tlist users')
         elif re.search('lu', case):
             self.show_clients()
         elif re.search('sw', case):

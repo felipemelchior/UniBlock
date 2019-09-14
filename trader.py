@@ -1,3 +1,4 @@
+import os
 import socket
 import threading
 import re
@@ -50,14 +51,14 @@ class Trader(Connection):
 
         if re.search('exit', case):
             del self.blockChain._chain
-            exit(0)
+            os._exit(0)
         elif re.search('help', case):
             print(styleClient + 'help:')
             print(styleClient + '\tlu - list users')
             print(styleClient + '\tst - send transaction')
             print(styleClient + '\tsc - show chain')
             print(styleClient + '\texit - quit trader')
-        elif re.search('lu', case):
+        elif re.search('list users', case):
             self.show_clients()
         
         if len(self.listMiners) != 0:

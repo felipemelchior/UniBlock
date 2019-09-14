@@ -120,8 +120,9 @@ class BlockChain(object):
 		:param chain: cadeia de blocos.
 		:returns: bool -- flag da validade do ultimo bloco da cadeia de blocos.
 		'''
-		for index in range(1, len(chain)):
-			if chain[index]['previous_hash']!=self.hash(chain[index-1]):
+		# for index in range(1, len(chain)):
+		for index in range(1, int(self.last_block['index'])):
+			if chain[index]['previous_hash']!=chain[index-1]['previous_hash']:#self.hash(chain[index-1]):
 				return False
 			if not self.valid_proof(chain[index-1]['proof'], chain[index]['proof'], self.rule)[0]:
 				return False
@@ -256,11 +257,12 @@ class MinerChain(BlockChain):
 		:returns: dict -- novo bloco.
 		'''
 		block={
-			'index':len(self.chain)+1,
+			'index':int(self.last_block['index'])+1,#int(self.last_block['index'])+1,
 			'timestamp':time(),
 			'transactions':self.finish_transactions.copy(),
 			'proof':proof,
-			'previous_hash':previous_hash or self.hash(self.last_block),
+			'previous_hash': self.last_block['hash_proof'] or self.hash(self.last_block)
+			# 'previous_hash':previous_hash or self.hash(self.last_block),
 		}
 		if len(self.transactions) == 1:
 			self.finish_transactions.clear()
@@ -289,7 +291,7 @@ class MinerChain(BlockChain):
 		'''
 		if self.start_miner:
 			proof, hash_proof=self.proof_of_work(self.last_proof)
-			previous_hash=self.hash(self.last_block)
+			previous_hash=self.last_block['hash_proof']
 			block=self.new_block(proof, previous_hash)
 			block['hash_proof']=hash_proof
 			if self.start_miner:

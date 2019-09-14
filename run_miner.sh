@@ -2,7 +2,7 @@
 
 if [ $1 ] && [ -f $1 ]
 then
-    xterm -e "python3 main.py -ki 127.0.0.1 -kp 9999 --miner < miner.input"
+    xterm -e "python3 main.py -ki 192.168.0.111 -kp 9999 --miner < miner.input"
 else
-    xterm -e "python3 main.py -ki 127.0.0.1 -kp 9999 --miner"
+    xterm -e "python3 main.py -ki 192.168.0.111 -kp 9999 --miner"
 fi

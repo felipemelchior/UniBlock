@@ -1,16 +1,16 @@
 ok - (1) Refatorar o modulo communication.py (soh deve conter coisas de comunicacao)
 
-(2) Melhorar os helps (incluir exit e, talvez, colocar os comandos por extenso ao inves de abreviado, pois ajuda na memorizacao/utilizacao). Raramente os bons sistemas utilizam abreviacao de comandos. Exemplo: eh "show" e não "sc". Ou ainda, "show chain", "show ip", "show port", ao inves de "sc".
+ok - (2) Melhorar os helps (incluir exit e, talvez, colocar os comandos por extenso ao inves de abreviado, pois ajuda na memorizacao/utilizacao). Raramente os bons sistemas utilizam abreviacao de comandos. Exemplo: eh "show" e não "sc". Ou ainda, "show chain", "show ip", "show port", ao inves de "sc".
 
-(3) KeepAlive: manter uma conexao aberta com o Keeper (nao fica abrindo e fechando). Na hora que o cliente more, o Keeper encerra a conexao e considera o cliente "morto".
+ok - (3) KeepAlive: manter uma conexao aberta com o Keeper (nao fica abrindo e fechando). Na hora que o cliente more, o Keeper encerra a conexao e considera o cliente "morto".
 
-(4) Ha algo de errado com o Keeper. Se fecho o cliente e abro novamente, nao funciona, nao rola.
+ok - (4) Ha algo de errado com o Keeper. Se fecho o cliente e abro novamente, nao funciona, nao rola.
 
-(5) Melhorar a parte dos listen de todos os "trens". Nao deve precisar ficar trocando de porta toda hora. Configurar os sockets TCP para reutilizacao de portas (no codigo Python).
+ok - (5) Melhorar a parte dos listen de todos os "trens". Nao deve precisar ficar trocando de porta toda hora. Configurar os sockets TCP para reutilizacao de portas (no codigo Python).
 
-(6) O keeper precisa ter dois pools de threads, uma para receber as conexoes (uma thread por conexao) e outra para realizar conexoes (uma thread por cliente).
+ok/2 - (6) O keeper precisa ter dois pools de threads, uma para receber as conexoes (uma thread por conexao) e outra para realizar conexoes (uma thread por cliente).
 
-(7) O cliente eh que deve indicar para o keeper a porta que ele vai estar escutando. Eis um exemplo de codigo para pegar uma porta livre no cliente.
+ok - (7) O cliente eh que deve indicar para o keeper a porta que ele vai estar escutando. Eis um exemplo de codigo para pegar uma porta livre no cliente.
 
 import socket
 from contextlib import closing
@@ -99,13 +99,13 @@ BrokenPipeError: [Errno 32] Broken pipe
 
 (11) Como que o sistema envia transacoes para o Miner quando ha apenas um unico Trader? O Trader simula uma transacao entre multiplos usuarios?
 
-(12) Os Heartbeat no Keeper parece que param quando o sistema esta a todo vapor, isto eh, criando transacoes e enviando para o Miner.
+ok - (12) Os Heartbeat no Keeper parece que param quando o sistema esta a todo vapor, isto eh, criando transacoes e enviando para o Miner.
 
 (13) Por que eh criado toda hora um diretorio novo para o Blockchain? Por que o sistema nao verifica se ja existe um Blockchain? Por que o sistema nao utiliza um unico diretorio para o Blockchain? Por que os nomes dos diretorios sao numeros "aleatorios" que vao trocando?
 
-(14) Executando o sistema com 1 Keeper, 2 Miners e 4 Trader, algo muito anormal ocorre. Pouco a pouco, os Traders vao "se perdendo". Em pouco tempo, ha apenas um Trader funcionando como deveria (enviando transacoes) no sistema. Os outros ficam apenas recebendo mensagem de "New block added to the Blockchain!". Como nao estao mais enviando transacoes, suponho que seja do unico Trader enviando transacoes. Mesmo finalizando o Trader ativo, os outros continuam "perdidos". Muito provavelmente ha um HeisenBug no sistema! ;-)
+ok - (14) Executando o sistema com 1 Keeper, 2 Miners e 4 Trader, algo muito anormal ocorre. Pouco a pouco, os Traders vao "se perdendo". Em pouco tempo, ha apenas um Trader funcionando como deveria (enviando transacoes) no sistema. Os outros ficam apenas recebendo mensagem de "New block added to the Blockchain!". Como nao estao mais enviando transacoes, suponho que seja do unico Trader enviando transacoes. Mesmo finalizando o Trader ativo, os outros continuam "perdidos". Muito provavelmente ha um HeisenBug no sistema! ;-)
 
-(15) Iniciando o sistema com 3 Miners, sempre um da zebra em um deles. Um deles morre antes de o sistema inicializar e funcionar. Todos os testes resultaram na mesma zebra.
+ok - (15) Iniciando o sistema com 3 Miners, sempre um da zebra em um deles. Um deles morre antes de o sistema inicializar e funcionar. Todos os testes resultaram na mesma zebra.
 
 User detected as miner
 ip:  ('127.0.0.1', 54771)
