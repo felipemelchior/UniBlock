@@ -121,7 +121,7 @@ class Chain(object):
             del temp
         if input('Do you want delete existing blocks? [y/n]')=='y':#apaga a pasta com os blocos se o usuário digitar s
             if os.path.isdir(self.path_blocks):
-                shutil.rmtree(self.path_blocks)
+                shutil.rmtree('./blocks')
 
     def block(self, index):
         '''
