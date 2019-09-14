@@ -37,7 +37,7 @@ class Trader(Connection):
             self.getBlockChain()
         
         while True:
-            time.sleep(1) #Sleep para sincronizar as threads.
+            time.sleep(1) 
             self.userInput() #Inicia as transações.
 
     def userInput(self):

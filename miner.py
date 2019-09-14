@@ -1,4 +1,5 @@
 import socket
+import os
 import threading
 import re
 import pickle
@@ -50,10 +51,14 @@ class Miner(Connection):
 
         if re.search('exit', case):
             del self.blockChain._chain
-            exit(0)
+            os._exit(0)
         elif re.search('help', case):
             print(styleClient + 'help:')
-            print(styleClient + '\tlist users')
+            print(styleClient + '\tlu - list users')
+            print(styleClient + '\tsc - show chain')
+            print(styleClient + '\tsw - show wallet')
+            print(styleClient + '\texit - quit miner')
+
         elif re.search('lu', case):
             self.show_clients()
         elif re.search('sw', case):
@@ -126,11 +131,6 @@ class Miner(Connection):
     def filterCommunication(self, conn, addr):
         '''
         Trata as conexões dos clients... Recebe uma mensagem, filtra e envia uma resposta de acordo ou executa ações.
-
-        TypeOfClient => retorna se o cliente é um minerador ou um negociador.
-        Rich => retorna se o cliente é um minerador que está armazenando transações na carteira.
-        NewTransaction => recebe uma nova transação a ser adicionada na carteira.
-        NewBlock => recebe a noticia que a chain foi atualizada, entao o cliente deve validar a sua chain.
 
         :param conn: Socket de conexão com o cliente
         :param addr: Endereço da conexão deste cliente

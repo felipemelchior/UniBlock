@@ -78,15 +78,11 @@ class Keeper():
                         deads.append(ip)
                         self.remove_client(ip)
                         flag_dead = True
-                        # print(self.clients)
-                        # self.notify_ip(ip, 'DEAD')
                 except (ConnectionRefusedError, ConnectionResetError):
                     print(styleHeartbeat + '\t{} is dead :X'.format(ip))
                     deads.append(ip)
                     self.remove_client(ip)
                     flag_dead = True
-                    # print(self.clients)
-                    # self.notify_ip(ip, 'DEAD')
             for dead in deads:
                 self.notify_ip(dead, 'DEAD')
             if flag_dead:
@@ -193,7 +189,6 @@ class Keeper():
                     thread = threading.Thread(
                         target=self.connected, args=(conn, addr))
                     thread.start()
-                    # self.threads.append(thread)
             except:
                 server.close()
                 print(styleKeeper + "Ending the execution of server - No messages!\n")

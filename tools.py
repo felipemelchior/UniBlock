@@ -119,7 +119,7 @@ class Chain(object):
         for i in range(len(self._list_blocks)):#limpa da memória os blocos da lista
             temp=self._list_blocks.pop()
             del temp
-        if input('deseja apagar os blocos? [s/n] ')=='s':#apaga a pasta com os blocos se o usuário digitar s
+        if input('Do you want delete existing blocks? [y/n]')=='y':#apaga a pasta com os blocos se o usuário digitar s
             if os.path.isdir(self.path_blocks):
                 shutil.rmtree(self.path_blocks)
 
