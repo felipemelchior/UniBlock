@@ -2,7 +2,7 @@
 
 echo "<optional> shell$: $0 <miner.input> <trader1.input> <trader2.input> ..."
 
-#bash run_keeper.sh &> /dev/null &
+bash run_keeper.sh &> /dev/null &
 
 sleep 3
 

@@ -1,0 +1,8 @@
+{
+	"index":"2",
+	"timestamp":"1568659310.083432",
+	"transactions":"[{'userInput': 'asdf', 'address': ('0.0.0.0', 50241)}, {'userInput': 'asdfasdf', 'address': ('0.0.0.0', 50241)}]",
+	"proof":"160226",
+	"previous_hash":"45c4dafb93e614644eea71013ad6bf9932c49f7edad21004b4d45a59f536ed74",
+	"hash_proof":"0000fd676856156420ce59aa88bebc71724b01e1d7eae521d7267f6cf249330c"
+}
