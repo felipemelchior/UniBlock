@@ -203,7 +203,8 @@ class Miner(Connection):
                     newChain=self.blockChain.chain.copy()
                     newChain.append(block)
                     if self.blockChain.last_block['previous_hash'] != block['previous_hash']:
-                        self.blockChain.chain = newChain
+                        # self.blockChain.chain = newChain
+                        self.blockChain.last_block = block
                         print(styleChain + '\n\tNew block added to BlockChain!')
                         print(styleClient + 'Enter your command (type help to list commands) =>', end='')
                     self.mine = True
