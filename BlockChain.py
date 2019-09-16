@@ -261,7 +261,7 @@ class MinerChain(BlockChain):
 			'timestamp':time(),
 			'transactions':self.finish_transactions.copy(),
 			'proof':proof,
-			'previous_hash':previous_hash or self.hash(self.last_block),
+			'previous_hash':self.hash(self.last_block),
 		}
 		if len(self.transactions) == 1:
 			self.finish_transactions.clear()

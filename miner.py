@@ -26,7 +26,7 @@ class Miner(Connection):
         :param rich: flag do minerador que utiliza a carteira.
         '''
         super().__init__(my_address, clients)
-        self.blockChain = MinerChain('blocks')
+        self.blockChain = MinerChain('blocks/{}'.format(self.my_port))
         # self.blockChain = MinerChain(str(self.my_port))
 
 

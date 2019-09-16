@@ -30,7 +30,7 @@ def write_block(index, info, path_blocks='.'):
     :param path_blocks: caminho para os blocos.
     '''
     if not os.path.isdir(path_blocks):
-        os.mkdir(path_blocks)
+        os.makedirs(path_blocks)
     file=open('{}/{}.json'.format(path_blocks, index), 'w')
     file.write(info)
     file.close()
@@ -87,7 +87,7 @@ class Chain(object):
         self.path_blocks=path_blocks# port
         if os.path.isdir(self.path_blocks):#remove a pasta, se existir
             shutil.rmtree(self.path_blocks)
-        os.mkdir(self.path_blocks)#cria a pasta sem blocos
+        os.makedirs(self.path_blocks)#cria a pasta sem blocos
         self._list_blocks = []
         self.list_blocks=[]
         self.last_block={
@@ -208,7 +208,7 @@ class Chain(object):
         '''
         if os.path.isdir(self.path_blocks):#remove a pasta, se existir
             shutil.rmtree(self.path_blocks)
-        os.mkdir(self.path_blocks)#cria a pasta sem blocos
+        os.makedirs(self.path_blocks)#cria a pasta sem blocos
         list_blocks=self.to_list_blocks(list_info)#cria uma nova lista de blocos
         for block in list_blocks:#sobrescreve a lista de blocos no disco
             write_block(block.index, str(block), self.path_blocks)
