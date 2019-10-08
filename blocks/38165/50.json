@@ -1,8 +1,0 @@
-{
-	"index":"50",
-	"timestamp":"1568659605.473773",
-	"transactions":"[{'userInput': 't2-msg-49-18646', 'address': ('0.0.0.0', 56559)}, {'userInput': 't3-msg-49-13625', 'address': ('0.0.0.0', 40289)}]",
-	"proof":"17847",
-	"previous_hash":"fb735567520648a5b129d8500685add64ef3f456cd7fb88517b913e375d10c7d",
-	"hash_proof":"00000ccf39702f1d2be8671d7cde875f5543b2dec30bb3f8fe9a3bc394aff367"
-}

@@ -1,0 +1,12 @@
+ - Arrumar para lista de sockets (Todos lugares):
+	- Impacta em refazer a arquitetura da blockchain
+ - NO SWITCH CASE: Trocar o monte de 'if' para 'elif'
+ - Debugar a parte de persistência em disco dos blocos
+ - Arrumar mineração/validação do bloco
+ - Consertar função do mine:
+	- Criar bloco e depois realizar mineração
+ - Criar fila de transações:
+	- Crash quando cria muitas transações simultâneas
+
+ - Buscar bibliotecas alternativas de thread
+
