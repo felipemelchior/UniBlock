@@ -1,4 +1,4 @@
- - Arrumar para lista de sockets (Todos lugares):
+ - Arrumar para lista de sockets (Todos lugares): (Nimmer e Pedro)
 	- Impacta em refazer a arquitetura da blockchain
  - NO SWITCH CASE: Trocar o monte de 'if' para 'elif'
  - Debugar a parte de persistência em disco dos blocos
