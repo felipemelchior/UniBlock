@@ -117,32 +117,28 @@ class Trader(Connection):
                     client = pickle.loads(msg)
                     self.remove_client(client)
                     conn.send(b'Ok')
-                    pass
 
-                if re.search('NEWMiner', msg.decode("utf-8")):
+                elif re.search('NEWMiner', msg.decode("utf-8")):
                     # New's actions
                     conn.send(b'Ok')
                     msg = conn.recv(4096)
                     client = pickle.loads(msg)
                     self.clients[0].append(client)
                     conn.send(b'Ok')
-                    pass
 
-                if re.search('NEWTrader', msg.decode("utf-8")):
+                elif re.search('NEWTrader', msg.decode("utf-8")):
                     # New's actions
                     conn.send(b'Ok')
                     msg = conn.recv(4096)
                     client = pickle.loads(msg)
                     self.clients[1].append(client)
                     conn.send(b'Ok')
-                    pass
 
-                if re.search('UAlive?', msg.decode("utf-8")):
+                elif re.search('UAlive?', msg.decode("utf-8")):
                     # Aliver's actions
                     conn.send(b'Ok')
-                    pass
-
-                if re.search('NewBlock', msg.decode("utf-8")):
+                  
+                elif re.search('NewBlock', msg.decode("utf-8")):
                     conn.send(b'Ok')
                     block=conn.recv(4096)
                     self.con_block = block
@@ -156,7 +152,7 @@ class Trader(Connection):
                         print(styleClient + 'Enter your command (type help to list commands) =>' , end='')
                     self.mine = True
 
-                if re.search('valid', msg.decode('utf-8')):
+                elif re.search('valid', msg.decode('utf-8')):
                     conn.send(b'Ok')
                     block = conn.recv(4096)
                     block = pickle.loads(block)
@@ -168,13 +164,13 @@ class Trader(Connection):
                     else:
                         conn.send(b'Nok')
         
-                if re.search('GetBlock', msg.decode('utf-8')):
+                elif re.search('GetBlock', msg.decode('utf-8')):
                     conn.send(b'Ok')
                     index = conn.recv(1024)
                     block = self.blockChain._chain.block(int(index))
                     conn.send(pickle.dumps(block))
 
-                if not msg: break
+                else: break
             except:
                 pass
 
