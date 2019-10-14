@@ -232,7 +232,7 @@ class Miner(Connection):
                     #     conn.send(b'Nok')
 
 
-                elif not msg: break
+                else: break
             except:
                 pass
 
