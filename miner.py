@@ -149,7 +149,6 @@ class Miner(Connection):
                     client = pickle.loads(msg)
                     self.remove_client(client)
                     conn.send(b'Ok')
-                    pass
 
                 elif re.search('NEWMiner', msg.decode("utf-8")):
                     # New's actions
@@ -158,8 +157,7 @@ class Miner(Connection):
                     client = pickle.loads(msg)
                     self.clients[0].append(client)
                     conn.send(b'Ok')
-                    pass
-
+                    
                 elif re.search('NEWTrader', msg.decode("utf-8")):
                     # New's actions
                     conn.send(b'Ok')
@@ -167,14 +165,11 @@ class Miner(Connection):
                     client = pickle.loads(msg)
                     self.clients[1].append(client)
                     conn.send(b'Ok')
-                    pass
-
-
+                    
                 elif re.search('UAlive?', msg.decode("utf-8")):
                     # Aliver's actions
                     conn.send(b'Ok')
-                    pass
-
+                    
                 elif re.search('NewTransaction', msg.decode("utf-8")): #Adiciona uma nova transação.
                     conn.send(b'Ok')
                     transaction = conn.recv(4096)
