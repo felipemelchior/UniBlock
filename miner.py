@@ -149,33 +149,28 @@ class Miner(Connection):
                     client = pickle.loads(msg)
                     self.remove_client(client)
                     conn.send(b'Ok')
-                    pass
 
-                if re.search('NEWMiner', msg.decode("utf-8")):
+                elif re.search('NEWMiner', msg.decode("utf-8")):
                     # New's actions
                     conn.send(b'Ok')
                     msg = conn.recv(4096)
                     client = pickle.loads(msg)
                     self.clients[0].append(client)
                     conn.send(b'Ok')
-                    pass
-
-                if re.search('NEWTrader', msg.decode("utf-8")):
+                    
+                elif re.search('NEWTrader', msg.decode("utf-8")):
                     # New's actions
                     conn.send(b'Ok')
                     msg = conn.recv(4096)
                     client = pickle.loads(msg)
                     self.clients[1].append(client)
                     conn.send(b'Ok')
-                    pass
-
-
-                if re.search('UAlive?', msg.decode("utf-8")):
+                    
+                elif re.search('UAlive?', msg.decode("utf-8")):
                     # Aliver's actions
                     conn.send(b'Ok')
-                    pass
-
-                if re.search('NewTransaction', msg.decode("utf-8")): #Adiciona uma nova transação.
+                    
+                elif re.search('NewTransaction', msg.decode("utf-8")): #Adiciona uma nova transação.
                     conn.send(b'Ok')
                     transaction = conn.recv(4096)
                     self.blockChain.new_transaction(pickle.loads(transaction)) #Envia a transação para o método que adiciona à lista de transações.
@@ -184,7 +179,7 @@ class Miner(Connection):
                     if len(self.blockChain.finish_transactions) != 0: #Testa se há transações finalizadas.
                         self.sendTransactionsToMiners() 
 
-                if re.search('MineThis', msg.decode("utf-8")): #Executa mineração.
+                elif re.search('MineThis', msg.decode("utf-8")): #Executa mineração.
                     conn.send(b'Ok')
                     wallet = conn.recv(4096)
                     conn.send(b'Ok')
@@ -195,7 +190,7 @@ class Miner(Connection):
                     if self.blockChain.block!=None: #Testa se o bloco está vazio.
                         self.sendBlock(self.blockChain.block) #Envia o bloco para os mineradores.
 
-                if re.search('NewBlock', msg.decode("utf-8")):
+                elif re.search('NewBlock', msg.decode("utf-8")):
                     conn.send(b'Ok')
                     block=conn.recv(4096)
                     self.con_block = block
@@ -209,7 +204,7 @@ class Miner(Connection):
                         print(styleClient + 'Enter your command (type help to list commands) =>', end='')
                     self.mine = True
 
-                if re.search('valid', msg.decode('utf-8')):
+                elif re.search('valid', msg.decode('utf-8')):
                     conn.send(b'Ok')
                     block = conn.recv(4096)
                     block = pickle.loads(block)
@@ -221,7 +216,7 @@ class Miner(Connection):
                     else:
                         conn.send(b'Nok')
                 
-                if re.search('GetBlock', msg.decode('utf-8')):
+                elif re.search('GetBlock', msg.decode('utf-8')):
                     conn.send(b'Ok')
                     index = conn.recv(1024)
                     block = self.blockChain._chain.block(int(index))
@@ -232,7 +227,7 @@ class Miner(Connection):
                     #     conn.send(b'Nok')
 
 
-                if not msg: break
+                else: break
             except:
                 pass
 
