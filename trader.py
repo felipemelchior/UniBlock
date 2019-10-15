@@ -81,21 +81,38 @@ class Trader(Connection):
 
         print(styleCommunication + '\tSending the transaction to {} Miner...'.format(len(self.listMiners)))
 
-        for miner in self.listMiners:
-            connectionMiner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            connectionMiner.connect(miner)
+        for connMiner in self.connMiners:
+            connection = connMiner[0]
 
-            connectionMiner.send(b'NewTransaction') #Faz requisição para nova transação.
-            msg = connectionMiner.recv(1024)
+            try:
+                connection.send(b'NewTransaction') #Faz requisição para nova transação.
+            except:
+                miner = connMiner[1]
+                connection.connect(miner)
+                connection.send(b'NewTransaction') #Faz requisição para nova transação.
+
+            msg = connection.recv(1024)
 
             if re.search('Ok', msg.decode("utf-8")):
 
-                connectionMiner.send(pickle.dumps(transaction)) #Empacota transação.
-                msg = connectionMiner.recv(1024)
+                connection.send(pickle.dumps(transaction)) #Empacota transação.
+                msg = connection.recv(1024)
 
                 if re.search('Ok', msg.decode("utf-8")): #Testa se foi possível enviar a transação.
                     pass
-            connectionMiner.close()
+
+    def createConnection(self, client, tipo):
+        connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
+        listConnection = list()
+        listConnection.append(connection)
+        listConnection.append(client)
+
+        if(tipo == "Miner"):
+            self.connMiners.append(listConnection)
+        else:
+            self.connTraders.append(listConnection)
+    
 
     def filterCommunication(self, conn, addr):
         '''
@@ -116,6 +133,7 @@ class Trader(Connection):
                     msg = conn.recv(4096)
                     client = pickle.loads(msg)
                     self.remove_client(client)
+                    self.removeConnection(client)
                     conn.send(b'Ok')
 
                 elif re.search('NEWMiner', msg.decode("utf-8")):
@@ -124,6 +142,7 @@ class Trader(Connection):
                     msg = conn.recv(4096)
                     client = pickle.loads(msg)
                     self.clients[0].append(client)
+                    self.createConnection(client,"Miner")
                     conn.send(b'Ok')
 
                 elif re.search('NEWTrader', msg.decode("utf-8")):
@@ -132,6 +151,7 @@ class Trader(Connection):
                     msg = conn.recv(4096)
                     client = pickle.loads(msg)
                     self.clients[1].append(client)
+                    self.createConnection(client,"Trader")
                     conn.send(b'Ok')
 
                 elif re.search('UAlive?', msg.decode("utf-8")):
@@ -170,8 +190,6 @@ class Trader(Connection):
                     block = self.blockChain._chain.block(int(index))
                     conn.send(pickle.dumps(block))
 
-                else: break
-            except:
-                pass
+            except Exception as e: pass
 
-        conn.close()
+
