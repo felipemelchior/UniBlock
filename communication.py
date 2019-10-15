@@ -21,6 +21,8 @@ class Connection:
         self.my_address = my_address
         self.clients = clients
         self.mine = True
+        self.connMiners = list()
+        self.connTraders = list()
 
     def show_clients(self):
         global styleClient
@@ -98,6 +100,30 @@ class Connection:
             self.clients[0].remove(client)
         if client in self.clients[1]:
             self.clients[1].remove(client)
+
+    
+    def removeConnection(self, client):
+        i = 0
+        isMiner = False
+
+        for connMiner in self.connMiners:
+            if(connMiner[1] == client):
+                isMiner = True
+                connMiner[0].close()
+                break
+            i = i + 1
+        
+        if(isMiner):
+            self.connMiners.pop(i)
+        else:
+            i = 0
+            for connTrader in self.connTraders:
+                if(connTrader[1] == client):
+                    connTrader[0].close()
+                    break
+                i = i + 1
+
+            self.connMiners.pop(i)
 
     def printClients(self):
         '''

@@ -65,10 +65,14 @@ class Keeper():
             print(styleHeartbeat + '\nInitializing Heartbeat on clients:')
 
             for ip in self.listClients:
-                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock = self.searchSocket(ip)
+                if(sock == None):
+                    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    clientSocket = list()
+                    clientSocket.append(sock)
+                    clientSocket.append(ip)
+                    self.clientsSockets.append(clientSocket)
                 try:
-                    sock.connect(ip)
-
                     sock.send(b'UAlive?')
                     msg = sock.recv(1024)
                     if msg:
@@ -77,23 +81,60 @@ class Keeper():
                         print(styleHeartbeat + '\t{} is dead :X'.format(ip))
                         deads.append(ip)
                         self.remove_client(ip)
+                        self.removeSockets(ip)
                         flag_dead = True
-                except (ConnectionRefusedError, ConnectionResetError):
-                    print(styleHeartbeat + '\t{} is dead :X'.format(ip))
-                    deads.append(ip)
-                    self.remove_client(ip)
-                    flag_dead = True
+                except :
+                    flag_dead = self.tryConnection(sock, ip, deads)
             for dead in deads:
                 self.notify_ip(dead, 'DEAD')
             if flag_dead:
                 self.show_clients()
                 flag_dead = False
 
+    def tryConnection(self,sock, ip, deads):
+        try:
+            sock.connect(ip)
+
+            sock.send(b'UAlive?')
+            msg = sock.recv(1024)
+            if msg:
+                print(styleHeartbeat + '\t{} still alive :)'.format(ip))
+            else:
+                print(styleHeartbeat + '\t{} is dead :X'.format(ip))
+                deads.append(ip)
+                self.remove_client(ip)
+                self.removeSockets(ip)
+                flag_dead = True
+            return False
+        except (ConnectionRefusedError, ConnectionResetError, OSError):
+            print(styleHeartbeat + '\t{} is dead :X'.format(ip))
+            deads.append(ip)
+            self.remove_client(ip)
+            self.removeSockets(ip)
+            return True
+
+    def searchSocket(self, client):
+        for clientSocket in self.clientsSockets:
+            if(clientSocket[1] == client):
+                return clientSocket[0]
+        return None
+
     def remove_client(self, client):
         if client in self.clients[0]:
             self.clients[0].remove(client)
         if client in self.clients[1]:
             self.clients[1].remove(client)
+    
+    def removeSockets(self, client):
+        i = 0
+        found = False
+        for clientSocket in self.clientsSockets:
+            if(clientSocket[1] == client):
+                found = True
+                break
+        
+        if found:
+            self.clientsSockets.pop(i)
 
     def notify_ip(self, address, case):
         global styleKeeper
