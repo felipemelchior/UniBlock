@@ -10,8 +10,8 @@
 
  - Buscar bibliotecas alternativas de thread
 
- - Algortimo de conscenso para adicionar novo bloco da chain
-    - Pode ser um conscenso completo
+ - Algortimo de consenso para adicionar novo bloco da chain
+    - Pode ser um consenso completo
 
  - Manter toda a chain em memória
 
