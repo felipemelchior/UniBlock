@@ -10,3 +10,11 @@
 
  - Buscar bibliotecas alternativas de thread
 
+ - Algortimo de conscenso para adicionar novo bloco da chain
+    - Pode ser um conscenso completo
+
+ - Manter toda a chain em memória
+
+ - Trocar o algoritmo de pegar a chain
+    - pegar somente o ultimo bloco quando entra na rede
+    - depois pegar os blocos anteriores
