@@ -21,14 +21,15 @@ title Uniblock - Diagrama de comunicação
 
 Traders->Miners:Envia nova transação
 Traders->Miners:Envia nova transação
-Traders->Miners:Envia nova transação
 note over Miners: Armazena transações
-opt Lock
-note over Miners: Fecha carteira e adiciona a fila de execução
-note over Miners: Cria nova carteira
-end
-note over Miners: Minera bloco e envia novo bloco
-note over Traders, Miners:Atualiza blockchain
+note over Miners: Fecha carteira 
+note over Miners: Adiciona a fila de execução
+note over Miners: Cria novo bloco
+note over Miners: Minera bloco
+Miners->Rede: Solicita consenso
+note over Rede: Realiza consenso
+Miners->Rede:Envia o bloco minerado
+note over Traders,Rede: Adiciona bloco a Chain
 
 ####################################################
 
@@ -42,3 +43,21 @@ Cliente->Keeper: Ok
 Keeper-xCliente: Verifica se está vivo
 note over Keeper: Atualiza lista de ativos
 Keeper->Blockchain (Usuários):Notifica saída de usuário
+
+#####################################################
+4- Diagrama de inicio da conexão Miner ou Trader
+
+title Inicio da conexão do Miner/Trader
+
+participant Operador
+participant Keeper
+participant Rede
+
+Operador->Keeper:começa conexao
+
+note over Keeper:adiciona nova conexão\n na lista de conexões ativas
+
+Operador->Rede:pede ultimo bloco da chain
+note over Operador,Rede:começa algoritmo de consenso
+Rede->Operador:ultimo bloco da chain
+note over Operador,Rede: continua as funções da chain
