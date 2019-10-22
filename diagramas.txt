@@ -19,17 +19,14 @@ Keeper->Blockchain (Usuários):Notifica novo usuário
 
 title Uniblock - Diagrama de comunicação
 
-Traders->Miners:Envia nova transação
-Traders->Miners:Envia nova transação
-note over Miners: Armazena transações
-note over Miners: Fecha carteira 
-note over Miners: Adiciona a fila de execução
-note over Miners: Cria novo bloco
-note over Miners: Minera bloco
-Miners->Rede: Solicita consenso
-note over Rede: Realiza consenso
-Miners->Rede:Envia o bloco minerado
-note over Traders,Rede: Adiciona bloco a Chain
+Trader->Rede:Envia novas transações
+Miner->Rede: Seleciona transações para minerar
+note over Miner: Cria novo bloco
+note over Miner: Minera bloco
+Miner->Rede: Solicita consenso
+note over Trader,Miner: Realiza consenso
+Miner->Rede:Envia o bloco minerado
+note over Trader,Miner: Adiciona bloco a Chain
 
 ####################################################
 
