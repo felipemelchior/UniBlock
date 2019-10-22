@@ -18,3 +18,7 @@
  - Trocar o algoritmo de pegar a chain
     - pegar somente o ultimo bloco quando entra na rede
     - depois pegar os blocos anteriores
+ 
+ - Adcionar valor randomico de "recompensa" pela mineração da transação
+
+ - Adicionar valor de fila para remover o problema de starvation
