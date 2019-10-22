@@ -22,3 +22,8 @@
  - Adcionar valor randomico de "recompensa" pela mineração da transação
 
  - Adicionar valor de fila para remover o problema de starvation
+
+ - Utilizar sistema de publish/subscriber para fazer broadcast
+    para validação do bloco
+ 
+ - Jogar o codigo do guilherme fora
