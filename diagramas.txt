@@ -25,8 +25,6 @@ note over Miner: Cria novo bloco
 note over Miner: Minera bloco
 Miner->Rede: Solicita consenso
 note over Trader,Miner: Realiza consenso
-Miner->Rede:Envia o bloco minerado
-note over Trader,Miner: Adiciona bloco a Chain
 
 ####################################################
 
@@ -55,6 +53,15 @@ Operador->Keeper:começa conexao
 note over Keeper:adiciona nova conexão\n na lista de conexões ativas
 
 Operador->Rede:pede ultimo bloco da chain
+
+######################################################
+5- title Uniblock - Consenso mineração
+
+Miners->Rede:Envia bloco
+note over Rede:Verifica validade do bloco
+Rede->Rede: Notifica que é valido
+note over Miners, Rede: Realiza a contagem
+note over Miners, Rede: Adiciona bloco na chain
 note over Operador,Rede:começa algoritmo de consenso
 Rede->Operador:ultimo bloco da chain
 note over Operador,Rede: continua as funções da chain
