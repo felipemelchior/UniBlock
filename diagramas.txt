@@ -4,13 +4,13 @@ Ferramenta utilizada: https://sequencediagram.org
 
 title Uniblock - Diagrama de conexão
 
-participant Blockchain (Usuários)
-participant Keeper
 note over Cliente: Escuta uma porta
 note over Cliente: Faz o bind da porta
 Cliente->Keeper: Notifica a porta
 note over Keeper, Cliente: Realiza conexão
-Keeper->Blockchain (Usuários):Notifica novo usuário
+Keeper->Rede:Notifica novo usuário
+Cliente->Rede: Solicita ultimo bloco
+Rede->Cliente: Envia o ultimo bloco
 
 ####################################################
 
@@ -39,23 +39,9 @@ Keeper-xCliente: Verifica se está vivo
 note over Keeper: Atualiza lista de ativos
 Keeper->Blockchain (Usuários):Notifica saída de usuário
 
-#####################################################
-4- Diagrama de inicio da conexão Miner ou Trader
-
-title Inicio da conexão do Miner/Trader
-
-participant Operador
-participant Keeper
-participant Rede
-
-Operador->Keeper:começa conexao
-
-note over Keeper:adiciona nova conexão\n na lista de conexões ativas
-
-Operador->Rede:pede ultimo bloco da chain
 
 ######################################################
-5- title Uniblock - Consenso mineração
+4 - title Uniblock - Consenso mineração
 
 Miners->Rede:Envia bloco
 note over Rede:Verifica validade do bloco
