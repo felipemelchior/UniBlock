@@ -232,3 +232,57 @@ class Miner(Connection):
                 pass
 
         conn.close()
+
+    
+    def selectTransactions(self, numberTrasactions):
+        '''
+        Seleciona as transações que irão formar o bloco para ser minerado.
+
+        :param numberTrasactions: número máximo de trasações em bloco para ser minerado
+        '''
+        wallet = []
+        
+        for i in range(0, len(self.blockChain.current_transactions)):
+            transaction = self.blockChain.current_transactions[i]
+
+            if(i < numberTrasactions):
+                wallet.append(transaction)
+            else:
+                wallet = self.replaceTransaction(wallet,transaction)
+
+        #self.raiseReward()
+
+        return wallet
+
+    def replaceTransaction(self, wallet, selectedTransaction):
+        '''
+        Substitui uma trasação de recompensa mais alta dentro de uma lista.
+
+        :param numberTrasactions: lista de trasações para se substituir uma transação
+        :param selectedTransaction: trasação que irá substituir outra de menor recompensa
+        '''
+        newWallet = []
+        minValue = 100
+
+        for transaction in wallet:
+            if(transaction['reward'] < minValue):
+                minValue = transaction['reward']
+
+
+        for transaction in wallet:
+            if(transaction['reward'] == minValue and
+             transaction['reward'] < selectedTransaction['reward']):
+                newWallet.append(selectedTransaction)
+            else:
+                newWallet.append(transaction)
+        
+        return newWallet
+
+    
+    def raiseReward(self):
+        '''
+        Aumenta a prioridade das trasações que as recompensas estavam muito baixas para serem
+        selecionadas.
+        '''
+        for transaction in self.blockChain.current_transactions:
+            transaction['reward'] = transaction['reward'] + 1

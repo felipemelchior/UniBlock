@@ -4,11 +4,10 @@ import re
 from time import time
 from colorama import Fore, Style
 import tools as tls
+import random
 
 styleCommunication = Fore.MAGENTA + Style.BRIGHT
 styleClient = Fore.GREEN + Style.BRIGHT
-
-max_transactions=2
 
 class BlockChain(object):
 
@@ -133,6 +132,8 @@ class BlockChain(object):
 
 class MinerChain(BlockChain):
 
+	max_transactions=2
+
 	'''
 	Classe que extende a classe BlockChain
 	Classe que implementa os metodos da chain utilizada pelos mineradores da blockchain
@@ -202,7 +203,7 @@ class MinerChain(BlockChain):
 
 		:returns: dict -- transacao.
 		'''
-		return self.transactions[0] if len(self.transactions[0])==max_transactions else []
+		return self.transactions[0] if len(self.transactions[0])==self.max_transactions else []
 
 	@finish_transactions.setter
 	def finish_transactions(self, f_t):
@@ -223,8 +224,8 @@ class MinerChain(BlockChain):
 		:param transaction: nova transacao.
 		:returns: int -- indice do proximo bloco.
 		'''
-		if len(self.current_transactions) >=max_transactions:
-			self.transactions.append([])
+		#if len(self.current_transactions) >=self.max_transactions:
+			#self.transactions.append([])
 		self.current_transactions.append(transaction)
 		return self.last_block['index']+1
 
@@ -331,6 +332,7 @@ class TraderChain(BlockChain):
 
 		transaction['userInput'] = userInput
 		transaction['address'] = myIp
+		transaction['reward'] = random.randint(1, 10)
 
 		return transaction
 
