@@ -14,12 +14,12 @@ class Test_Miner(unittest.TestCase):
         testMiner.blockChain.max_transactions = maxTrasactions
 
         #Variável de controle
-        wallet.append({'reward':3})
-        wallet.append({'reward':2})
+        wallet.append({'priority':3})
+        wallet.append({'priority':2})
 
-        transaction1['reward'] = 1
-        transaction2['reward'] = 2
-        transaction3['reward'] = 3
+        transaction1['priority'] = 1
+        transaction2['priority'] = 2
+        transaction3['priority'] = 3
         testMiner.blockChain.new_transaction(transaction1)
         testMiner.blockChain.new_transaction(transaction2)
         testMiner.blockChain.new_transaction(transaction3)
@@ -38,12 +38,12 @@ class Test_Miner(unittest.TestCase):
         testMiner.blockChain.max_transactions = maxTrasactions
 
         #Variável de controle
-        wallet.append({'reward':3})
-        wallet.append({'reward':2})
+        wallet.append({'priority':3})
+        wallet.append({'priority':2})
 
-        transaction1['reward'] = 3
-        transaction2['reward'] = 2
-        transaction3['reward'] = 1
+        transaction1['priority'] = 3
+        transaction2['priority'] = 2
+        transaction3['priority'] = 1
         testMiner.blockChain.new_transaction(transaction1)
         testMiner.blockChain.new_transaction(transaction2)
         testMiner.blockChain.new_transaction(transaction3)
@@ -63,13 +63,13 @@ class Test_Miner(unittest.TestCase):
         testMiner.blockChain.max_transactions = maxTrasactions
 
         #Variável de controle
-        wallet.append({'reward':3})
-        wallet.append({'reward':4})
+        wallet.append({'priority':3})
+        wallet.append({'priority':4})
 
-        transaction1['reward'] = 1
-        transaction2['reward'] = 2
-        transaction3['reward'] = 3
-        transaction4['reward'] = 4
+        transaction1['priority'] = 1
+        transaction2['priority'] = 2
+        transaction3['priority'] = 3
+        transaction4['priority'] = 4
         testMiner.blockChain.new_transaction(transaction1)
         testMiner.blockChain.new_transaction(transaction2)
         testMiner.blockChain.new_transaction(transaction3)
@@ -91,13 +91,13 @@ class Test_Miner(unittest.TestCase):
         testMiner.blockChain.max_transactions = maxTrasactions
 
         #Variável de controle
-        wallet.append({'reward':4})
-        wallet.append({'reward':5})
+        wallet.append({'priority':4})
+        wallet.append({'priority':5})
 
-        transaction1['reward'] = 2
-        transaction2['reward'] = 5
-        transaction3['reward'] = 4
-        transaction4['reward'] = 3
+        transaction1['priority'] = 2
+        transaction2['priority'] = 5
+        transaction3['priority'] = 4
+        transaction4['priority'] = 3
         testMiner.blockChain.new_transaction(transaction1)
         testMiner.blockChain.new_transaction(transaction2)
         testMiner.blockChain.new_transaction(transaction3)

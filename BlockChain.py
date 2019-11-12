@@ -323,6 +323,7 @@ class TraderChain(BlockChain):
 		'''
 		global styleClient
 		transaction = {}
+		reward = random.randint(1, 10)
 
 		userInput = input(styleClient + 'Enter your message => ' + Fore.RED)
 
@@ -332,7 +333,8 @@ class TraderChain(BlockChain):
 
 		transaction['userInput'] = userInput
 		transaction['address'] = myIp
-		transaction['reward'] = random.randint(1, 10)
+		transaction['reward'] = reward
+		transaction['priority'] = reward
 
 		return transaction
 

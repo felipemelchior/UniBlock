@@ -250,7 +250,8 @@ class Miner(Connection):
             else:
                 wallet = self.replaceTransaction(wallet,transaction)
 
-        #self.raiseReward()
+        self.removeWallet(wallet)
+        self.raiseReward()
 
         return wallet
 
@@ -265,13 +266,13 @@ class Miner(Connection):
         minValue = 100
 
         for transaction in wallet:
-            if(transaction['reward'] < minValue):
-                minValue = transaction['reward']
+            if(transaction['priority'] < minValue):
+                minValue = transaction['priority']
 
 
         for transaction in wallet:
-            if(transaction['reward'] == minValue and
-             transaction['reward'] < selectedTransaction['reward']):
+            if(transaction['priority'] == minValue and
+             transaction['priority'] < selectedTransaction['priority']):
                 newWallet.append(selectedTransaction)
             else:
                 newWallet.append(transaction)
@@ -285,4 +286,13 @@ class Miner(Connection):
         selecionadas.
         '''
         for transaction in self.blockChain.current_transactions:
-            transaction['reward'] = transaction['reward'] + 1
+            transaction['priority'] = transaction['priority'] + 1
+
+    
+    def removeWallet(self, wallet):
+        '''
+        Remove as trasações que estão na carteira de dentro das transações atuais
+        :param carteira: carteira com as transações para serem retiradas
+        '''
+        for transaction in wallet:
+            self.blockChain.current_transactions.remove(transaction)
