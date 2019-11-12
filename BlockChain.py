@@ -301,6 +301,19 @@ class MinerChain(BlockChain):
 			self.start_miner=False
 		else:
 			self.block=None
+
+	def removeMinedTrasactions(self, block):
+		'''
+        Remove as trasações que estão no bloco da lista de transações disponíveis
+        :param bloco: bloco com as transações para serem retiradas
+        '''
+		transactions = block['transactions']
+
+		for transaction in transactions:
+			try:
+				self.current_transactions.remove(transaction)
+			except:
+				pass
 		
 
 class TraderChain(BlockChain):

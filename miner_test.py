@@ -1,6 +1,5 @@
 import miner
 import unittest
-import random
 
 class Test_Miner(unittest.TestCase):
 

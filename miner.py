@@ -200,6 +200,7 @@ class Miner(Connection):
                     if self.blockChain.last_block['previous_hash'] != block['previous_hash']:
                         # self.blockChain.chain = newChain
                         self.blockChain.last_block = block
+                        self.blockChain.removeMinedTrasactions(block) #Retira as trasações que estão no bloco da lista
                         print(styleChain + '\n\tNew block added to BlockChain!')
                         print(styleClient + 'Enter your command (type help to list commands) =>', end='')
                     self.mine = True
@@ -233,7 +234,6 @@ class Miner(Connection):
 
         conn.close()
 
-    
     def selectTransactions(self, numberTrasactions):
         '''
         Seleciona as transações que irão formar o bloco para ser minerado.
