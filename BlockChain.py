@@ -5,6 +5,9 @@ from time import time
 from colorama import Fore, Style
 import tools as tls
 import random
+import copy
+import hashlib
+import json
 
 styleCommunication = Fore.MAGENTA + Style.BRIGHT
 styleClient = Fore.GREEN + Style.BRIGHT
@@ -248,7 +251,7 @@ class MinerChain(BlockChain):
 		'''
 		self._start_miner=value
 
-	def new_block(self, proof, previous_hash=None):
+	def new_block(self, previous_hash=None, nounce=0):
 		'''
 		Cria um novo bloco com as informacoes.
 
@@ -261,8 +264,8 @@ class MinerChain(BlockChain):
 			'index': int(self.last_block['index'])+1,
 			'timestamp':time(),
 			'transactions':self.finish_transactions.copy(),
-			'proof':proof,
 			'previous_hash':self.hash(self.last_block),
+			'nounce':nounce
 		}
 		if len(self.transactions) == 1:
 			self.finish_transactions.clear()
@@ -289,18 +292,49 @@ class MinerChain(BlockChain):
 		Minera a carteira se ja estiver pronto para minerar.
 		Muda a flag para false e retorna o block minerado.
 		'''
-		if self.start_miner:
-			proof, hash_proof=self.proof_of_work(self.last_proof)
-			previous_hash=self.hash(self.last_block)
-			block=self.new_block(proof, previous_hash)
-			block['hash_proof']=hash_proof
-			if self.start_miner:
-				self.block=block
+		#proof, hash_proof=self.proof_of_work(self.last_proof)
+		previous_hash=self.hash(self.last_block)
+		
+		self.block = self.generateBlock(previous_hash)
+
+
+	def generateBlock(self, previous_hash):
+		'''
+        Gera um bloco com uma hash que respeita a regra dos três 0's
+        :param previous_hash: hash do bloco anterior
+        '''
+		block=self.new_block(previous_hash)
+		nounce = 0
+		proved = False
+		hashProof = None
+
+		while(not proved):
+			hashProof = self.validateHash(block)
+			if(hashProof == None):
+				nounce = nounce + 1
+				block=self.new_block(previous_hash, nounce)
 			else:
-				self.block=None
-			self.start_miner=False
-		else:
-			self.block=None
+				proved = True
+		
+		block['hash_proof']=hashProof
+		return block
+			
+
+	def validateHash(self, block):
+		'''
+        Valida a hash de um bloco verificando se ele respeita a regra de três 0's no início.
+        :param bloco: bloco que a hash será verificada
+        '''
+		sha = hashlib.sha256()
+		jsonBlock = json.dumps(block, default=str)
+		sha.update(jsonBlock.encode())
+		blockHash = sha.hexdigest()
+
+		#print(str(block['nounce'])+ ": " + blockHash)
+
+		if(blockHash.startswith("000",0)):
+			return blockHash
+		return None
 
 	def removeMinedTrasactions(self, block):
 		'''

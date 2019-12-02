@@ -188,7 +188,8 @@ class Miner(Connection):
                     self.blockChain.start_miner=True 
                     self.blockChain.mine() #Inicia mineração.
                     if self.blockChain.block!=None: #Testa se o bloco está vazio.
-                        self.sendBlock(self.blockChain.block) #Envia o bloco para os mineradores.
+                        pass #Tirei por causa da forma da conexão feita atualmente
+                        #self.sendBlock(self.blockChain.block) #Envia o bloco para os mineradores.
 
                 elif re.search('NewBlock', msg.decode("utf-8")):
                     conn.send(b'Ok')
@@ -229,8 +230,7 @@ class Miner(Connection):
 
 
                 else: break
-            except:
-                pass
+            except Exception as e: print(e)
 
         conn.close()
 
